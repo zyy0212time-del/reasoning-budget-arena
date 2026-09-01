@@ -1,0 +1,14 @@
+[
+  {
+    "id": "G1",
+    "prompt": "A system has four components A, B, C, D. If A fails then B must fail. If B fails then C must fail. If D runs then A cannot have failed. C is running. Given that exactly one of the four components can fail, and the system is non-degenerate, determine which single component failed and explain why the chain forces that conclusion."
+  },
+  {
+    "id": "G8",
+    "prompt": "This function is supposed to return the median of a list but fails on some inputs. Find the bug class and fix it; then give one input on which the original is wrong.\n\n```python\ndef median(nums):\n    nums.sort()\n    n = len(nums)\n    return nums[n // 2]\n```"
+  },
+  {
+    "id": "G10",
+    "prompt": "You are an API. Given this input, return a JSON object with exactly the keys users, total_balance, highest, lowest where highest/lowest are the user objects with max/min balance. Input: \"Alice 145.50, Bob 12.00, Carol 89.25, Dan 200.00, Eve 0.50\". Rules: numbers as numbers not strings; no extra keys; no prose around the JSON."
+  }
+]

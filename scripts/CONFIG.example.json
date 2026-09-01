@@ -1,0 +1,13 @@
+{
+  "_comment": "Copy to CONFIG.json and fill in local paths. Never commit real paths.",
+  "llama_server": "C:\\path\\to\\llama-server.exe",
+  "python": "python",
+  "models": {
+    "A": {"path": "C:\\path\\to\\RavenX-CyberAgent-35B-v5.1-Q4_K_M.gguf", "ncmoe": 256},
+    "B": {"path": "C:\\path\\to\\Endy-Qwen3.6-CyberSec-35B-A3B-Q4_K_M.gguf", "ncmoe": 256},
+    "C": {"path": "C:\\path\\to\\Gemma4-26B-A4B-QAT-Uncensored-HauhauCS-Balanced-Q4_K_M.gguf", "ncmoe": 128},
+    "D": {"path": "C:\\path\\to\\Ornith-1.5-35B-A3B-Abliterated-Q4_K_M.gguf", "ncmoe": 256},
+    "E": {"path": "C:\\path\\to\\Nex-N2-mini-Q4_K_M.gguf", "ncmoe": 256},
+    "F": {"path": "C:\\path\\to\\Qwen3.8-9B-abliterated-25.Q4_K_M.gguf", "ncmoe": 0}
+  }
+}

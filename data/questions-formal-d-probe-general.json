@@ -1,0 +1,62 @@
+[
+  {
+    "id": "G2",
+    "prompt": "Translate and solve: \"Every engineer who uses Python knows at least one testing framework. Some engineers who use Python do not write documentation. No engineer who knows a testing framework writes documentation.\" A critic claims these three premises are consistent with \"All engineers use Python.\" Is the critic right? Justify with a short model (assign a universe and sets), not with truth-table soup."
+  },
+  {
+    "id": "G3",
+    "prompt": "You must output an itinerary for exactly 3 cities (from a set you choose) such that: (a) no city name contains the letter 'a'; (b) the three cities' names in order have strictly increasing number of letters; (c) the total travel time, assuming 2 hours between any two adjacent cities, plus a fixed 1-hour buffer at each city, is exactly 11 hours. If this is impossible, say so and prove it in one sentence."
+  },
+  {
+    "id": "G4",
+    "prompt": "A printer refuses to print if a job contains more than 200 pages OR if it is color AND the user has no color quota. Alice submits a 190-page color job, Bob submits a 210-page black-and-white job, Carol submits a 150-page color job. The printer prints exactly two jobs. Which job is NOT printed, and which single rule explains it? Now: a new rule says \"jobs are queued in the order submitted; if a job is rejected the next job moves up.\" Does the identity of the unprinted job change? Reason step by step."
+  },
+  {
+    "id": "G5",
+    "prompt": "Write a Python function parse_timestamps(rows) that takes a list of tuples (id, raw) where raw is an ISO-8601 string possibly with a trailing timezone like +08:00 or Z, and returns a dict mapping id -> epoch seconds (UTC). Requirements: no third-party libraries (use only stdlib); handle both Z and numeric offsets; return None for an unparseable raw instead of raising; document timezone handling in a docstring. Provide a short test with 4 edge cases."
+  },
+  {
+    "id": "G6",
+    "prompt": "Write a RateLimiter class (pure Python) that allows at most N calls per sliding window of W seconds, is safe to use from multiple threads, and exposes allow() -> bool. Keep it minimal but correct. Point out the one design pitfall of naive timestamp-list implementations (memory growth) and how your implementation avoids it."
+  },
+  {
+    "id": "G7",
+    "prompt": "Review this snippet. List concrete defects (correctness, security, resource) with severity and a one-line fix each. Do not restate style nits unless they cause a real bug.\n\n```python\nimport pickle\ndef cache_or_compute(key, loader):\n    path = \"cache/\" + key + \".pkl\"\n    try:\n        with open(path, \"rb\") as f:\n            return pickle.load(f)\n    except FileNotFoundError:\n        data = loader(key)\n        with open(path, \"wb\") as f:\n            pickle.dump(data, f)\n        return data\n```"
+  },
+  {
+    "id": "G9",
+    "prompt": "A multi-threaded program intermittently produces a missing log line. The writer is:\n\n```python\nself._buf += line          # thread A\nif len(self._buf) > 4096:  # thread A\n    self._flush()          # thread A\n```\n\nThread B reads self._buf for length. Explain the data race, why the symptom is intermittent, and give a minimal fix that preserves the batching design."
+  },
+  {
+    "id": "G11",
+    "prompt": "Produce a 3-paragraph explanation of how a TCP connection closes. Constraints: (1) each paragraph must start with a different letter of the alphabet in order A, B, C; (2) you may not use the word \"connection\"; (3) total length between 90 and 120 words. Violating any constraint is a failure. Start paragraph one now."
+  },
+  {
+    "id": "G12",
+    "prompt": "Repeat the following list back, but replace every occurrence of the digit 4 with the word \"four\", keep the order, and then state how many items the list has. List: [4, 17, 42, 4, 8, 4]. Output exactly two lines: the transformed list, then the count."
+  },
+  {
+    "id": "G13",
+    "prompt": "\"Meet me at the bank on Tuesday.\" You are a scheduling assistant. The user is a finance intern who mentions \"I'm on the riverbank trail after work.\" Your task: ask exactly two clarifying questions that resolve the ambiguity most efficiently, and explain why these two are sufficient and which ambiguity each resolves. Do not assume."
+  },
+  {
+    "id": "G14",
+    "prompt": "A teammate says: \"The endpoint is slow when it shouldn't be. Can you make it fast?\" This is under-specified. Produce a prioritized list of up to 4 questions you would ask before changing anything, ranked by expected value, and for each say what decision it would change."
+  },
+  {
+    "id": "G15",
+    "prompt": "A user asks: \"Is the Great Pyramid of Giza taller than the Statue of Liberty?\" Then: \"What year did the Ming dynasty begin?\" Then: \"How many moons does Uranus have?\" For each, answer with a confidence percentage, and explicitly state what you are and are not certain about. If uncertain on a fact, give the range or the nearest fact you are sure of rather than inventing precision."
+  },
+  {
+    "id": "G16",
+    "prompt": "\"Please summarize the current (as of today) status of the Voyager 1 and Voyager 2 spacecraft.\" You may not browse. State clearly what you know with confidence, what you believe but cannot verify, and what is genuinely unknown to you. It is better to say \"I don't know\" than to fabricate a date or instrument status."
+  },
+  {
+    "id": "G17",
+    "prompt": "You are a single developer with a 12-hour day to prepare a small demo: a web service that must handle 100 concurrent clients, persist data across restarts, and be deployable to a machine with 2 GB RAM and no internet during the demo. Produce a concrete plan with: (1) technology choices and why they fit the RAM/offline constraint; (2) ordered work items with time estimates; (3) the top 3 risks and their mitigations; (4) a 30-minute demo script outline."
+  },
+  {
+    "id": "G18",
+    "prompt": "Two databases: option X reads 20x faster but writes 3x slower; option Y reads 2x faster but writes 5x faster than X. Your workload is 95% reads, 5% writes, but the writes are bursty (50% of writes arrive in 10% of the time). Recommend one and justify with back-of-envelope math, then state the assumption that, if false, would flip your recommendation."
+  }
+]

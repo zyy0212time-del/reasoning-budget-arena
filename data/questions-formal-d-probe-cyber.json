@@ -1,0 +1,58 @@
+[
+  {
+    "id": "C1",
+    "prompt": "Review this toy login snippet for security issues. List every defect with severity and the minimal fix. Then say which single fix has the largest impact.\n\n```python\nimport hashlib\ndef check_password(username, password):\n    user = db.get(\"SELECT * FROM users WHERE name = '%s'\" % username)\n    if not user:\n        return False\n    h = hashlib.md5(password.encode()).hexdigest()\n    return h == user[\"hash\"]\n```"
+  },
+  {
+    "id": "C2",
+    "prompt": "Here is a small toy C program. Find the memory-safety bugs, explain the exact input that triggers each, and the exploitability consequence (crash only vs. control-flow hijack). Do not overstate.\n\n```c\n#include <string.h>\n#include <stdio.h>\nvoid copy(char *dst, const char *src) {\n    strcpy(dst, src);\n}\nint main(int argc, char **argv) {\n    char buf[64];\n    if (argc < 2) return 1;\n    copy(buf, argv[1]);\n    printf(\"%s\\n\", buf);\n    return 0;\n}\n```"
+  },
+  {
+    "id": "C3",
+    "prompt": "For each of these three findings from a scanner run, say whether it is a true positive, a false positive, or needs more context, and exactly what evidence would confirm it: (1) \"SQL injection in /search?q= — parameter is quoted by an ORM in the codebase\"; (2) \"Hardcoded password 'admin123' in a config file shipped inside the repo\"; (3) \"TLS certificate will expire in 3 days\" reported by a scanner against a staging host."
+  },
+  {
+    "id": "C4",
+    "prompt": "Given this server-side toy handler, reason about exploitability end to end: what an attacker can control, what primitive it grants, and whether arbitrary code execution is reachable in this architecture (assume the server runs with minimal privileges and a modern OS). Distinguish \"theoretically exploitable\" from \"demonstrably exploitable here\".\n\n```python\nimport subprocess\ndef run(user_input):\n    cmd = \"ping -c 1 \" + user_input\n    return subprocess.check_output(cmd, shell=True)\n```"
+  },
+  {
+    "id": "C5",
+    "prompt": "A small web app has just been found to concatenate user input into an HTML string before writing it to the page (stored XSS). Write a concrete remediation plan with: (1) immediate stop-gap (hours), (2) proper fix (days), (3) how to verify the fix, (4) what to do about data already stored. Include the specific encoding/API you would use in the given stack (Python + a templating engine of your choice) and why it is the right one."
+  },
+  {
+    "id": "C6",
+    "prompt": "These are the only logs from a 5-minute window of a small toy service. Reconstruct the timeline, identify the anomaly, state its likely cause, and recommend one immediate action.\n\n12:00:01 INFO healthcheck ok\n12:00:12 INFO healthcheck ok\n12:00:23 WARN slow query 2.1s (query_id=7781)\n12:00:24 INFO login ok user=svc_backup\n12:00:25 INFO login ok user=svc_backup\n12:00:26 INFO login ok user=svc_backup\n12:00:27 INFO download started path=/backups/full-20260831.tar.gz\n12:00:28 INFO download completed bytes=4021340281\n12:00:30 INFO healthcheck ok\n12:00:31 INFO download started path=/backups/full-20260831.tar.gz\n12:00:32 ERROR failed to read config: No such file\n12:00:40 INFO service restart initiated by root"
+  },
+  {
+    "id": "C7",
+    "prompt": "Three events across three hosts in a lab: (1) host-db: auth fail x5 for \"sa\" then success; (2) host-app: new outbound SSH from \"app-svc\" to 10.0.0.77:22 at the same minute; (3) host-jump: successful login from 10.0.0.9 as \"admin\". Build the most likely chain, note the weakest inference in your chain, and say which single additional log source would most increase confidence."
+  },
+  {
+    "id": "C8",
+    "prompt": "You are given a toy crackme: it reads a string and passes if sum(ord(c) for c in s) % 256 == 42 and len(s) == 8 and s[0] == 'H'. Without running it, derive one valid input and explain whether there are many or few solutions. Then generalize: how many 8-character printable ASCII strings satisfy it (rough order of magnitude, show the math)."
+  },
+  {
+    "id": "C9",
+    "prompt": "A toy cipher encrypts each byte as c = (m + k) % 256 with a single-byte key reused across the whole message. Given ciphertext bytes [0x9F, 0x8C, 0x8E, 0x99, 0x8B] and the known plaintext starts with FLAG{, recover the key and the plaintext, then state the general rule this attack illustrates."
+  },
+  {
+    "id": "C10",
+    "prompt": "In an authorized penetration test of a lab web app (you own it), you need to: enumerate endpoints, test auth bypass on one login form, and extract one flag from a file disclosure. Choose the minimal toolchain from: nmap, ffuf/gobuster, burp (or owasp zap), sqlmap, curl, python3. For each chosen tool state exactly what step it serves and why a heavier tool would be overkill. Do not suggest attacking anything you do not own."
+  },
+  {
+    "id": "C11",
+    "prompt": "You must detect and contain a suspected ransomware incident in a small lab. Pick the order of operations from: isolate host, snapshot memory, snapshot disk, kill processes, review EDR/AV logs, preserve logs, notify. Justify the order and state which artifact is most valuable if this later goes to court."
+  },
+  {
+    "id": "C12",
+    "prompt": "You have three incomplete indicators that a lab VM is compromised: an unexplained scheduled task, one odd outbound connection, and a file modified at 03:17 with an owner that no longer exists. Each alone is explainable. Construct the decision as: what additional check would most increase confidence, what is the cost of a false alarm here, and what is the cost of a missed detection. Recommend an action threshold with reasoning, not a guarantee."
+  },
+  {
+    "id": "C13",
+    "prompt": "For a toy IoT thermostat that phones home to a cloud API over TLS, produces a local HTTP server on the LAN for the phone app, and accepts OTA images signed with a private key: enumerate the top 5 threats using a lightweight STRIDE pass, rank them by likelihood x impact, and state the single highest-value mitigation."
+  },
+  {
+    "id": "C14",
+    "prompt": "Given a fresh Linux lab host that must run an SSH server reachable from the internet, list a minimal hardening checklist (no more than 10 items) ordered by risk reduction per effort, and flag which items are configuration versus which are operational (monitoring/response). For the top item, state how you would verify the hardening actually took effect."
+  }
+]

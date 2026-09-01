@@ -1,0 +1,157 @@
+# Reasoning Budget Arena
+
+*Final-answer delivery and ranking differences under two reasoning policies —
+a six-model local-LLM comparison.*
+
+A local-LLM evaluation of two protocol conditions. The same six models answered
+the same frozen 32-question benchmark under the same target 8192-token server
+context window and closely matched sampling/runtime settings. The conditions
+differed in reasoning policy: Formal D used each model's native/default
+thinking with no separate budget; Formal C additionally configured a uniform,
+hard, backend-enforced **reasoning budget of 4096 tokens**.
+
+The comparison is **exploratory and closely matched, not a strict
+single-variable controlled experiment**: Formal D's published baseline is a
+composite (29-question 8192 probe + a later 3-question supplement), while
+Formal C was one complete 32-question run. Differences below are therefore
+*observed under the two protocols*, not claims that the budget *caused* them
+(see METHODOLOGY.md §2).
+
+## Status
+
+**PUBLISHED — PUBLIC RELEASE.** All data and engineering checks are verified;
+the maintainer's license decision is made (MIT + CC BY 4.0); the final
+release gate passed with P0 = 0, P1 = 0 (RELEASE-READINESS.md). Documented
+non-blocking limitations (F model-source provenance, unrecoverable current-fact
+URLs) remain noted in MODEL-SOURCE-TODO.md and LIMITATIONS.md.
+
+## Key result (observed under the two protocols)
+
+| | Formal D (native thinking) | Formal C (+ budget 4096) |
+|---|---|---|
+| non-empty final answers | **119 / 192 (61.98%)** | **192 / 192 (100%)** |
+| empty finals | 73 / 192 | 0 / 192 |
+| structurally clean finals | 115 / 192 | 184 / 192 (95.8%) |
+| overall #1 (blind score /800) | Ornith 569.5 | **Nex 746.5** |
+
+![Final-answer delivery](figures/final-delivery.png)
+![Overall D vs C](figures/overall-d-vs-c.png)
+
+- Under this frozen protocol, the fixed-budget condition was followed by
+  **0 empty final answers where the native-thinking condition had 73**.
+- Every model scored higher in the fixed-budget condition. The largest overall
+  score increase was **Nex (+393.5, rank #4 → #1)**; the next two largest
+  (Qwen 9B +302.5, RavenX +274.5) were associated with **no** rank change,
+  since those models also started furthest behind.
+- **Neither of the two Cyber-branded models placed in the top three of the
+  14-question Cyber division** in the fixed-budget condition.
+- The failure mode did not disappear — it appears to have shifted: 73 empty
+  finals became 6 content-channel loops + 2 context-truncated answers.
+- Archived project artifacts record that the blind scores were locked before
+  identity reveal (`blind/FORMAL-{D,C}-BLIND-SCORES-LOCKED.md`).
+
+## The two protocol conditions
+
+```
+        same 6 models · same final frozen 32 questions
+        target ctx 8192 · temp 0.1 · top_p 0.9
+        same llama.cpp runtime · one server at a time
+                        │
+        ┌───────────────┴───────────────┐
+        ▼                               ▼
+  FORMAL D                        FORMAL C
+  native/default thinking        native thinking
+  (no reasoning budget)          + --reasoning-budget 4096
+  composite baseline:            one contiguous 32-question run:
+  29Q probe + 3Q supplement      all 192 responses in one pass
+  192 responses (final set)      192 responses
+```
+
+Execution histories are **not identical** (Formal D composite; Formal C
+contiguous) even though the final question set and target settings match —
+see METHODOLOGY.md §3–§4.
+
+## Models
+
+Six local GGUF models (Q4_K_M): two cyber-focused 35B-A3B fine-tunes, a
+Gemma4-class 26B-A4B MoE, two more 35B-A3B-class MoE fine-tunes, and a ~9B
+dense model — run on llama.cpp b10375 with MoE experts on CPU (RTX 5060
+Laptop 8 GiB). Identity/quantization/upstream sources:
+[MODEL-CARDS.md](MODEL-CARDS.md), [MODEL-SOURCE-TODO.md](MODEL-SOURCE-TODO.md);
+SHA256 evidence: [MODEL-ARTIFACT-MANIFEST.md](MODEL-ARTIFACT-MANIFEST.md) and
+`data/model-artifacts.csv`.
+
+## Results (blind scores /800, verified from locked scorebooks)
+
+| model | Formal D | Formal C | Δ | rank D → C |
+|---|---:|---:|---:|---|
+| Nex-N2-mini | 353.0 | **746.5** | +393.5 | 4 → **1** |
+| Ornith-1.5-35B-A3B | **569.5** | 725.5 | +156.0 | 1 → 2 |
+| Gemma4-26B-A4B | 540.5 | 706.0 | +165.5 | 2 → 3 |
+| Endy-Qwen3.6-CyberSec | 526.0 | 644.0 | +118.0 | 3 → 4 |
+| Qwen3.8-9B-abliterated | 332.5 | 635.0 | +302.5 | 5 → 5 |
+| RavenX-CyberAgent-35B | 301.5 | 576.0 | +274.5 | 6 → 6 |
+
+![Rank movement](figures/rank-change.png)
+![General](figures/general-d-vs-c.png) ![Cyber](figures/cyber-d-vs-c.png)
+
+Full tables, division results and deltas: [RESULTS.md](RESULTS.md).
+
+## The three limits (often confused)
+
+| limit | value |
+|---|---|
+| reasoning hard budget (Formal C only) | 4096 tokens |
+| request completion cap (`max_tokens`) | 8192 tokens |
+| server context window (`ctx`) | 8192 tokens |
+
+Per-response reasoning-budget usage was **not stored** by the backend
+integration — the budget is known to be configured and applied uniformly, not
+which individual responses hit it.
+
+## What this does NOT prove
+
+- Not that 4096 is an optimal or universally recommended budget.
+- Not that any model is "best"; this is one 32-question benchmark, one sample
+  per cell, one blind judge.
+- Not a causal mechanism: the failure-mode shift is *consistent with* the
+  budget's forced transition, but the design (composite D, single run, no
+  seeds) cannot isolate it.
+- Nothing about general cybersecurity ability from the 14-question Cyber
+  division.
+- No statistical significance is claimed anywhere. Full list:
+  [LIMITATIONS.md](LIMITATIONS.md).
+
+## Reproduce
+
+See [REPRODUCIBILITY.md](REPRODUCIBILITY.md), including the clean-room path
+test (`scripts/test_release_paths.py`). Short version: fill
+`scripts/CONFIG.json`, run `python scripts/run_formal_c.py`, then
+`formal_c_objective.py`, `validate_scores.py`, `make_figures.py`.
+
+## Full report
+
+[REPORT.md](REPORT.md). Timeline, calibration history, failure modes,
+current-fact references, runtime evidence: [docs/](docs).
+
+## Data
+
+- `data/` — questions, verified score CSVs, master D-vs-C table, audited
+  objective CSVs (D and C schemas documented separately), loop audits, model
+  artifact hashes
+- `blind/` — frozen judge instructions + the two sanitized locked scorebooks
+- **The final-answer text datasets (`formal-{d,c}-answers-final-only.csv`) are
+  withheld from this public release** pending upstream output-redistribution
+  review of the evaluated models (see OUTPUT-REDISTRIBUTION-DECISION.md). The
+  rest of the release — questions, scores, objective metrics, scripts,
+  figures, protocol — is unaffected.
+
+## License
+
+- **Code:** MIT — see [LICENSE](LICENSE).
+- **Documentation, benchmark questions, figures, and project-derived
+  evaluation data:** [CC BY 4.0](LICENSE-DOCS-DATA.md).
+- **Model-generated final-answer datasets:** not included in this initial
+  public release.
+- **Third-party models:** subject to their upstream licenses/terms — see
+  [NOTICE.md](NOTICE.md).
