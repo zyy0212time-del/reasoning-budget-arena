@@ -33,10 +33,54 @@ reasoning/result quality, Instruction following, Practical usefulness.
 
 Status: **SCORES LOCKED**.
 
-Note on per-question detail: the 32 per-question five-dimension rows were
-recorded by the judging session and are held there as locked output; this
-archival file records the authoritative locked aggregate totals above. No
-per-question row has been re-derived or invented here.
+
+
+## Question-Level Locked Scores
+
+Archival export of the already-locked LR37 question scores (32 questions x five
+dimensions). Values are reproduced exactly as locked; nothing was recomputed.
+
+### General — G1-G18
+
+| Q | Correctness | Completeness | Visible reasoning/result quality | Instruction following | Practical usefulness | Total /25 |
+|---|---:|---:|---:|---:|---:|---:|
+| G1 | 5 | 5 | 5 | 5 | 5 | 25 |
+| G2 | 5 | 5 | 5 | 5 | 5 | 25 |
+| G3 | 5 | 5 | 5 | 5 | 5 | 25 |
+| G4 | 5 | 5 | 5 | 5 | 5 | 25 |
+| G5 | 4 | 5 | 4.5 | 5 | 4 | 22.5 |
+| G6 | 5 | 5 | 5 | 5 | 5 | 25 |
+| G7 | 3 | 2.5 | 3 | 3.5 | 3 | 15.0 |
+| G8 | 5 | 4.5 | 5 | 5 | 5 | 24.5 |
+| G9 | 2.5 | 4 | 3 | 5 | 3.5 | 18.0 |
+| G10 | 5 | 5 | 5 | 5 | 5 | 25 |
+| G11 | 4 | 5 | 4.5 | 0 | 3.5 | 17.0 |
+| G12 | 3.5 | 4 | 3.5 | 2 | 3.5 | 16.5 |
+| G13 | 5 | 5 | 5 | 5 | 5 | 25 |
+| G14 | 5 | 5 | 4.5 | 5 | 5 | 24.5 |
+| G15 | 2.5 | 5 | 4 | 5 | 3 | 19.5 |
+| G16 | 2.5 | 4.5 | 4 | 5 | 3 | 19.0 |
+| G17 | 4 | 4.5 | 4.5 | 5 | 4 | 22.0 |
+| G18 | 3.5 | 5 | 4 | 5 | 4 | 21.5 |
+
+### Cyber — C1-C14
+
+| Q | Correctness | Completeness | Visible reasoning/result quality | Instruction following | Practical usefulness | Total /25 |
+|---|---:|---:|---:|---:|---:|---:|
+| C1 | 3.5 | 4 | 4 | 5 | 3.5 | 20.0 |
+| C2 | 3 | 4.5 | 4 | 3 | 3 | 17.5 |
+| C3 | 4.5 | 5 | 4.5 | 5 | 4.5 | 23.5 |
+| C4 | 4.5 | 5 | 4.5 | 5 | 4.5 | 23.5 |
+| C5 | 2.5 | 4.5 | 4 | 5 | 2.5 | 18.5 |
+| C6 | 2.5 | 4 | 2.5 | 5 | 2.5 | 16.5 |
+| C7 | 3 | 4.5 | 3.5 | 5 | 3.5 | 19.5 |
+| C8 | 2.5 | 4.5 | 3 | 5 | 3 | 18.0 |
+| C9 | 1.5 | 2 | 2.5 | 5 | 1.5 | 12.5 |
+| C10 | 4.5 | 4.5 | 4.5 | 5 | 4.5 | 23.0 |
+| C11 | 3.5 | 5 | 4 | 5 | 4 | 21.5 |
+| C12 | 3.5 | 4.5 | 4 | 5 | 4 | 21.0 |
+| C13 | 2.5 | 4.5 | 3.5 | 5 | 3 | 18.5 |
+| C14 | 3.5 | 4.5 | 4 | 5 | 4 | 21.0 |
 
 ## Post-lock comparative placement (does NOT alter the original ranking)
 
