@@ -122,6 +122,31 @@ which individual responses hit it.
 - No statistical significance is claimed anywhere. Full list:
   [LIMITATIONS.md](LIMITATIONS.md).
 
+## Post-release extension
+
+A seventh model — **Huihui Nex N2 Mini Abliterated Q4_K_M**
+(`quant-mind/Huihui-Nex-N2-mini-abliterated-GGUF`, frozen revision
+`22be29be9d6908060502f4ac984650a917afdbe6`) — was evaluated after this release
+under the identical frozen Formal C protocol.
+
+- Overall (Formal C Extension, blind, locked): **669.5 / 800 (83.69%)**
+  — General 395.0 / 450 (87.78%), Cyber 274.5 / 350 (78.43%)
+- Post-lock comparative placement vs the original locked field (context only,
+  not a re-ranking): General 4/7 · Cyber 5/7 · Overall 4/7
+- Generation median: **40.51 t/s**
+- See [extensions/huihui-nex-n2-mini-abliterated-q4](extensions/huihui-nex-n2-mini-abliterated-q4/).
+
+This extension does **not** modify the original six-contestant locked ranking;
+its score is presented separately as a post-release extension.
+
+## Subjective observations
+
+> **A note on subjective evaluation:** Some qualities—particularly uncensored behavior and natural Chinese conversational style—are difficult to evaluate rigorously with a simple benchmark. Qualities such as what users often call an "AI-like" tone are especially hard to operationalize: if a model can reliably recognize and avoid those characteristics, the phenomenon itself becomes difficult to measure directly, while manually judging every response myself would introduce substantial evaluator bias. The observations below are therefore intentionally presented as anecdotal impressions rather than formal benchmark results.
+>
+> **Uncensoring — subjective observation:** In my own informal manual testing, the PocketAiHub Ornith-1.5-35B-A3B-Abliterated variant did not feel meaningfully "uncensored" in practice and still refused many of the prompts I actually cared about. By contrast, the Gemma variant I use and Huihui Nex performed much better for my use case. This is a personal observation, not a formal benchmark result.
+>
+> **Chinese conversation — subjective observation:** During brief manual use, I subjectively found the Chinese conversational quality of Huihui Nex noticeably stronger than the Gemma 26B variant I currently use locally. This is an anecdotal observation rather than a formal benchmark result.
+
 ## Reproduce
 
 See [REPRODUCIBILITY.md](REPRODUCIBILITY.md), including the clean-room path
