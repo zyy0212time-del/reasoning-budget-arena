@@ -1,7 +1,10 @@
 # HUIHUI ANSWER ADDENDUM — IMPLEMENTATION REPORT
 
-Date: 2026-09-03 · Status: **local release-gate ready (NOT committed, NOT
-tagged, NOT released)** · Candidate version: `v1.2.1`
+Date: 2026-09-03 · Status: implementation gate当时尚未提交/发布 — this
+report documents the state at that gate (local release-gate ready; nothing
+was committed/tagged/released at that time). It was subsequently superseded:
+the addendum was committed as `87a225c17c6d54f012c4d8330826edf19e74bbac`
+and officially released as **v1.2.1**.
 
 Scope: publish the **32 frozen Formal C final answers** of the post-release
 Huihui Nex N2 Mini Abliterated Q4_K_M extension — nothing else.
