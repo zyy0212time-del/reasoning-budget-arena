@@ -177,13 +177,23 @@ condition under [`data/model-answers/`](data/model-answers/):
 | A — RavenX-CyberAgent-35B-v5.1 | — | — | — | withheld pending additional upstream/output-terms review |
 | B — Endy-Qwen3.6-CyberSec-35B-A3B | — | — | — | withheld pending additional upstream/output-terms review |
 
-**256 of 384 answers released; 128 withheld.** Answers are byte-identical to
-the frozen generation artifacts (no regeneration, no rewriting), contain
-final-answer text only (no reasoning content), and remain traceable
-question → answer → locked score. The `model` labels are **post-lock identity
-mapping (release metadata)** — the blind judge never saw identities. See
-[data/model-answers/NOTICE.md](data/model-answers/NOTICE.md) for rationale,
-rights wording, provenance verification and schema, and
+**256 of 384 answers released; 128 withheld** (original six-model field).
+In addition, the **32 Formal C final answers of the post-release Huihui Nex
+extension are public** (`data/model-answers/G-huihui-nex/`) — Formal C only,
+since Huihui ran no Formal D and is **not** a seventh contestant of the
+original field.
+
+**288 public final answers are currently available across the repository:
+256 belong to the original six-model field and 32 belong to the post-release
+Huihui Formal C extension.** A/B (128) remain withheld.
+
+Answers are byte-identical to the frozen generation artifacts (no
+regeneration, no rewriting), contain final-answer text only (no reasoning
+content), and remain traceable question → answer → locked score. The `model`
+labels are **post-lock identity mapping (release metadata)** — the blind judge
+never saw identities. See
+[data/model-answers/NOTICE.md](data/model-answers/NOTICE.md) for the two
+scopes, rights wording, provenance verification and schema, and
 [data/model-answers/MANIFEST.md](data/model-answers/MANIFEST.md) for the
 per-model manifest.
 

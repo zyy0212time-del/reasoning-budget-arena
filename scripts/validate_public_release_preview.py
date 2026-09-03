@@ -11,7 +11,13 @@ Checks (programmatic, no inference):
   3. hard-fail if data/formal-{d,c}-answers-final-only.csv appear anywhere
   4. PARTIAL-RELEASE block:
        - exactly 4 released model dirs, exactly 256 released answers
+         (original six-model field — this number must NOT be mechanically
+         changed when extensions are added)
        - 32 + 32 rows per released model, exact schema, no A/B rows
+       - POST-RELEASE EXTENSION (separate scope): G-huihui-nex/formal-c.csv
+         with exactly 32 rows, no Formal D file, ids matching the locked
+         extension scorebook
+       - repository-level public total = 256 + 32 = 288
        - withheld A/B model identifiers absent from the dataset tree
        - model-answers NOTICE/MANIFEST present with consistent counts,
          provenance statuses and the model-output rights disclaimer
@@ -63,6 +69,13 @@ WITHHELD_MODELS = [
     "RavenX-CyberAgent-35B-v5.1-Q4_K_M",        # A
     "Endy-Qwen3.6-CyberSec-35B-A3B-Q4_K_M",     # B
 ]
+
+# Post-release extensions: SEPARATE scope, not part of the original
+# six-model field. dir -> (model name, conditions that must exist)
+EXTENSION_MODELS = {
+    "G-huihui-nex": ("Huihui-Nex-N2-mini-abliterated-Q4_K_M", ("formal-c",)),
+}
+EXPECTED_PUBLIC_TOTAL = 288  # 256 original field + 32 Huihui extension
 
 # Reviewed false positives inside model-answer text. An exemption is bound to
 # the EXACT ROW IDENTITY — not just the matched substring:
@@ -160,6 +173,20 @@ def read_csv_rows(path):
         return header, list(r)
 
 
+def read_extension_scorebook_ids(target):
+    """Question ids from the locked extension scorebook (never rescored)."""
+    p = os.path.join(target, "extensions", "huihui-nex-n2-mini-abliterated-q4",
+                     "FORMAL-C-EXTENSION-BLIND-SCORES-LOCKED.md")
+    if not os.path.exists(p):
+        return None
+    txt = open(p, encoding="utf-8").read()
+    seen = []
+    for m in re.findall(r"^\|\s*(G\d+|C\d+)\s*\|", txt, re.M):
+        if m not in seen:
+            seen.append(m)
+    return seen
+
+
 def check_partial_release(target):
     """Output Dataset Addendum assertions (see module docstring, item 4)."""
     ma = os.path.join(target, "data", "model-answers")
@@ -192,9 +219,60 @@ def check_partial_release(target):
                     problems.append("wrong condition in %s" % os.path.relpath(p, target))
             total += len(rows)
     check("exactly 4 released model dirs (C/D/E/F)", len(RELEASED_DIRS) == 4)
-    check("exactly 256 released answers", total == 256, "counted %d" % total)
+    check("original-field released answers = 256", total == 256, "counted %d" % total)
     check("per-model 32+32 rows, exact schema, correct model/condition labels",
           not problems, str(problems[:3]) if problems else "")
+
+    # ---- post-release extension (separate scope) ----
+    ext_problems = []
+    ext_total = 0
+    for d, (model, conds) in EXTENSION_MODELS.items():
+        ext_dir = os.path.join(ma, d)
+        if not os.path.isdir(ext_dir):
+            ext_problems.append("missing extension dir %s" % d)
+            continue
+        # the extension must NOT carry a Formal D file (it ran Formal C only)
+        if os.path.exists(os.path.join(ext_dir, "formal-d.csv")):
+            ext_problems.append("%s must not contain formal-d.csv "
+                                "(extension ran Formal C only)" % d)
+        for cond in conds:
+            p = os.path.join(ext_dir, cond + ".csv")
+            if not os.path.exists(p):
+                ext_problems.append("missing %s" % os.path.relpath(p, target))
+                continue
+            header, rows = read_csv_rows(p)
+            if header != ANSWER_FIELDS:
+                ext_problems.append("bad schema in %s" % os.path.relpath(p, target))
+            if len(rows) != 32:
+                ext_problems.append("%s: %d rows (expected 32)"
+                                    % (os.path.relpath(p, target), len(rows)))
+            ids = []
+            for row in rows:
+                if len(row) != len(ANSWER_FIELDS):
+                    ext_problems.append("ragged row in %s" % os.path.relpath(p, target))
+                    continue
+                rec = dict(zip(ANSWER_FIELDS, row))
+                if rec["model"] != model:
+                    ext_problems.append("wrong model in %s" % os.path.relpath(p, target))
+                if rec["condition"] != cond:
+                    ext_problems.append("wrong condition in %s" % os.path.relpath(p, target))
+                ids.append(rec["question_id"])
+            if len(set(ids)) != 32:
+                ext_problems.append("%s: %d unique question ids (expected 32)"
+                                    % (os.path.relpath(p, target), len(set(ids))))
+            sb = read_extension_scorebook_ids(target)
+            if sb is not None and set(ids) != set(sb):
+                ext_problems.append("extension ids != locked extension scorebook ids")
+            ext_total += len(rows)
+    check("extension dataset: 32 Formal C rows, correct schema/labels, "
+          "ids match locked extension scorebook",
+          not ext_problems, str(ext_problems[:3]) if ext_problems else "")
+    check("extension has no Formal D dataset",
+          not any(os.path.exists(os.path.join(ma, d, "formal-d.csv"))
+                  for d in EXTENSION_MODELS))
+    check("repository public total = 288 (256 original field + 32 extension)",
+          total + ext_total == EXPECTED_PUBLIC_TOTAL,
+          "%d + %d" % (total, ext_total))
 
     # withheld A/B absent at content level from the DATASET CSVs
     # (documentation files may legitimately NAME the withheld models when
@@ -267,11 +345,19 @@ def check_partial_release(target):
               "RESOLVED" in mtxt and "WITHHELD" in mtxt)
         check("MANIFEST totals row (256/128/384)",
               "**256**" in mtxt and "**128**" in mtxt and "**384**" in mtxt)
+        check("MANIFEST repository total 288 + scope separation",
+              "**288**" in mtxt
+              and "original six-model field" in mtxt
+              and "post-release extension" in mtxt.lower())
     readme_p = os.path.join(target, "README.md")
     if os.path.exists(readme_p):
         rtxt = open(readme_p, encoding="utf-8").read()
         check("README states the partial-release counts",
               "256 of 384" in rtxt and "128 withheld" in rtxt)
+        check("README states 288 public = 256 original field + 32 extension",
+              "288 public final answers" in rtxt
+              and "256 belong to the original" in rtxt
+              and "32 belong to the post-release" in rtxt)
         check("README no longer blanket-withholds the answer dataset",
               "are\n  withheld from this public release" not in rtxt)
 

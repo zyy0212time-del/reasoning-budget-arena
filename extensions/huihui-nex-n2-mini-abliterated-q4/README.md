@@ -53,13 +53,23 @@ same runtime policy as the original field.
 ## Privacy / scope
 
 - Questions, methodology and protocol: same frozen set as the original release.
-- Answer text datasets: this extension's own answer text remains withheld
-  under the same conservative output-redistribution standard as the original
-  field. Note the 2026-09-03 Output Dataset Addendum partially superseded the
-  original all-withheld decision for the six original models
-  (`data/model-answers/` — C/D/E/F public, A/B withheld); any release of this
-  extension's answers would follow that precedent and its own upstream
-  review.
+- **Answer text datasets: this extension's 32 Formal C final answers are now
+  public** —
+  [`data/model-answers/G-huihui-nex/formal-c.csv`](../../data/model-answers/G-huihui-nex/formal-c.csv)
+  (post-release answer addendum). They were extracted byte-faithfully from
+  the frozen extension generation artifacts — final-answer field only, no
+  reasoning content — and carry the same benchmark-artifact rights treatment
+  introduced in v1.2.0. *(This supersedes the earlier "answer text remains
+  withheld" wording for this extension.)*
+- This answer release changes **nothing else**: the extension's locked score
+  (669.5 / 800), its post-lock comparative placement, the original
+  six-contestant locked ranking, and the runtime numbers above are all
+  unmodified. Huihui has no Formal D answers and is not a seventh contestant
+  of the original field.
+- Output-terms basis: `quant-mind/Huihui-Nex-N2-mini-abliterated-GGUF`,
+  `huihui-ai/Huihui-Nex-N2-mini-abliterated` and `nex-agi/Nex-N2-mini` are
+  all Apache-2.0 (checked 2026-09-03); no term was found prohibiting
+  reproduction of benchmark/evaluation outputs.
 - Subjective observations about this model's behavior are in the main
   [README](../../README.md) under *Subjective observations* and are not part of
   the benchmark scores.

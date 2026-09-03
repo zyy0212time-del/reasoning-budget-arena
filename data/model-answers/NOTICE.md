@@ -15,7 +15,9 @@ benchmark models, split per model and per formal condition:
 | `D-ornith/` | Ornith-1.5-35B-A3B-Abliterated | 32 | 32 | 64 |
 | `E-nex/` | Nex-N2-mini | 32 | 32 | 64 |
 | `F-qwen3.8/` | Qwen3.8-9B-abliterated-25 | 32 | 32 | 64 |
-| **released total** | | **128** | **128** | **256** |
+| **released total (original six-model field)** | | **128** | **128** | **256** |
+| `G-huihui-nex/` | Huihui-Nex-N2-mini-abliterated-Q4_K_M — **post-release extension** | 32 | not run | 32 |
+| **repository total (public)** | | **160** | **128** | **288** |
 
 **Withheld — not present anywhere in this repository:**
 
@@ -27,6 +29,23 @@ benchmark models, split per model and per formal condition:
 The benchmark grand total is unchanged: 6 models × 32 questions × 2 formal
 conditions = **384 answers = 256 released + 128 withheld**. No statement in
 this repository should be read as a promise that A/B will be released later.
+
+### Separate scope — post-release Huihui Nex extension
+
+`G-huihui-nex/formal-c.csv` holds **32 further final answers** from the
+post-release extension contestant (extension opaque id `LR37`), evaluated
+under the identical frozen Formal C protocol **after** the original release.
+This is a **separate scope**:
+
+- it is **not** part of the original 384-answer six-model field
+- it has **no Formal D answers** (the extension ran Formal C only)
+- its locked extension scorebook is untouched by this answer release
+- Huihui is not a seventh contestant of the original field and is not ranked
+  against it
+
+Repository-level public coverage is therefore **288 answers** (256 original
+field + 32 extension), with **128 still withheld** (A/B). It must not be read
+as "7 models × 32 × 2".
 
 ## Why partial
 
@@ -73,7 +92,10 @@ All scores were assigned and locked **before** the contestant→model identity
 mapping was revealed (`blind/FORMAL-{C,D}-BLIND-SCORES-LOCKED.md`). The
 `model` column in these CSVs is **post-lock identity mapping / release
 metadata**. The judge did not know model identities at scoring time; nothing
-in this dataset changes that.
+in this dataset changes that. The same holds for the extension dataset: its
+scores were locked under the opaque id `LR37` before identity reveal
+(`extensions/huihui-nex-n2-mini-abliterated-q4/FORMAL-C-EXTENSION-BLIND-SCORES-LOCKED.md`),
+so the `model` value there is post-lock release metadata too.
 
 ## What is NOT in these files
 
@@ -92,6 +114,14 @@ internal build log); the Formal D source likewise. A/B rows were never
 extracted into this repository. The extraction tool is
 `scripts/build_model_answer_dataset.py` (per-row privacy scan + byte-level
 round-trip verification + locked-score linkage check).
+
+The 32 extension answers under `G-huihui-nex/` come from a different frozen
+artifact shape: the extension generation JSONL (18 general + 14 cyber), which
+carries both a `response` field (the final answer) and a `reasoning` field
+(hidden chain-of-thought). **Only `response` is released** — the `reasoning`
+field is never written to any public file. Extraction tool:
+`scripts/build_extension_answer_dataset.py` (same per-row privacy scan +
+byte-level round-trip + frozen-question and locked-scorebook alignment).
 
 ## Provenance verification (exact artifact level, checked 2026-09-03)
 
@@ -119,3 +149,7 @@ C and E keep their existing provenance records (`MODEL-SOURCE-TODO.md`,
   plus the scanner pattern id, the SHA-256 of the matched substring, and the
   SHA-256 of the full answer text; any other row, a second occurrence, or a
   single edited character fails closed.
+- **Extension (G-huihui-nex)** — all 32 extension answers produced **zero**
+  generic-pattern hits, so no waiver is registered for them and none is
+  needed; the same row-identity-bound, fail-closed policy applies
+  (`scripts/build_extension_answer_dataset.py`).
