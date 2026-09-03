@@ -28,15 +28,19 @@ Unless expressly stated otherwise, the following are licensed under the
 For this content, attribution must include the license identifier
 (CC BY 4.0) and a link to the license: <https://creativecommons.org/licenses/by/4.0/>.
 
-## Model-generated final-answer datasets — NOT INCLUDED
+## Model-generated final-answer texts — benchmark artifacts, NOT relicensed
 
-The model-generated final-answer datasets
-(`data/formal-d-answers-final-only.csv` and
-`data/formal-c-answers-final-only.csv`) are **not included** in this initial
-public release and are **not covered** by this release's license statement.
-Their future redistribution remains subject to a separate upstream
-output-redistribution review of the evaluated models (see
-OUTPUT-REDISTRIBUTION-DECISION.md).
+The per-model final-answer CSVs under `data/model-answers/` (C/D/E/F; 256
+answers; Output Dataset Addendum 2026-09-03) are **model-generated benchmark
+artifacts**. They are **not covered** by the MIT code license or by the
+CC BY 4.0 grant above, and this project makes **no ownership or relicensing
+claim** over the model-generated text itself. Upstream license information is
+listed per model in `data/model-answers/MANIFEST.md`.
+
+The A and B final answers are **withheld** pending additional
+upstream/output-terms review and are not part of this repository.
+OUTPUT-REDISTRIBUTION-DECISION.md records both the original Option B decision
+and its partial supersession.
 
 ## Third-party materials — not relicensed
 

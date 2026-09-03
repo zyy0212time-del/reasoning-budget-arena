@@ -10,9 +10,13 @@ Final human maintainer decision (no longer "HUMAN DECISION REQUIRED"):
   evaluation data** (including score CSVs, objective and loop-audit metadata,
   aggregate/ranking/delta data, locked scorebook exports): **CC BY 4.0** —
   see `LICENSE-DOCS-DATA.md`.
-- **Model-generated answer datasets** (`formal-{d,c}-answers-final-only.csv`):
-  **withheld from initial public release**; future redistribution subject to
-  separate upstream output-redistribution review.
+- **Model-generated answer datasets** (now `data/model-answers/`):
+  **partial release per the 2026-09-03 Output Dataset Addendum** — C/D/E/F
+  answers (256) released as benchmark artifacts with no ownership or
+  relicensing claim by this project; A/B answers (128) remain **withheld
+  pending additional upstream/output-terms review** (no promise of future
+  release). The original 2026-09-01 decision withheld all 384 answers
+  (Option B); that withholding is superseded for C/D/E/F only.
 - **Third-party materials**: not relicensed; remain under upstream terms
   (NOTICE.md, MODEL-SOURCE-TODO.md).
 
@@ -74,5 +78,6 @@ model's output terms.
 
 - One license (or pair) for classes A + B (+ optionally D).
 - A statement for class D.
-- Confirmation of the Option B withholding for class C (or verification to
-  move to Option A).
+- ~~Confirmation of the Option B withholding for class C (or verification to
+  move to Option A)~~ — RESOLVED 2026-09-03 as a partial release (neither
+  full Option B nor full Option A): C/D/E/F released, A/B withheld.

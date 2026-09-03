@@ -29,11 +29,11 @@ tokens/s on the speed benchmark.
 | tag | upstream source (verified) | local artifact evidence |
 |---|---|---|
 | A | huggingface.co/deadbydawn101/RavenX-CyberAgent-Qwen3.6-35B-A3B-Opus-4.7-OpenMythos-Pentester-BugHunter-RATH-GGUF | SHA256 + size: `data/model-artifacts.csv` |
-| B | huggingface.co/endystrike/Endy-Qwen3.6-CyberSec-35B-A3B | `data/model-artifacts.csv` |
+| B | huggingface.co/endystrike/Endy-Qwen3.6-CyberSec-35B-A3B; exact GGUF: huggingface.co/endystrike/Endy-Qwen3.6-CyberSec-35B-A3B-GGUF (hash-verified 2026-09-03) | `data/model-artifacts.csv` |
 | C | huggingface.co/HauhauCS/Gemma4-26B-A4B-QAT-Uncensored-HauhauCS-Balanced-MTP | `data/model-artifacts.csv` |
-| D | base huggingface.co/ornith-ai/Ornith-1.5-35B-A3B; abliterated suites mradermacher/…-FULLY-OBLITERATED-i1-GGUF, codecraftersllc/… | `data/model-artifacts.csv` |
+| D | base huggingface.co/ornith-ai/Ornith-1.5-35B-A3B; exact abliterated GGUF: huggingface.co/PocketAiHub/Ornith-1.5-35B-A3B-Abliterated-GGUF (hash-verified 2026-09-03) | `data/model-artifacts.csv` |
 | E | huggingface.co/bartowski/nex-agi_Nex-N2-mini-GGUF (original nex-agi/Nex-N2-mini) | `data/model-artifacts.csv` |
-| F | base github.com/QwenLM/Qwen3.8; exact abliterated-25 GGUF repo **SOURCE NOT RECOVERED** | `data/model-artifacts.csv` |
+| F | base github.com/QwenLM/Qwen3.8; exact abliterated-25 GGUF: huggingface.co/MegaPanchamZ/Qwen3.8-9B-abliterated-25-GGUF (hash-verified 2026-09-03) | `data/model-artifacts.csv` |
 
 SHA256 values were computed over the exact local benchmark files at R1
 (2026-09-01) and are recorded immutably in `MODEL-ARTIFACT-MANIFEST.md` and

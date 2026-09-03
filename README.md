@@ -19,11 +19,14 @@ Formal C was one complete 32-question run. Differences below are therefore
 
 ## Status
 
-**PUBLISHED — PUBLIC RELEASE.** All data and engineering checks are verified;
-the maintainer's license decision is made (MIT + CC BY 4.0); the final
-release gate passed with P0 = 0, P1 = 0 (RELEASE-READINESS.md). Documented
-non-blocking limitations (F model-source provenance, unrecoverable current-fact
-URLs) remain noted in MODEL-SOURCE-TODO.md and LIMITATIONS.md.
+**PUBLISHED — PUBLIC RELEASE + OUTPUT DATASET ADDENDUM (local, pending tag).**
+All data and engineering checks are verified; the maintainer's license decision
+is made (MIT + CC BY 4.0); the final release gate passed with P0 = 0, P1 = 0
+(RELEASE-READINESS.md). As of 2026-09-03 the partial final-answer dataset
+addendum is applied: C/D/E/F final answers are public, A/B remain withheld
+(see [Final-answer dataset](#final-answer-dataset)). Documented non-blocking
+limitations (unrecoverable current-fact URLs) remain noted in
+LIMITATIONS.md.
 
 ## Key result (observed under the two protocols)
 
@@ -159,24 +162,53 @@ test (`scripts/test_release_paths.py`). Short version: fill
 [REPORT.md](REPORT.md). Timeline, calibration history, failure modes,
 current-fact references, runtime evidence: [docs/](docs).
 
+## Final-answer dataset
+
+**Partial release (Output Dataset Addendum, 2026-09-03):** verbatim final
+answers are public for **4 of the 6** models, split per model and per
+condition under [`data/model-answers/`](data/model-answers/):
+
+| model | Formal C | Formal D | total | status |
+|---|---:|---:|---:|---|
+| C — Gemma4-26B-A4B-QAT-Uncensored-HauhauCS-Balanced | 32 | 32 | 64 | **released** |
+| D — Ornith-1.5-35B-A3B-Abliterated | 32 | 32 | 64 | **released** |
+| E — Nex-N2-mini | 32 | 32 | 64 | **released** |
+| F — Qwen3.8-9B-abliterated-25 | 32 | 32 | 64 | **released** |
+| A — RavenX-CyberAgent-35B-v5.1 | — | — | — | withheld pending additional upstream/output-terms review |
+| B — Endy-Qwen3.6-CyberSec-35B-A3B | — | — | — | withheld pending additional upstream/output-terms review |
+
+**256 of 384 answers released; 128 withheld.** Answers are byte-identical to
+the frozen generation artifacts (no regeneration, no rewriting), contain
+final-answer text only (no reasoning content), and remain traceable
+question → answer → locked score. The `model` labels are **post-lock identity
+mapping (release metadata)** — the blind judge never saw identities. See
+[data/model-answers/NOTICE.md](data/model-answers/NOTICE.md) for rationale,
+rights wording, provenance verification and schema, and
+[data/model-answers/MANIFEST.md](data/model-answers/MANIFEST.md) for the
+per-model manifest.
+
 ## Data
 
 - `data/` — questions, verified score CSVs, master D-vs-C table, audited
   objective CSVs (D and C schemas documented separately), loop audits, model
   artifact hashes
+- `data/model-answers/` — per-model verbatim final-answer CSVs (partial
+  release: C/D/E/F public, A/B withheld — see above)
 - `blind/` — frozen judge instructions + the two sanitized locked scorebooks
-- **The final-answer text datasets (`formal-{d,c}-answers-final-only.csv`) are
-  withheld from this public release** pending upstream output-redistribution
-  review of the evaluated models (see OUTPUT-REDISTRIBUTION-DECISION.md). The
-  rest of the release — questions, scores, objective metrics, scripts,
-  figures, protocol — is unaffected.
+- Historical note: the initial release (Option B) withheld all 384 final
+  answers; that decision is superseded by this partial release (see
+  OUTPUT-REDISTRIBUTION-DECISION.md).
 
 ## License
 
 - **Code:** MIT — see [LICENSE](LICENSE).
 - **Documentation, benchmark questions, figures, and project-derived
   evaluation data:** [CC BY 4.0](LICENSE-DOCS-DATA.md).
-- **Model-generated final-answer datasets:** not included in this initial
-  public release.
+- **Model-generated final-answer texts** (`data/model-answers/`): reproduced
+  as benchmark/evaluation artifacts; the project makes **no ownership or
+  relicensing claim** over the model-generated text itself. Upstream license
+  information is listed per model in
+  [data/model-answers/MANIFEST.md](data/model-answers/MANIFEST.md). A/B
+  answer texts remain withheld and are not part of this repository.
 - **Third-party models:** subject to their upstream licenses/terms — see
   [NOTICE.md](NOTICE.md).

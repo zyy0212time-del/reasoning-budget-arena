@@ -1,10 +1,18 @@
 # PUBLIC RELEASE CONTENTS
 
-Generated: 2026-09-01 22:46:46
+Generated: 2026-09-01 22:46:46 · Updated: 2026-09-03 (Output Dataset Addendum)
 
-This is the ACTUAL tree that a publish today would upload
-(`public-release-preview/`). Model-generated final-answer datasets
-are excluded (OPTION B).
+This is the ACTUAL tree that a publish today would upload. As of the
+2026-09-03 addendum, per-model final-answer datasets for **C/D/E/F are
+INCLUDED** under `data/model-answers/`; the **A and B final answers remain
+EXCLUDED** (withheld pending additional upstream/output-terms review).
+Historical note: the initial release excluded all final answers (OPTION B) —
+that decision is superseded by this partial release
+(OUTPUT-REDISTRIBUTION-DECISION.md).
+
+Class legend: `B` = project-authored (CC BY 4.0); `M` = model-generated
+benchmark artifact (NOT relicensed by this project — see
+`data/model-answers/NOTICE.md`).
 
 # INCLUDED
 
@@ -47,6 +55,16 @@ are excluded (OPTION B).
 | `data\formal-d-objective.csv` | B | project-authored benchmark questions/docs (CC BY 4.0) |
 | `data\formal-d-scores.csv` | B | project-authored benchmark questions/docs (CC BY 4.0) |
 | `data\model-artifacts.csv` | B | project-authored benchmark questions/docs (CC BY 4.0) |
+| `data\model-answers\C-gemma4\formal-c.csv` | M | model-generated final answers, verbatim (NOT relicensed — see data/model-answers/NOTICE.md) |
+| `data\model-answers\C-gemma4\formal-d.csv` | M | model-generated final answers, verbatim (NOT relicensed — see data/model-answers/NOTICE.md) |
+| `data\model-answers\D-ornith\formal-c.csv` | M | model-generated final answers, verbatim (NOT relicensed — see data/model-answers/NOTICE.md) |
+| `data\model-answers\D-ornith\formal-d.csv` | M | model-generated final answers, verbatim (NOT relicensed — see data/model-answers/NOTICE.md) |
+| `data\model-answers\E-nex\formal-c.csv` | M | model-generated final answers, verbatim (NOT relicensed — see data/model-answers/NOTICE.md) |
+| `data\model-answers\E-nex\formal-d.csv` | M | model-generated final answers, verbatim (NOT relicensed — see data/model-answers/NOTICE.md) |
+| `data\model-answers\F-qwen3.8\formal-c.csv` | M | model-generated final answers, verbatim (NOT relicensed — see data/model-answers/NOTICE.md) |
+| `data\model-answers\F-qwen3.8\formal-d.csv` | M | model-generated final answers, verbatim (NOT relicensed — see data/model-answers/NOTICE.md) |
+| `data\model-answers\MANIFEST.md` | B | project-authored dataset manifest (CC BY 4.0) |
+| `data\model-answers\NOTICE.md` | B | project-authored dataset notice (CC BY 4.0) |
 | `data\questions-cyber.json` | B | project-authored benchmark questions/docs (CC BY 4.0) |
 | `data\questions-formal-d-probe-cyber.json` | B | project-authored benchmark questions/docs (CC BY 4.0) |
 | `data\questions-formal-d-probe-general.json` | B | project-authored benchmark questions/docs (CC BY 4.0) |
@@ -71,6 +89,7 @@ are excluded (OPTION B).
 | `figures\score-delta.svg` | B | project-authored benchmark questions/docs (CC BY 4.0) |
 | `scripts\CONFIG.example.json` | B | project-authored benchmark questions/docs (CC BY 4.0) |
 | `scripts\arena_harness.py` | B | project-authored benchmark questions/docs (CC BY 4.0) |
+| `scripts\build_model_answer_dataset.py` | B | project-authored dataset build/verify tool (CC BY 4.0) |
 | `scripts\formal_c_objective.py` | B | project-authored benchmark questions/docs (CC BY 4.0) |
 | `scripts\formal_d_objective.py` | B | project-authored benchmark questions/docs (CC BY 4.0) |
 | `scripts\make_figures.py` | B | project-authored benchmark questions/docs (CC BY 4.0) |
@@ -86,12 +105,16 @@ are excluded (OPTION B).
 
 | artifact | reason |
 |---|---|
-| `data/formal-d-answers-final-only.csv` | model-generated output redistribution review incomplete; withheld from initial public release |
-| `data/formal-c-answers-final-only.csv` | model-generated output redistribution review incomplete; withheld from initial public release |
+| A and B final answers (rows of the internal frozen final-only CSVs) | withheld pending additional upstream/output-terms review — A: Apache-2.0 card label but model-card body adds research-purposes-only wording; B: AGPL-3.0 plus disclosed proprietary-model distillation lineage. Never extracted into this repository. |
+| `data/formal-{d,c}-answers-final-only.csv` (combined 6-model CSVs) | superseded by the per-model split under `data/model-answers/`; the combined files must never be published because they would re-include the withheld A/B rows |
 
 # RELEASE POLICY
 
-**OPTION B — REPORT + SCORES + CODE, WITHOUT FINAL-ANSWER DATASET.**
-See OUTPUT-REDISTRIBUTION-DECISION.md.
-License: MIT (code) / CC BY 4.0 (docs, questions, figures, evaluation data) —
-see LICENSE and LICENSE-DOCS-DATA.md.
+**PARTIAL OUTPUT RELEASE (Output Dataset Addendum, 2026-09-03) — supersedes
+OPTION B for final-answer data.** Questions, scores, methods, scripts,
+statistics: public. Final answers: C/D/E/F public under `data/model-answers/`;
+A/B withheld pending additional upstream/output-terms review.
+License: MIT (code) / CC BY 4.0 (docs, questions, figures, project-authored
+evaluation data) — see LICENSE and LICENSE-DOCS-DATA.md. Model-generated
+answer text is a benchmark artifact and is NOT covered by either license
+(data/model-answers/NOTICE.md).

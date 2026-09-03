@@ -1,5 +1,12 @@
 # Response to Independent Pre-Publication Review — Revision 1
 
+> **Historical record.** This review response documents the state at its
+> time, when all final answers were withheld (Option B). The 2026-09-03
+> Output Dataset Addendum partially supersedes that decision — C/D/E/F
+> final answers are now released under `data/model-answers/`; A/B remain
+> withheld. The text below is preserved unmodified.
+
+
 Reviewer verdict on the first public RC: **MAJOR REVISION REQUIRED**. This
 document addresses every P1 (must-fix) and P2 (should-fix) finding. Where a
 finding was correct we say so; where we partially disagree we give the artifact

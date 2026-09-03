@@ -53,8 +53,13 @@ same runtime policy as the original field.
 ## Privacy / scope
 
 - Questions, methodology and protocol: same frozen set as the original release.
-- Answer text datasets: withheld from this public release per the same
-  output-redistribution decision as the original field.
+- Answer text datasets: this extension's own answer text remains withheld
+  under the same conservative output-redistribution standard as the original
+  field. Note the 2026-09-03 Output Dataset Addendum partially superseded the
+  original all-withheld decision for the six original models
+  (`data/model-answers/` — C/D/E/F public, A/B withheld); any release of this
+  extension's answers would follow that precedent and its own upstream
+  review.
 - Subjective observations about this model's behavior are in the main
   [README](../../README.md) under *Subjective observations* and are not part of
   the benchmark scores.

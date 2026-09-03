@@ -119,14 +119,21 @@ text) — see LICENSE-NOTES.md class D.
 | `d_rank`/`c_rank` | overall rank within the condition |
 | `rank_change` | `d_rank − c_rank`; positive = moved up |
 
-## data/formal-{d,c}-answers-final-only.csv
+## data/model-answers/ (per-model final-answer CSVs; Output Dataset Addendum)
 
-Sanitized final-only dataset, 192 rows each; verbatim, unmodified final
-content (empty string = no final delivered; 73 rows under formal-d, 0 under
-formal-c). **These files are model-generated text and are EXCLUDED from the
-public release preview pending upstream output-redistribution review**
-(see OUTPUT-REDISTRIBUTION-DECISION.md); they remain in the reviewer bundle
-marked REVIEW ONLY. No reasoning channel, no local paths.
+Sanitized final-only dataset split per model and per condition:
+`data/model-answers/{C-gemma4,D-ornith,E-nex,F-qwen3.8}/{formal-c,formal-d}.csv`,
+32 rows each (4 × 32 × 2 = **256 released answers**). Verbatim, unmodified
+final content; schema: `condition,model,division,question_id,question,final_answer`.
+The A and B rows (2 × 32 × 2 = **128 withheld**) are **withheld pending
+additional upstream/output-terms review** and were never extracted into this
+repository. Rights: model-generated benchmark artifacts, NOT relicensed — see
+data/model-answers/NOTICE.md. No reasoning channel, no local paths.
+
+Historical note: the original combined files
+(`formal-{d,c}-answers-final-only.csv`, 192 rows each, including 73 empty
+finals under formal-d and 0 under formal-c) are superseded by this split and
+must not be published — they would re-include the withheld A/B rows.
 
 ## data/model-artifacts.csv
 
@@ -136,9 +143,10 @@ marked REVIEW ONLY. No reasoning channel, no local paths.
 | `sha256` | SHA256 of the exact local file (computed 2026-09-01) |
 | `file_size_bytes` | exact size |
 | `quantization` | Q4_K_M |
-| `source_url` | current provenance status (see MODEL-SOURCE-TODO.md) |
+| `source_url` | current provenance status (exact artifact hash matches for B/D/F verified 2026-09-03 — see MODEL-SOURCE-TODO.md and data/model-answers/NOTICE.md) |
 | `revision_if_known` | revision/commit where recorded |
-| `license` | `UNDETERMINED — see LICENSE-NOTES.md` until decision |
+| `license` | upstream card license label, re-checked from live model cards 2026-09-03 where noted; the per-model output-terms review that gates answer publication is tracked in data/model-answers/MANIFEST.md |
+| `present` | whether the exact local benchmark file is still on the benchmark machine (re-checked 2026-09-03: C/D/E yes; A/B/F no — removed in the post-benchmark C-drive cleanup; the frozen 2026-09-01 SHA-256 records remain valid evidence) |
 
 Deliberately **not published** anywhere: reasoning-channel text, character
 counts presented as token counts, local paths.

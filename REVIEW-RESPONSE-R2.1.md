@@ -1,5 +1,12 @@
 # Response to Final Release-Gate Review — R2.1 hotfix
 
+> **Historical record.** This review response documents the state at its
+> time, when all final answers were withheld (Option B). The 2026-09-03
+> Output Dataset Addendum partially supersedes that decision — C/D/E/F
+> final answers are now released under `data/model-answers/`; A/B remain
+> withheld. The text below is preserved unmodified.
+
+
 Final-gate verdict: **NOT READY TO PUBLISH**, with P0 = 0 and three explicit
 P1s. This document responds to those three P1s and records the non-blocking
 P3 stale-metadata cleanup. No inference was re-run; no locked score, mapping,

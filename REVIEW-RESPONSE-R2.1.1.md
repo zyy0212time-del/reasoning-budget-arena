@@ -1,5 +1,12 @@
 # Response to Final Gate — R2.1.1 privacy hotfix
 
+> **Historical record.** This review response documents the state at its
+> time, when all final answers were withheld (Option B). The 2026-09-03
+> Output Dataset Addendum partially supersedes that decision — C/D/E/F
+> final answers are now released under `data/model-answers/`; A/B remain
+> withheld. The text below is preserved unmodified.
+
+
 Final-gate verdict: **P1 = 0, P0 = 1**. The sole blocker: the public leak
 validator (`public-release-preview/scripts/validate_public_release_preview.py`)
 embedded the real machine-specific identifiers it was meant to detect — the

@@ -31,7 +31,10 @@ import validate_public_release_preview as v  # noqa: E402
 
 RC = os.path.dirname(HERE)
 EXPROOT = os.path.dirname(RC)
-PREV = os.environ.get("PUBLIC_PREVIEW_DIR") or os.path.join(EXPROOT, "public-release-preview")
+# The git tree IS the release tree, so by default the scanner tests run
+# against the repository root itself (same default as the validator).
+# Set PUBLIC_PREVIEW_DIR to point the tests at a staged preview copy instead.
+PREV = os.environ.get("PUBLIC_PREVIEW_DIR") or RC
 FAILURES = []
 
 
@@ -116,6 +119,9 @@ if os.path.isdir(PREV):
             p = os.path.join(root, fn)
             if fn in v.SCANNER_SELF_NAMES:
                 continue  # scanner self-artifacts excluded by design (unit-tested)
+            if os.path.join("data", "model-answers") in p:
+                continue  # released answer text is governed by the validator's
+                          # anchored reviewed-FP policy (its items 4 and 6)
             if os.path.splitext(fn)[1].lower() in v.TEXT_EXT:
                 prev_files.append(p)
     hits = scan_paths(prev_files, [])

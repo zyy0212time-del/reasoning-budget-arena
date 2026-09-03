@@ -14,33 +14,40 @@ This project is a model-evaluation benchmark. It is **not** an offensive
 hacking resource, and its Cyber results should not be read as a statement
 about offensive capability.
 
-## Public release policy (OPTION B)
+## Public release policy (partial output release, 2026-09-03)
 
-The initial public release follows **OPTION B**: report, scores, code —
-**without** the model-generated final-answer dataset
-(OUTPUT-REDISTRIBUTION-DECISION.md).
+Historical note: the initial release followed **OPTION B** (all final answers
+withheld). The 2026-09-03 Output Dataset Addendum partially supersedes it:
+verbatim final answers for **C/D/E/F (256)** are now public under
+`data/model-answers/` as benchmark artifacts; the **A/B answers (128)** remain
+withheld pending additional upstream/output-terms review.
 
-**IN the initial public release:**
+**IN the public release:**
 
 - benchmark questions (final frozen set + Formal D stage subsets)
 - project-authored documentation and protocol
-- scripts (harness, runners, analysis, validation, figure generation)
+- scripts (harness, runners, analysis, validation, figure generation,
+  dataset build/verify tooling)
 - objective structural metrics (delivery, token counts, limit signatures)
 - locked score artifacts / score data as allowed by the project license choice
 - aggregate tables and figures
 - provenance metadata (model identities, artifact hashes, source status)
+- per-model final-answer CSVs for C/D/E/F under `data/model-answers/`
+  (verbatim benchmark artifacts; not relicensed — see
+  data/model-answers/NOTICE.md)
 
-**NOT in the initial public release:**
+**NOT in the public release:**
 
-- `data/formal-d-answers-final-only.csv`
-- `data/formal-c-answers-final-only.csv`
+- A and B final answers (withheld pending additional
+  upstream/output-terms review; never extracted into this repository)
+- the combined 6-model CSVs (`formal-{d,c}-answers-final-only.csv`),
+  superseded — publishing them would re-include the withheld A/B rows
 - hidden reasoning-content / thinking traces — never published in any form
 - private raw reasoning, local private files, credentials
 
-Model-generated final-answer datasets are retained in the **internal /
-reviewer archive** but are excluded from the initial public release pending
-upstream output-redistribution review. They appear in reviewer bundles only
-under a clear REVIEW ONLY / NOT FOR INITIAL PUBLIC RELEASE marker.
+Model-generated final-answer texts for A and B are retained in the
+internal/reviewer archive only; they appear in reviewer bundles solely under
+a clear REVIEW ONLY marker.
 
 ## Privacy scanning
 
@@ -55,5 +62,7 @@ The benchmark questions and the retained final-answer datasets are
 evaluation artifacts, not guidance. Answers may contain errors or
 unsafe-sounding but lab-scoped security prose; nothing in this benchmark
 should be run against systems you do not own or are not explicitly
-authorized to test. Any future release of the model-generated answer
-datasets must follow the output-redistribution decision for each model.
+authorized to test. The released model-generated answers are evaluation
+artifacts governed per model by the output-redistribution decision
+(data/model-answers/NOTICE.md); the withheld A/B answers must not be
+redistributed from reviewer archives.

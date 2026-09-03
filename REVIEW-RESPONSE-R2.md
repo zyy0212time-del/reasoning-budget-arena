@@ -1,5 +1,12 @@
 # Response to Independent Pre-Publication Review — Revision 2 (final minor-fix pass)
 
+> **Historical record.** This review response documents the state at its
+> time, when all final answers were withheld (Option B). The 2026-09-03
+> Output Dataset Addendum partially supersedes that decision — C/D/E/F
+> final answers are now released under `data/model-answers/`; A/B remain
+> withheld. The text below is preserved unmodified.
+
+
 Second-round verdict: **READY AFTER MINOR FIXES**. This document responds to
 every release-facing checklist item from the R2 review. Format per item:
 REVIEW FINDING / ACTION / ARTIFACT / VALIDATION / STATUS / RESIDUAL LIMITATION.

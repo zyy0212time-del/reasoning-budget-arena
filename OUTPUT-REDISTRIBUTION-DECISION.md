@@ -1,5 +1,13 @@
 # OUTPUT REDISTRIBUTION DECISION
 
+> **STATUS (2026-09-03): PARTIALLY SUPERSEDED by the Output Dataset
+> Addendum.** The Option B decision below is retained as the historical
+> record of the initial release. As of the addendum, the C/D/E/F final
+> answers (256) are released under `data/model-answers/` as not-relicensed
+> benchmark artifacts; the A/B answers (128) remain withheld under the same
+> conservative standard this document established. Current status lives in
+> `data/model-answers/NOTICE.md` and `data/model-answers/MANIFEST.md`.
+
 Question: may the two **model-generated final-answer datasets**
 (`data/formal-d-answers-final-only.csv`, `data/formal-c-answers-final-only.csv`)
 be included in the initial public release?
@@ -58,3 +66,24 @@ Rationale:
 - The internal experiment directory and the private archival data are
   **not deleted**. The answer CSVs remain available internally and in the
   reviewer bundle (marked REVIEW ONLY).
+
+## 2026-09-03 UPDATE — Output Dataset Addendum (partial release)
+
+A completed per-model upstream/output-terms review (with exact artifact
+hash verification for B/D/F on 2026-09-03; see data/model-answers/NOTICE.md)
+resolved the question this decision was waiting on, per model:
+
+| model | outcome |
+|---|---|
+| C — Gemma4-26B-A4B-QAT-Uncensored-HauhauCS-Balanced | no term found prohibiting publication of benchmark output → **released** |
+| D — Ornith-1.5-35B-A3B-Abliterated | MIT; no prohibition found; exact artifact hash match → **released** |
+| E — Nex-N2-mini | Apache-2.0; no prohibition found → **released** |
+| F — Qwen3.8-9B-abliterated-25 | Apache-2.0; exact variant repo recovered and hash-verified → **released** |
+| A — RavenX-CyberAgent-35B-v5.1 | Apache-2.0 card label, but the model-card body adds research-purposes-only wording → **still withheld pending additional review** |
+| B — Endy-Qwen3.6-CyberSec-35B-A3B | AGPL-3.0 plus disclosed proprietary-model distillation lineage; exact artifact hash match → **still withheld pending additional review** |
+
+Result: **256 of 384 answers released** under `data/model-answers/`; **128
+withheld**. This is neither the original OPTION B (all withheld) nor a full
+OPTION A (all released). Model-generated answer text is reproduced as a
+benchmark/evaluation artifact with no ownership or relicensing claim by this
+project; A/B withholding carries no promise of future release.

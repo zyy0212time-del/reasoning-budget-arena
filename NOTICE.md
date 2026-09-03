@@ -18,15 +18,20 @@ benchmark questions, figures, and project-derived evaluation data).
 - Exact local benchmark-artifact fingerprints (SHA256) are provided **only for
   provenance/reproducibility** — they do not constitute distribution of any
   upstream artifact.
-- The model-generated final-answer datasets are **withheld** from this initial
-  public release (OUTPUT-REDISTRIBUTION-DECISION.md).
+- Model-generated final-answer texts for C/D/E/F (256 answers) are released
+  under `data/model-answers/` as of the 2026-09-03 Output Dataset Addendum,
+  as benchmark artifacts; this project makes no ownership or relicensing
+  claim over them. The A and B final answers remain **withheld** pending
+  additional upstream/output-terms review (OUTPUT-REDISTRIBUTION-DECISION.md,
+  data/model-answers/NOTICE.md).
 - Upstream source/license information is documented in MODEL-CARDS.md,
   MODEL-ARTIFACT-MANIFEST.md, `data/model-artifacts.csv`, and
   MODEL-SOURCE-TODO.md.
-- Missing acquisition provenance for some artifacts (notably the F model's
-  exact abliterated GGUF variant source) is explicitly documented as a
-  known limitation; this repository does not assert that such provenance was
-  recovered.
+- Acquisition provenance that was previously unresolved (the B exact GGUF
+  uploader, the D exact abliterated GGUF uploader, the F exact
+  abliterated-25 variant repo) was resolved on 2026-09-03 with exact
+  artifact hash verification (remote LFS OID == frozen local SHA-256); see
+  data/model-answers/NOTICE.md and MODEL-SOURCE-TODO.md.
 - This repository makes **no ownership claim over any third-party model**.
 
 ## Evaluated models (community GGUF fine-tunes)
@@ -34,11 +39,11 @@ benchmark questions, figures, and project-derived evaluation data).
 | model | author/org | primary source |
 |---|---|---|
 | RavenX-CyberAgent-35B-v5.1 | DeadByDawn101 | huggingface.co/deadbydawn101/RavenX-CyberAgent-Qwen3.6-35B-A3B-Opus-4.7-OpenMythos-Pentester-BugHunter-RATH-GGUF |
-| Endy-Qwen3.6-CyberSec-35B-A3B | endystrike | huggingface.co/endystrike/Endy-Qwen3.6-CyberSec-35B-A3B |
+| Endy-Qwen3.6-CyberSec-35B-A3B | endystrike | huggingface.co/endystrike/Endy-Qwen3.6-CyberSec-35B-A3B; exact GGUF: huggingface.co/endystrike/Endy-Qwen3.6-CyberSec-35B-A3B-GGUF (exact artifact hash-verified 2026-09-03) |
 | Gemma4-26B-A4B-QAT-Uncensored-HauhauCS-Balanced | HauhauCS | huggingface.co/HauhauCS/Gemma4-26B-A4B-QAT-Uncensored-HauhauCS-Balanced-MTP |
-| Ornith-1.5-35B-A3B-Abliterated | ornith-ai (base); mradermacher / codecraftersllc (abliterated GGUF suites) | huggingface.co/ornith-ai/Ornith-1.5-35B-A3B; mradermacher/Ornith-1.5-35B-A3B-FULLY-OBLITERATED-i1-GGUF; codecraftersllc/ornith-1.5-35b-a3b-abliterated |
+| Ornith-1.5-35B-A3B-Abliterated | ornith-ai (base); exact abliterated GGUF: PocketAiHub | huggingface.co/ornith-ai/Ornith-1.5-35B-A3B; huggingface.co/PocketAiHub/Ornith-1.5-35B-A3B-Abliterated-GGUF (exact artifact hash-verified 2026-09-03) |
 | Nex-N2-mini | nex-agi (original); bartowski (GGUF) | huggingface.co/nex-agi/Nex-N2-mini; huggingface.co/bartowski/nex-agi_Nex-N2-mini-GGUF |
-| Qwen3.8-9B-abliterated-25 | base: QwenLM | github.com/QwenLM/Qwen3.8 (exact abliterated-25 GGUF repo SOURCE NOT RECOVERED) |
+| Qwen3.8-9B-abliterated-25 | base: QwenLM; exact GGUF: MegaPanchamZ | github.com/QwenLM/Qwen3.8; huggingface.co/MegaPanchamZ/Qwen3.8-9B-abliterated-25-GGUF (exact artifact hash-verified 2026-09-03) |
 
 ## Runtime
 
