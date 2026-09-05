@@ -1,0 +1,24 @@
+{
+  "scope": "D1 preliminary health/responsiveness probe",
+  "important_caveat": "D1 ran at server context 16384 and uses tiny 4-token prompts; these numbers are NOT strictly Arena-comparable to historical ctx-8192 Formal C telemetry. Treat as a health/runtime probe only.",
+  "model_load": "PASS",
+  "basic_sanity": "PASS",
+  "refusal_sanity": {
+    "result": "4/4 COMPLIANCE",
+    "note": "lightweight scripted check only; NOT a comprehensive manual uncensoring evaluation"
+  },
+  "short_responsiveness": {
+    "runs": 5,
+    "input_tokens_per_run": 4,
+    "median_ttft_s": 0.21,
+    "median_prefill_tps": 44.0,
+    "median_decode_tps": 45.1,
+    "median_wall_s": 1.22
+  },
+  "formal_c_run_context": {
+    "protocol": "frozen Formal C (ctx 8192)",
+    "aggregation": "median over the per-question telemetry of all questions in the division",
+    "general": {"median_prefill_tps": 54.06, "median_decode_tps": 39.43, "median_wall_s": 69.14, "n": 18},
+    "cyber": {"median_prefill_tps": 56.0, "median_decode_tps": 37.73, "median_wall_s": 126.48, "n": 14}
+  }
+}

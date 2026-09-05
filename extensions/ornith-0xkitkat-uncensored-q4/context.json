@@ -1,0 +1,13 @@
+{
+  "scope": "D1 light long-input context-stability probe",
+  "important_caveat": "D1 ran at server context 16384; this is a preliminary health probe, not an Arena-comparable ctx-8192 benchmark condition.",
+  "server_ctx": 16384,
+  "test_input_tokens": 13545,
+  "ttft_s": 30.45,
+  "prefill_tps": 362.6,
+  "decode_tps": 40.4,
+  "wall_s": 38.9,
+  "loop_or_degeneration": false,
+  "completion_health": "completed without loop; result head verified",
+  "interpretation": "the model accepted a 13.5k-token prompt and completed generation without degeneration; long-context behavior beyond this single probe was not evaluated"
+}

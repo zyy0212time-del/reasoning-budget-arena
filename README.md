@@ -1,5 +1,24 @@
 # Reasoning Budget Arena
 
+**A Living Benchmark for Local Models: Reasoning · Capability · Latency**
+
+Reasoning Budget Arena began as a six-model comparison of native reasoning
+versus a fixed 4096-token reasoning budget. It now serves as a living
+evaluation framework for local models, combining:
+
+- frozen capability benchmarks
+- post-release model extensions
+- responsiveness measurements
+- context-stability testing
+
+The original six-model experiment remains **immutable** (frozen questions,
+locked scores, frozen rankings). New models are added as **independent
+post-release extensions** and appear on a separate
+[rolling leaderboard](#rolling-formal-c-extension-ranking) that never
+modifies the original locked ranking.
+
+## Foundational experiment (frozen benchmark)
+
 *Final-answer delivery and ranking differences under two reasoning policies —
 a six-model local-LLM comparison.*
 
@@ -125,22 +144,56 @@ which individual responses hit it.
 - No statistical significance is claimed anywhere. Full list:
   [LIMITATIONS.md](LIMITATIONS.md).
 
-## Post-release extension
+## Post-release extensions
 
-A seventh model — **Huihui Nex N2 Mini Abliterated Q4_K_M**
+Post-release models are evaluated under the identical frozen Formal C protocol
+and published as independent extensions in
+[`extensions/`](extensions/). Their scores never modify the original
+six-contestant locked ranking.
+
+**Extension 1 — Huihui Nex N2 Mini Abliterated Q4_K_M**
 (`quant-mind/Huihui-Nex-N2-mini-abliterated-GGUF`, frozen revision
-`22be29be9d6908060502f4ac984650a917afdbe6`) — was evaluated after this release
-under the identical frozen Formal C protocol.
+`22be29be9d6908060502f4ac984650a917afdbe6`):
 
 - Overall (Formal C Extension, blind, locked): **669.5 / 800 (83.69%)**
   — General 395.0 / 450 (87.78%), Cyber 274.5 / 350 (78.43%)
-- Post-lock comparative placement vs the original locked field (context only,
-  not a re-ranking): General 4/7 · Cyber 5/7 · Overall 4/7
 - Generation median: **40.51 t/s**
 - See [extensions/huihui-nex-n2-mini-abliterated-q4](extensions/huihui-nex-n2-mini-abliterated-q4/).
 
-This extension does **not** modify the original six-contestant locked ranking;
-its score is presented separately as a post-release extension.
+**Extension 2 — Ornith-1.5-35B-A3B-Uncensored Q4_K_M (0xKitkat)**
+(`0xKitkat/Ornith-1.5-35B-A3B-Uncensored-GGUF`, pinned revision
+`ab0eed77c73880afda789a3914003db2273fd64a`) — blind contestant ZD74,
+identity mapped only after score lock:
+
+- Overall (Formal C Extension, blind, locked): **672.0 / 800 (84.00%)**
+  — General 397.5 / 450 (88.33%), Cyber 274.5 / 350 (78.43%)
+- Verdict: **EVALUATED — NOT RETAINED FOR LOCAL DEPLOYMENT** — a useful
+  negative/selection result: General stayed close to Old Ornith (−7.5),
+  Cyber regressed substantially (−46.0), and the practical role overlaps the
+  existing Huihui/Nex options.
+- See [extensions/ornith-0xkitkat-uncensored-q4](extensions/ornith-0xkitkat-uncensored-q4/).
+
+## Rolling Formal C Extension Ranking
+
+Comparative view across the frozen six-model field plus all post-release
+Formal C extensions (8 models). **This rolling ranking does NOT modify the
+original locked six-model ranking**, which remains available unchanged in
+[RESULTS.md](RESULTS.md) and the locked scorebooks.
+
+| rank | model | General /450 | Cyber /350 | Overall /800 | scope | deployment status |
+|---:|---|---:|---:|---:|---|---|
+| 1 | Nex-N2-mini | 418.5 | 328.0 | **746.5** | frozen field | — |
+| 2 | Ornith-1.5-35B-A3B-Abliterated (Old Ornith) | 405.0 | 320.5 | 725.5 | frozen field | retained |
+| 3 | Gemma4-26B-A4B-…-HauhauCS-Balanced | 414.5 | 291.5 | 706.0 | frozen field | retained |
+| 4 | **Ornith-1.5-35B-A3B-Uncensored (0xKitkat, ext)** | 397.5 | 274.5 | **672.0** | extension H | not retained |
+| 5 | Huihui-Nex-N2-mini-abliterated (ext) | 395.0 | 274.5 | 669.5 | extension G | retained |
+| 6 | Endy-Qwen3.6-CyberSec-35B-A3B | 357.0 | 287.0 | 644.0 | frozen field | — |
+| 7 | Qwen3.8-9B-abliterated-25 | 368.5 | 266.5 | 635.0 | frozen field | — |
+| 8 | RavenX-CyberAgent-35B-v5.1 | 319.5 | 256.5 | 576.0 | frozen field | — |
+
+Tie handling: the two extensions tie on Cyber (274.5) — both share rank 5
+(competition ranking; the next model ranks 7). Division ranks for the new
+extension: General **#4/8**, Cyber **tied #5/8**, Overall **#4/8**.
 
 ## Subjective observations
 
@@ -178,14 +231,15 @@ condition under [`data/model-answers/`](data/model-answers/):
 | B — Endy-Qwen3.6-CyberSec-35B-A3B | — | — | — | withheld pending additional upstream/output-terms review |
 
 **256 of 384 answers released; 128 withheld** (original six-model field).
-In addition, the **32 Formal C final answers of the post-release Huihui Nex
-extension are public** (`data/model-answers/G-huihui-nex/`) — Formal C only,
-since Huihui ran no Formal D and is **not** a seventh contestant of the
-original field.
+In addition, the **32 Formal C final answers of each post-release extension
+are public** — Huihui Nex under `data/model-answers/G-huihui-nex/` and
+Ornith-1.5-35B-A3B-Uncensored (0xKitkat) under
+`data/model-answers/H-ornith-0xkitkat/` — Formal C only, since neither
+extension ran Formal D and neither is a contestant of the original field.
 
-**288 public final answers are currently available across the repository:
-256 belong to the original six-model field and 32 belong to the post-release
-Huihui Formal C extension.** A/B (128) remain withheld.
+**320 public final answers are currently available across the repository:
+256 belong to the original six-model field and 64 belong to the two
+post-release Formal C extensions (32 each).** A/B (128) remain withheld.
 
 Answers are byte-identical to the frozen generation artifacts (no
 regeneration, no rewriting), contain final-answer text only (no reasoning

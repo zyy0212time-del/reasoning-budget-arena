@@ -1,0 +1,33 @@
+{
+  "benchmark": "Formal C (frozen protocol, ctx 8192, reasoning budget 4096)",
+  "contestant": "ZD74",
+  "model": "Ornith-1.5-35B-A3B-Uncensored-Q4_K_M (post-lock mapping)",
+  "rubric": "five dimensions 0-5 each (half-points allowed), 25 max per question",
+  "lock": {
+    "scored": "32/32",
+    "locked_by": "independent blind judge (separate session)",
+    "identity_revealed_after_lock": true
+  },
+  "divisions": {
+    "general": {
+      "score": 397.5,
+      "max": 450,
+      "pct": 88.33,
+      "questions": 18
+    },
+    "cyber": {
+      "score": 274.5,
+      "max": 350,
+      "pct": 78.43,
+      "questions": 14
+    }
+  },
+  "overall": {
+    "score": 672.0,
+    "max": 800,
+    "pct": 84.0
+  },
+  "scorebook": "FORMAL-C-EXTENSION-BLIND-SCORES-LOCKED.md",
+  "question_level": "question-scores.csv / question-scores.json",
+  "answers": "data/model-answers/H-ornith-0xkitkat/formal-c.jsonl"
+}

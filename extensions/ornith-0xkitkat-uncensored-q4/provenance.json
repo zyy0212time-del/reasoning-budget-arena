@@ -1,0 +1,50 @@
+{
+  "release_key": "H",
+  "blind_contestant_id": "ZD74",
+  "model": "Ornith-1.5-35B-A3B-Uncensored-Q4_K_M",
+  "gguf_repo": "0xKitkat/Ornith-1.5-35B-A3B-Uncensored-GGUF",
+  "pinned_revision": "ab0eed77c73880afda789a3914003db2273fd64a",
+  "gguf_file": "Ornith-1.5-35B-Uncensored-Q4_K_M.gguf",
+  "gguf_size_bytes": 21713463264,
+  "gguf_sha256": "081fa0babd0e32432acf67d6af80b7e7550ae8a102a6ca6c48e4e39aab685bc9",
+  "sha_verification": {
+    "method": "SHA-256 of the exact local GGUF artifact",
+    "verified_before_generation": true,
+    "verified_again_after_generation": true,
+    "match": true
+  },
+  "runtime": {
+    "engine": "llama.cpp llama-server b10375 (build ba360efe1)",
+    "ctx": 8192,
+    "max_tokens": 8192,
+    "temperature": 0.1,
+    "top_p": 0.9,
+    "reasoning_budget_tokens": 4096,
+    "protocol": "frozen Formal C protocol (identical to original field and prior extensions)"
+  },
+  "lock": {
+    "scored": "32/32",
+    "blind_judge_saw_identity_before_lock": false,
+    "identity_revealed_after": "SCORES LOCKED",
+    "post_lock_mapping": "ZD74 = 0xKitkat/Ornith-1.5-35B-A3B-Uncensored-GGUF (Q4_K_M)"
+  },
+  "lineage": {
+    "upstream_repo": "0xKitkat/Ornith-1.5-35B-A3B-Uncensored-GGUF",
+    "upstream_repo_license": "apache-2.0 (repo label, checked 2026-09-05)",
+    "construction": "task-vector transplant: output = Ornith-1.5 + 1.0 * (Qwen3.6-abliterated - Qwen3.6-base); 102 of 693 compatible tensors modified",
+    "upstream_components": [
+      {"component": "Ornith-1.5-35B-A3B (target)", "license": "MIT (model card)" },
+      {"component": "Qwen/Qwen3.6-35B-A3B (base lineage)", "license": "apache-2.0 (model card)"},
+      {"component": "wangzhang/Qwen3.6-35B-A3B-abliterated (task-vector donor)", "license": "see upstream card"}
+    ],
+    "verification_note": "construction provenance cross-checked against the maintainer's frozen Phase C task-vector record (tensor counts and revision hashes match the upstream model card); local SHA-256SUMS record includes the exact Q4_K_M digest above"
+  },
+  "generation_anomaly": {
+    "general": "18/18 first pass, rc=0",
+    "cyber": "initial run reached 12/14 then rc=1: llama-server HTTP 500 ('The model produced output that does not match the expected peg-native format') while generating C13; C14 not reached",
+    "retry": "the frozen infrastructure retry rule allowed ONE identical retry via --ids C13,C14; retry rc=0",
+    "final": "14/14 cyber, 32/32 total",
+    "no_cherry_picking": true,
+    "no_manual_answer_replacement": true
+  }
+}
