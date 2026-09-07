@@ -17,6 +17,20 @@ post-release extensions** and appear on a separate
 [rolling leaderboard](#rolling-formal-c-extension-ranking) that never
 modifies the original locked ranking.
 
+## From evaluation to deployment
+
+Reasoning Budget Arena is the evidence layer of a broader local-AI workflow:
+
+- [Laptop Local AI Stack](https://github.com/zyy0212time-del/laptop-local-ai-stack)
+  — shows how benchmark findings, runtime measurements, memory constraints, and
+  debugging work shaped a real consumer-laptop deployment.
+- [Local AI Deploy](https://github.com/zyy0212time-del/local-ai-deploy)
+  — turns selected benchmark-backed deployment decisions into a verified
+  one-command Windows + NVIDIA setup.
+
+Arena asks what is worth deploying. Stack shows why it works. Deploy makes it
+reproducible.
+
 ## Foundational experiment (frozen benchmark)
 
 *Final-answer delivery and ranking differences under two reasoning policies —
