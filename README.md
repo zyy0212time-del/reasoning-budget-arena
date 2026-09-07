@@ -52,7 +52,7 @@ Formal C was one complete 32-question run. Differences below are therefore
 
 ## Status
 
-**PUBLISHED — PUBLIC RELEASE + OUTPUT DATASET ADDENDUM (local, pending tag).**
+**PUBLISHED — v1.3.0 + OUTPUT DATASET ADDENDUM.**
 All data and engineering checks are verified; the maintainer's license decision
 is made (MIT + CC BY 4.0); the final release gate passed with P0 = 0, P1 = 0
 (RELEASE-READINESS.md). As of 2026-09-03 the partial final-answer dataset
