@@ -1,0 +1,76 @@
+{
+  "scope": "Runtime compatibility, reasoning-channel and reasoning-budget verification, plus frozen-protocol Formal C telemetry.",
+  "important_caveat": "The compatibility and budget probes used a small set of neutral prompts that are NOT part of the Arena benchmark; they are health/capability probes only and were run before the formal 32-question generation. They are not Arena-comparable quality measurements. Speed is runtime-specific and is never folded into any score.",
+  "runtime": {
+    "engine": "llama.cpp llama-server b10375 (build ba360efe1), Clang 20.1.8, Windows x86_64",
+    "historical_runtime_reused": true,
+    "historical_build_compatible": true,
+    "runtime_deviation": "NONE",
+    "ngl": 99,
+    "flash_attn": "on",
+    "threads": 24,
+    "ncmoe": 0,
+    "ncmoe_note": "dense model: -ncmoe not applicable and not passed"
+  },
+  "model_load": "PASS (compatibility probe: 9.5-21.6 s to /health ok, 3/3 probe servers)",
+  "basic_sanity": "PASS (separated reasoning_content + content returned by /v1/chat/completions)",
+  "reasoning_channel": {
+    "present": true,
+    "separated_from_content": true,
+    "hard_budget_flag_accepted": true,
+    "hard_budget_enforced": true,
+    "evidence": {
+      "probe_prompt": "non-Arena neutral prompt requiring long chain-of-thought",
+      "reasoning_chars_by_budget": [
+        {"reasoning_budget": 64, "reasoning_chars": 234},
+        {"reasoning_budget": 256, "reasoning_chars": 773},
+        {"reasoning_budget": 4096, "reasoning_chars": 10482},
+        {"reasoning_budget": null, "reasoning_chars": 988}
+      ],
+      "interpretation": "reasoning-channel length scales monotonically with the configured budget, so the 4096 hard budget is genuinely enforced by the backend rather than merely accepted"
+    }
+  },
+  "isolated_llama_bench": {
+    "command_shape": "llama-bench -m <gguf> -ngl 99 -t 24 -p 512 -n 128 -r 1",
+    "pp512_tps": 2029.98,
+    "tg128_tps": 57.17,
+    "ngl": 99,
+    "model_size_gib": 5.23,
+    "backend": "CUDA",
+    "note": "single clean run on an otherwise idle GPU"
+  },
+  "formal_c_run_context": {
+    "protocol": "frozen Formal C (ctx 8192, max_tokens 8192, reasoning budget 4096, temp 0.1, top_p 0.9, no system prompt, --no-speed)",
+    "aggregation": "median over the per-question telemetry of all questions in the division",
+    "general": {
+      "n": 18,
+      "median_prefill_tps": 915.87,
+      "median_decode_tps": 52.34,
+      "median_wall_s": 12.03,
+      "median_input_tokens": 89.5,
+      "completion_tokens_total": 34551
+    },
+    "cyber": {
+      "n": 14,
+      "median_prefill_tps": 1054.94,
+      "median_decode_tps": 52.81,
+      "median_wall_s": 15.69,
+      "median_input_tokens": 105.5,
+      "completion_tokens_total": 31853
+    },
+    "combined": {
+      "n": 32,
+      "median_prefill_tps": 962.7,
+      "median_decode_tps": 52.44,
+      "decode_tps_range": [15.67, 54.54],
+      "median_wall_s": 14.97,
+      "completion_tokens_total": 66404
+    }
+  },
+  "resources": {
+    "vram_peak_mib": 6546,
+    "vram_total_mib": 8151,
+    "system_ram_gb": 31.4,
+    "offload": "full GPU offload (dense 9B Q4_K_M, -ngl 99)"
+  }
+}

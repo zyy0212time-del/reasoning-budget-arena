@@ -71,11 +71,18 @@ WITHHELD_MODELS = [
 ]
 
 # Post-release extensions: SEPARATE scope, not part of the original
-# six-model field. dir -> (model name, conditions that must exist)
+# six-model field. dir -> (model name, conditions that must exist,
+# locked extension scorebook directory)
 EXTENSION_MODELS = {
-    "G-huihui-nex": ("Huihui-Nex-N2-mini-abliterated-Q4_K_M", ("formal-c",)),
+    "G-huihui-nex": ("Huihui-Nex-N2-mini-abliterated-Q4_K_M", ("formal-c",),
+                     "huihui-nex-n2-mini-abliterated-q4"),
+    "H-ornith-0xkitkat": ("Ornith-1.5-35B-A3B-Uncensored-Q4_K_M", ("formal-c",),
+                          "ornith-0xkitkat-uncensored-q4"),
+    "I-mimo-v26-9b-abliterated-q4":
+        ("MiMo-V2.6-Distill-Qwen-9B-Abliterated-Q4_K_M", ("formal-c",),
+         "mimo-v2.6-distill-qwen-9b-abliterated-q4"),
 }
-EXPECTED_PUBLIC_TOTAL = 288  # 256 original field + 32 Huihui extension
+EXPECTED_PUBLIC_TOTAL = 352  # 256 original field + 3 x 32 extension
 
 # Reviewed false positives inside model-answer text. An exemption is bound to
 # the EXACT ROW IDENTITY — not just the matched substring:
@@ -173,9 +180,9 @@ def read_csv_rows(path):
         return header, list(r)
 
 
-def read_extension_scorebook_ids(target):
+def read_extension_scorebook_ids(target, ext_dir):
     """Question ids from the locked extension scorebook (never rescored)."""
-    p = os.path.join(target, "extensions", "huihui-nex-n2-mini-abliterated-q4",
+    p = os.path.join(target, "extensions", ext_dir,
                      "FORMAL-C-EXTENSION-BLIND-SCORES-LOCKED.md")
     if not os.path.exists(p):
         return None
@@ -226,7 +233,7 @@ def check_partial_release(target):
     # ---- post-release extension (separate scope) ----
     ext_problems = []
     ext_total = 0
-    for d, (model, conds) in EXTENSION_MODELS.items():
+    for d, (model, conds, sbdir) in EXTENSION_MODELS.items():
         ext_dir = os.path.join(ma, d)
         if not os.path.isdir(ext_dir):
             ext_problems.append("missing extension dir %s" % d)
@@ -260,8 +267,10 @@ def check_partial_release(target):
             if len(set(ids)) != 32:
                 ext_problems.append("%s: %d unique question ids (expected 32)"
                                     % (os.path.relpath(p, target), len(set(ids))))
-            sb = read_extension_scorebook_ids(target)
-            if sb is not None and set(ids) != set(sb):
+            sb = read_extension_scorebook_ids(target, sbdir)
+            if sb is None:
+                ext_problems.append("%s: locked extension scorebook not found" % d)
+            elif set(ids) != set(sb):
                 ext_problems.append("extension ids != locked extension scorebook ids")
             ext_total += len(rows)
     check("extension dataset: 32 Formal C rows, correct schema/labels, "
@@ -270,7 +279,7 @@ def check_partial_release(target):
     check("extension has no Formal D dataset",
           not any(os.path.exists(os.path.join(ma, d, "formal-d.csv"))
                   for d in EXTENSION_MODELS))
-    check("repository public total = 288 (256 original field + 32 extension)",
+    check("repository public total = 352 (256 original field + 3 x 32 extension)",
           total + ext_total == EXPECTED_PUBLIC_TOTAL,
           "%d + %d" % (total, ext_total))
 
@@ -345,8 +354,8 @@ def check_partial_release(target):
               "RESOLVED" in mtxt and "WITHHELD" in mtxt)
         check("MANIFEST totals row (256/128/384)",
               "**256**" in mtxt and "**128**" in mtxt and "**384**" in mtxt)
-        check("MANIFEST repository total 288 + scope separation",
-              "**288**" in mtxt
+        check("MANIFEST repository total 352 + scope separation",
+              "**352**" in mtxt
               and "original six-model field" in mtxt
               and "post-release extension" in mtxt.lower())
     readme_p = os.path.join(target, "README.md")
@@ -354,10 +363,13 @@ def check_partial_release(target):
         rtxt = open(readme_p, encoding="utf-8").read()
         check("README states the partial-release counts",
               "256 of 384" in rtxt and "128 withheld" in rtxt)
-        check("README states 288 public = 256 original field + 32 extension",
-              "288 public final answers" in rtxt
-              and "256 belong to the original" in rtxt
-              and "32 belong to the post-release" in rtxt)
+        # whitespace-normalised so the assertions are not sensitive to the
+        # Markdown line wrapping of the README prose
+        rnorm = " ".join(rtxt.split())
+        check("README states 352 public = 256 original field + 96 extension",
+              "352 public final answers" in rnorm
+              and "256 belong to the original" in rnorm
+              and "96 belong to the three post-release" in rnorm)
         check("README no longer blanket-withholds the answer dataset",
               "are\n  withheld from this public release" not in rtxt)
 
