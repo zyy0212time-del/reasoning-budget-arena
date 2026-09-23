@@ -264,7 +264,10 @@ def main():
     ccy = ranks(out["formal-c"], "cyber")
 
     with open(os.path.join(DATA, "d-vs-c.csv"), "w", newline="", encoding="utf-8-sig") as f:
-        w = csv.writer(f)
+        # explicit LF terminator: the repository stores and checks out LF for
+        # every text artifact (.gitattributes), and csv.writer would otherwise
+        # emit CRLF on every platform, leaving a spurious modification here
+        w = csv.writer(f, lineterminator="\n")
         w.writerow(["model", "d_general", "c_general", "delta_general",
                     "d_cyber", "c_cyber", "delta_cyber",
                     "d_overall", "c_overall", "delta_overall",

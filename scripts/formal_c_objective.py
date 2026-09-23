@@ -104,7 +104,8 @@ def main():
                     "wall_ms": round(rec.get("wall_ms") or 0, 1),
                 })
     with open(OUT, "w", newline="", encoding="utf-8-sig") as f:
-        w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+        # explicit LF terminator to match the repository line-ending contract
+        w = csv.DictWriter(f, fieldnames=list(rows[0].keys()), lineterminator="\n")
         w.writeheader()
         w.writerows(rows)
     print(f"wrote {OUT} ({len(rows)} rows)")

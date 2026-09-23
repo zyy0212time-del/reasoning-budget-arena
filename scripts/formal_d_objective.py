@@ -236,7 +236,8 @@ def init_audit_template(raw_root, audit_path, force=False):
         if m["cand"]:
             cands.append((tag, div, qid, m))
     with open(audit_path, "w", newline="", encoding="utf-8-sig") as f:
-        w = csv.writer(f)
+        # explicit LF terminator to match the repository line-ending contract
+        w = csv.writer(f, lineterminator="\n")
         w.writerow(["tag", "division", "question_id", "candidate", "confirmed_loop",
                     "reason", "near_generation_cap", "has_final", "notes"])
         for tag, div, qid, m in sorted(cands):
@@ -277,7 +278,8 @@ def aggregate(raw_root, audit_path):
 
 def write_objective(rows):
     with open(OUT, "w", newline="", encoding="utf-8-sig") as f:
-        w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+        # explicit LF terminator to match the repository line-ending contract
+        w = csv.DictWriter(f, fieldnames=list(rows[0].keys()), lineterminator="\n")
         w.writeheader()
         w.writerows(rows)
 
