@@ -187,10 +187,27 @@ identity mapped only after score lock:
   existing Huihui/Nex options.
 - See [extensions/ornith-0xkitkat-uncensored-q4](extensions/ornith-0xkitkat-uncensored-q4/).
 
+**Extension 3 — MiMo-V2.6-Distill-Qwen-9B-Abliterated Q4_K_M**
+(`BoldingBuilds/MiMo-V2.6-Distill-Qwen-9B-Abliterated-Q8_0-GGUF`, frozen
+revision `ea8a846460d5643d7010d0500f7d7dd8c347cf59`) — blind contestant `TM91`,
+identity mapped only after score lock:
+
+- Overall (Formal C Extension, blind, locked): **539.0 / 800 (67.38%)**
+  — General 307.0 / 450 (68.22%), Cyber 232.0 / 350 (66.29%)
+- Runtime: **no deviation** — the historical b10375 build loads and runs this
+  model, including the reasoning channel and `--reasoning-budget`
+- Generation median: **52.44 t/s** (the fastest model measured in this arena)
+- Verdict: **EVALUATED — NOT RETAINED FOR LOCAL DEPLOYMENT** — a dense 9B
+  (5.24 GiB) that is far faster than the retained MoE models but finishes last
+  of 9 on all three dimensions, including −96.0 overall against the original
+  field's other 9B (Qwen3.8-9B-abliterated, 635.0). Its profile is bimodal:
+  thirteen questions scored 22–25/25 while several failed severely.
+- See [extensions/mimo-v2.6-distill-qwen-9b-abliterated-q4](extensions/mimo-v2.6-distill-qwen-9b-abliterated-q4/).
+
 ## Rolling Formal C Extension Ranking
 
 Comparative view across the frozen six-model field plus all post-release
-Formal C extensions (8 models). **This rolling ranking does NOT modify the
+Formal C extensions (9 models). **This rolling ranking does NOT modify the
 original locked six-model ranking**, which remains available unchanged in
 [RESULTS.md](RESULTS.md) and the locked scorebooks.
 
@@ -199,15 +216,16 @@ original locked six-model ranking**, which remains available unchanged in
 | 1 | Nex-N2-mini | 418.5 | 328.0 | **746.5** | frozen field | — |
 | 2 | Ornith-1.5-35B-A3B-Abliterated (Old Ornith) | 405.0 | 320.5 | 725.5 | frozen field | retained |
 | 3 | Gemma4-26B-A4B-…-HauhauCS-Balanced | 414.5 | 291.5 | 706.0 | frozen field | retained |
-| 4 | **Ornith-1.5-35B-A3B-Uncensored (0xKitkat, ext)** | 397.5 | 274.5 | **672.0** | extension H | not retained |
+| 4 | Ornith-1.5-35B-A3B-Uncensored (0xKitkat, ext) | 397.5 | 274.5 | **672.0** | extension H | not retained |
 | 5 | Huihui-Nex-N2-mini-abliterated (ext) | 395.0 | 274.5 | 669.5 | extension G | retained |
 | 6 | Endy-Qwen3.6-CyberSec-35B-A3B | 357.0 | 287.0 | 644.0 | frozen field | — |
 | 7 | Qwen3.8-9B-abliterated-25 | 368.5 | 266.5 | 635.0 | frozen field | — |
 | 8 | RavenX-CyberAgent-35B-v5.1 | 319.5 | 256.5 | 576.0 | frozen field | — |
+| 9 | **MiMo-V2.6-Distill-Qwen-9B-Abliterated (ext)** | 307.0 | 232.0 | **539.0** | extension I | not retained |
 
-Tie handling: the two extensions tie on Cyber (274.5) — both share rank 5
-(competition ranking; the next model ranks 7). Division ranks for the new
-extension: General **#4/8**, Cyber **tied #5/8**, Overall **#4/8**.
+Tie handling: extensions H and G tie on Cyber (274.5) — both share rank 5
+(competition ranking; the next model ranks 7). Division ranks for the newest
+extension (I): General **#9/9**, Cyber **#9/9**, Overall **#9/9**.
 
 ## Subjective observations
 
@@ -246,13 +264,15 @@ condition under [`data/model-answers/`](data/model-answers/):
 
 **256 of 384 answers released; 128 withheld** (original six-model field).
 In addition, the **32 Formal C final answers of each post-release extension
-are public** — Huihui Nex under `data/model-answers/G-huihui-nex/` and
+are public** — Huihui Nex under `data/model-answers/G-huihui-nex/`,
 Ornith-1.5-35B-A3B-Uncensored (0xKitkat) under
-`data/model-answers/H-ornith-0xkitkat/` — Formal C only, since neither
-extension ran Formal D and neither is a contestant of the original field.
+`data/model-answers/H-ornith-0xkitkat/`, and MiMo-V2.6-Distill-Qwen-9B-Abliterated
+under `data/model-answers/I-mimo-v26-9b-abliterated-q4/` — Formal C only, since
+none of the three extensions ran Formal D and none is a contestant of the
+original field.
 
-**320 public final answers are currently available across the repository:
-256 belong to the original six-model field and 64 belong to the two
+**352 public final answers are currently available across the repository:
+256 belong to the original six-model field and 96 belong to the three
 post-release Formal C extensions (32 each).** A/B (128) remain withheld.
 
 Answers are byte-identical to the frozen generation artifacts (no

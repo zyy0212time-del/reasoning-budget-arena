@@ -1,0 +1,34 @@
+{
+  "benchmark": "Formal C (frozen protocol, ctx 8192, reasoning budget 4096)",
+  "contestant": "TM91",
+  "model": "MiMo-V2.6-Distill-Qwen-9B-Abliterated-Q4_K_M (post-lock mapping)",
+  "rubric": "five dimensions 0-5 each (half-points allowed), 25 max per question",
+  "lock": {
+    "scored": "32/32",
+    "locked_by": "independent blind judge (separate session; new GPT window, per the historical judge mechanism)",
+    "identity_revealed_after_lock": true,
+    "scores_locked_sha256": "648d2b2822064a7a08c15d7723d256aac56d57ca898ff1a9b6279888ecd9a2b8"
+  },
+  "divisions": {
+    "general": {
+      "score": 307.0,
+      "max": 450,
+      "pct": 68.22,
+      "questions": 18
+    },
+    "cyber": {
+      "score": 232.0,
+      "max": 350,
+      "pct": 66.29,
+      "questions": 14
+    }
+  },
+  "overall": {
+    "score": 539.0,
+    "max": 800,
+    "pct": 67.38
+  },
+  "scorebook": "FORMAL-C-EXTENSION-BLIND-SCORES-LOCKED.md",
+  "question_level": "question-scores.csv / question-scores.json",
+  "answers": "data/model-answers/I-mimo-v26-9b-abliterated-q4/formal-c.csv"
+}
