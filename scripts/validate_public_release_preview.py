@@ -14,10 +14,10 @@ Checks (programmatic, no inference):
          (original six-model field — this number must NOT be mechanically
          changed when extensions are added)
        - 32 + 32 rows per released model, exact schema, no A/B rows
-       - POST-RELEASE EXTENSION (separate scope): G-huihui-nex/formal-c.csv
-         with exactly 32 rows, no Formal D file, ids matching the locked
-         extension scorebook
-       - repository-level public total = 256 + 32 = 288
+       - POST-RELEASE EXTENSIONS (separate scope): G-huihui-nex,
+         H-ornith-0xkitkat and I-minicpm-v47 — each formal-c.csv with exactly
+         32 rows, no Formal D file, ids matching the locked extension scorebook
+       - repository-level public total = 256 + 3 x 32 = 352
        - withheld A/B model identifiers absent from the dataset tree
        - model-answers NOTICE/MANIFEST present with consistent counts,
          provenance statuses and the model-output rights disclaimer
@@ -74,8 +74,10 @@ WITHHELD_MODELS = [
 # six-model field. dir -> (model name, conditions that must exist)
 EXTENSION_MODELS = {
     "G-huihui-nex": ("Huihui-Nex-N2-mini-abliterated-Q4_K_M", ("formal-c",)),
+    "H-ornith-0xkitkat": ("Ornith-1.5-35B-A3B-Uncensored-Q4_K_M", ("formal-c",)),
+    "I-minicpm-v47": ("MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS", ("formal-c",)),
 }
-EXPECTED_PUBLIC_TOTAL = 288  # 256 original field + 32 Huihui extension
+EXPECTED_PUBLIC_TOTAL = 352  # 256 original field + 3 x 32 post-release extensions
 
 # Reviewed false positives inside model-answer text. An exemption is bound to
 # the EXACT ROW IDENTITY — not just the matched substring:
@@ -270,7 +272,7 @@ def check_partial_release(target):
     check("extension has no Formal D dataset",
           not any(os.path.exists(os.path.join(ma, d, "formal-d.csv"))
                   for d in EXTENSION_MODELS))
-    check("repository public total = 288 (256 original field + 32 extension)",
+    check("repository public total = 352 (256 original field + 3 x 32 extensions)",
           total + ext_total == EXPECTED_PUBLIC_TOTAL,
           "%d + %d" % (total, ext_total))
 
@@ -345,8 +347,8 @@ def check_partial_release(target):
               "RESOLVED" in mtxt and "WITHHELD" in mtxt)
         check("MANIFEST totals row (256/128/384)",
               "**256**" in mtxt and "**128**" in mtxt and "**384**" in mtxt)
-        check("MANIFEST repository total 288 + scope separation",
-              "**288**" in mtxt
+        check("MANIFEST repository total 352 + scope separation",
+              "**352**" in mtxt
               and "original six-model field" in mtxt
               and "post-release extension" in mtxt.lower())
     readme_p = os.path.join(target, "README.md")
@@ -354,10 +356,10 @@ def check_partial_release(target):
         rtxt = open(readme_p, encoding="utf-8").read()
         check("README states the partial-release counts",
               "256 of 384" in rtxt and "128 withheld" in rtxt)
-        check("README states 288 public = 256 original field + 32 extension",
-              "288 public final answers" in rtxt
+        check("README states 352 public = 256 original field + 3 x 32 extensions",
+              "352 public final answers" in rtxt
               and "256 belong to the original" in rtxt
-              and "32 belong to the post-release" in rtxt)
+              and "96 belong to the three" in rtxt)
         check("README no longer blanket-withholds the answer dataset",
               "are\n  withheld from this public release" not in rtxt)
 

@@ -173,10 +173,37 @@ identity mapped only after score lock:
   existing Huihui/Nex options.
 - See [extensions/ornith-0xkitkat-uncensored-q4](extensions/ornith-0xkitkat-uncensored-q4/).
 
+**Extension 3 — MiniCPM-V 4.7 35B-A3B Uncensored (AtomicChat, AD-Q4_K-IQ4_XS)**
+(`AtomicChat/MiniCPM-V-4.7-35B-A3B-Uncensored-GGUF`, pinned revision
+`948c2f37e34730f8abd9b80f86642f37e8f30960`) — blind contestant K71, identity
+mapped only after score lock:
+
+- Overall (Formal C Extension, blind, locked): **712.0 / 800 (89.00%)**
+  — General 391.0 / 450 (86.89%), Cyber 321.0 / 350 (91.71%)
+- **Graded under Automated Blind Grading — New Judge Protocol** (two
+  independent blind judges + adjudicator), *not* by the historical judge
+  session. Calibrated against 10 locked historical anchors: the automated
+  judges are −0.50/question harsher (MAD 1.10–1.70), i.e. ≈ −16 / 800; a
+  cross-protocol estimate of ≈ 728 / 800 (band ≈ 718–738) is given for
+  indicative cross-run comparison only and must never be mixed with the locked
+  number. Different runtime (llama.cpp b11617, required by the model card) and
+  different quantization (AD-Q4_K-IQ4_XS, the only uncensored build that fits
+  8 GiB).
+- Verdict: **EVALUATED — PROMISING FOR THE MAINTAINER'S HANDS-ON UNCENSORING
+  TRIAL; NOT INSTALLED, NOT DEPLOYED, GEMMA NOT REPLACED.** vs the incumbent
+  Gemma4-26B (706.0): Overall **+6.0**, Cyber **+29.5**, General **−23.5** —
+  and 22 of those 23.5 General points are a single no-final failure (G10).
+- Generation notes: **32/32 generated**; G10 produced reasoning content but an
+  empty final-answer field and is published as
+  `[NO FINAL ANSWER WITHIN FIXED BUDGET]` (0/25, not retried). Speed on this
+  machine: TTFT median 0.528 s / p95 0.662 s, decode median 33.2 t/s
+  (Gemma4-26B on the same machine: 0.509 s / 1.908 s, 30.8 t/s).
+- See [extensions/minicpm-v-4.7-35b-a3b-uncensored](extensions/minicpm-v-4.7-35b-a3b-uncensored/).
+
 ## Rolling Formal C Extension Ranking
 
 Comparative view across the frozen six-model field plus all post-release
-Formal C extensions (8 models). **This rolling ranking does NOT modify the
+Formal C extensions (**9 models**). **This rolling ranking does NOT modify the
 original locked six-model ranking**, which remains available unchanged in
 [RESULTS.md](RESULTS.md) and the locked scorebooks.
 
@@ -184,16 +211,26 @@ original locked six-model ranking**, which remains available unchanged in
 |---:|---|---:|---:|---:|---|---|
 | 1 | Nex-N2-mini | 418.5 | 328.0 | **746.5** | frozen field | — |
 | 2 | Ornith-1.5-35B-A3B-Abliterated (Old Ornith) | 405.0 | 320.5 | 725.5 | frozen field | retained |
-| 3 | Gemma4-26B-A4B-…-HauhauCS-Balanced | 414.5 | 291.5 | 706.0 | frozen field | retained |
-| 4 | **Ornith-1.5-35B-A3B-Uncensored (0xKitkat, ext)** | 397.5 | 274.5 | **672.0** | extension H | not retained |
-| 5 | Huihui-Nex-N2-mini-abliterated (ext) | 395.0 | 274.5 | 669.5 | extension G | retained |
-| 6 | Endy-Qwen3.6-CyberSec-35B-A3B | 357.0 | 287.0 | 644.0 | frozen field | — |
-| 7 | Qwen3.8-9B-abliterated-25 | 368.5 | 266.5 | 635.0 | frozen field | — |
-| 8 | RavenX-CyberAgent-35B-v5.1 | 319.5 | 256.5 | 576.0 | frozen field | — |
+| 3 **\*** | **MiniCPM-V-4.7-35B-A3B-Uncensored (ext)** | 391.0 | 321.0 | **712.0** | **extension I** | **evaluated, not installed** |
+| 4 | Gemma4-26B-A4B-…-HauhauCS-Balanced | 414.5 | 291.5 | 706.0 | frozen field | retained |
+| 5 | Ornith-1.5-35B-A3B-Uncensored (0xKitkat, ext) | 397.5 | 274.5 | **672.0** | extension H | not retained |
+| 6 | Huihui-Nex-N2-mini-abliterated (ext) | 395.0 | 274.5 | 669.5 | extension G | retained |
+| 7 | Endy-Qwen3.6-CyberSec-35B-A3B | 357.0 | 287.0 | 644.0 | frozen field | — |
+| 8 | Qwen3.8-9B-abliterated-25 | 368.5 | 266.5 | 635.0 | frozen field | — |
+| 9 | RavenX-CyberAgent-35B-v5.1 | 319.5 | 256.5 | 576.0 | frozen field | — |
 
-Tie handling: the two extensions tie on Cyber (274.5) — both share rank 5
-(competition ranking; the next model ranks 7). Division ranks for the new
-extension: General **#4/8**, Cyber **tied #5/8**, Overall **#4/8**.
+**\* Extension I is not directly comparable and its placement is indicative
+only.** It is graded under **Automated Blind Grading — New Judge Protocol**,
+on a different llama.cpp build, with a different quantization and a different
+MoE placement. Anchor calibration against 10 locked historical items gives
+≈ −16 ± ~10 / 800 versus the historical judge, so a cross-protocol estimate is
+≈ **728 / 800** (band ≈ 718–738). Only the questions, sampling parameters,
+budget, rubric and machine are identical. Do not read rank 3 as "beats Gemma"
+without that band.
+
+Tie handling: the two Ornith/Huihui extensions tie on Cyber (274.5) — both
+share rank 5 of the Cyber column (competition ranking). Division ranks for
+extension I: General **#6/9**, Cyber **#2/9**, Overall **#3/9**.
 
 ## Subjective observations
 
@@ -232,13 +269,14 @@ condition under [`data/model-answers/`](data/model-answers/):
 
 **256 of 384 answers released; 128 withheld** (original six-model field).
 In addition, the **32 Formal C final answers of each post-release extension
-are public** — Huihui Nex under `data/model-answers/G-huihui-nex/` and
+are public** — Huihui Nex under `data/model-answers/G-huihui-nex/`,
 Ornith-1.5-35B-A3B-Uncensored (0xKitkat) under
-`data/model-answers/H-ornith-0xkitkat/` — Formal C only, since neither
-extension ran Formal D and neither is a contestant of the original field.
+`data/model-answers/H-ornith-0xkitkat/`, and MiniCPM-V-4.7-35B-A3B-Uncensored
+under `data/model-answers/I-minicpm-v47/` — Formal C only, since no extension
+ran Formal D and none is a contestant of the original field.
 
-**320 public final answers are currently available across the repository:
-256 belong to the original six-model field and 64 belong to the two
+**352 public final answers are currently available across the repository:
+256 belong to the original six-model field and 96 belong to the three
 post-release Formal C extensions (32 each).** A/B (128) remain withheld.
 
 Answers are byte-identical to the frozen generation artifacts (no

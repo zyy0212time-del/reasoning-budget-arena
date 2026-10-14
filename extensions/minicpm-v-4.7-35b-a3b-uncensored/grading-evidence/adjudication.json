@@ -1,0 +1,7 @@
+{
+  "adjudicator_id": "ADJ-1",
+  "rule": "|A-B| >= 3.0 per question",
+  "items_received": 0,
+  "items_resolved": 0,
+  "note": "no item reached the divergence threshold, so the adjudicator performed no scoring; the rule was declared before scoring"
+}

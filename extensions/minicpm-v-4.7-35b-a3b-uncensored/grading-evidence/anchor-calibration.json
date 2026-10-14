@@ -1,0 +1,41 @@
+{
+  "anchor_count": 10,
+  "anchor_selection": "5 General + 5 Cyber, stratified across the locked-score range 17.5-25.0, drawn from the four public historical Formal C answer sets (C-gemma4/S47, D-ornith/X49, E-nex/W60, F-qwen3.8/H86); A and B are output-withheld and were not used",
+  "judges": [
+    "CAL-1",
+    "CAL-2"
+  ],
+  "per_judge": {
+    "CAL-1": {
+      "n": 10,
+      "mean_signed_diff_per_question": -0.5,
+      "mad_per_question": 1.1,
+      "mad_pct_of_25": 4.4,
+      "max_abs_diff": 3.5,
+      "within_1": "7/10",
+      "within_2": "8/10",
+      "dim_level_mean_signed": -0.1,
+      "dim_level_mad": 0.36
+    },
+    "CAL-2": {
+      "n": 10,
+      "mean_signed_diff_per_question": -0.5,
+      "mad_per_question": 1.7,
+      "mad_pct_of_25": 6.8,
+      "max_abs_diff": 3.5,
+      "within_1": "3/10",
+      "within_2": "7/10",
+      "dim_level_mean_signed": -0.1,
+      "dim_level_mad": 0.38
+    }
+  },
+  "inter_grader": {
+    "mean_signed_diff": 0.0,
+    "mad_per_question": 1.0,
+    "max_abs_diff": 2.5
+  },
+  "extrapolated_32_question_bias_points_of_800": -16.0,
+  "random_component_points_of_800": "±6 (CAL-1) to ±10 (CAL-2)",
+  "conclusion": "the automated judges are self-consistent and slightly harsher than the historical judge; the raw score is the primary result and a cross-protocol estimate is given separately",
+  "truth_file_not_shown_to_judges": "state/anchor-truth.json (run archive)"
+}

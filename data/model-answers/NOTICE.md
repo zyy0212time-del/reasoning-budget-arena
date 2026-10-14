@@ -17,7 +17,9 @@ benchmark models, split per model and per formal condition:
 | `F-qwen3.8/` | Qwen3.8-9B-abliterated-25 | 32 | 32 | 64 |
 | **released total (original six-model field)** | | **128** | **128** | **256** |
 | `G-huihui-nex/` | Huihui-Nex-N2-mini-abliterated-Q4_K_M — **post-release extension** | 32 | not run | 32 |
-| **repository total (public)** | | **160** | **128** | **288** |
+| `H-ornith-0xkitkat/` | Ornith-1.5-35B-A3B-Uncensored-Q4_K_M — **post-release extension** | 32 | not run | 32 |
+| `I-minicpm-v47/` | MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS — **post-release extension** | 32 | not run | 32 |
+| **repository total (public)** | | **224** | **128** | **352** |
 
 **Withheld — not present anywhere in this repository:**
 
@@ -30,22 +32,28 @@ The benchmark grand total is unchanged: 6 models × 32 questions × 2 formal
 conditions = **384 answers = 256 released + 128 withheld**. No statement in
 this repository should be read as a promise that A/B will be released later.
 
-### Separate scope — post-release Huihui Nex extension
+### Separate scope — post-release extensions
 
-`G-huihui-nex/formal-c.csv` holds **32 further final answers** from the
-post-release extension contestant (extension opaque id `LR37`), evaluated
-under the identical frozen Formal C protocol **after** the original release.
-This is a **separate scope**:
+`G-huihui-nex/formal-c.csv`, `H-ornith-0xkitkat/formal-c.csv` and
+`I-minicpm-v47/formal-c.csv` each hold **32 further final answers** from a
+post-release extension contestant (extension opaque ids `LR37`, `ZD74`, `K71`),
+each evaluated under the identical frozen Formal C protocol **after** the
+original release. Each is a **separate scope**:
 
 - it is **not** part of the original 384-answer six-model field
-- it has **no Formal D answers** (the extension ran Formal C only)
+- it has **no Formal D answers** (the extensions ran Formal C only)
 - its locked extension scorebook is untouched by this answer release
-- Huihui is not a seventh contestant of the original field and is not ranked
+- none of them is a seventh contestant of the original field and none is ranked
   against it
 
-Repository-level public coverage is therefore **288 answers** (256 original
-field + 32 extension), with **128 still withheld** (A/B). It must not be read
-as "7 models × 32 × 2".
+Repository-level public coverage is therefore **352 answers** (256 original
+field + 3 × 32 extension), with **128 still withheld** (A/B). It must not be
+read as "9 models × 32 × 2".
+
+Note on `I-minicpm-v47`: its Formal C run scored **32/32**, and one answer
+(G10) is published as the frozen failure marker
+`[NO FINAL ANSWER WITHIN FIXED BUDGET]` exactly as generated — the marker is
+part of the benchmark result and is not edited out.
 
 ## Why partial
 

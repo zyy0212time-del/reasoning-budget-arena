@@ -1,0 +1,77 @@
+{
+  "grader_id": "CAL-1",
+  "rubric": "frozen five-dimensional rubric (0-5, halves; 25 max per item)",
+  "blind": true,
+  "items": [
+    {
+      "id": "A01",
+      "div": "general",
+      "dims": {"correctness": 4, "completeness": 3.5, "visible_reasoning": 4, "instruction_following": 4.5, "practical_usefulness": 4},
+      "total": 20,
+      "evidence": "按题目三分法组织：星际空间/RTG/DSN/2030s 停用等核心事实正确；但 38°/34° 轨迹角不准，且漏掉 2023-24 飞行数据系统故障等已知要闻。"
+    },
+    {
+      "id": "A02",
+      "div": "general",
+      "dims": {"correctness": 3.5, "completeness": 3.5, "visible_reasoning": 4, "instruction_following": 4.5, "practical_usefulness": 4},
+      "total": 19.5,
+      "evidence": "给出编号交错序列解释间歇性并给出加锁修复，但未指出 `self._buf += line` 自身的读-改-写丢失更新才是丢日志主因。"
+    },
+    {
+      "id": "A03",
+      "div": "general",
+      "dims": {"correctness": 4.5, "completeness": 5, "visible_reasoning": 4.5, "instruction_following": 5, "practical_usefulness": 5},
+      "total": 24,
+      "evidence": "四项要求（选型理由、12h 工时表、3 风险+缓解、30 分钟脚本）齐备；Go+SQLite+纯 Go 驱动与离线静态编译方案正确可行。"
+    },
+    {
+      "id": "A04",
+      "div": "general",
+      "dims": {"correctness": 5, "completeness": 5, "visible_reasoning": 4, "instruction_following": 5, "practical_usefulness": 5},
+      "total": 24,
+      "evidence": "42→four2 与其余 4→four 全部转换正确，计数 6 正确，严格两行输出；题目未要求推导过程，故推理项不额外加分。"
+    },
+    {
+      "id": "A05",
+      "div": "general",
+      "dims": {"correctness": 5, "completeness": 4.5, "visible_reasoning": 4.5, "instruction_following": 5, "practical_usefulness": 5},
+      "total": 24,
+      "evidence": "正确定位偶数长度未取两中位数并给出修复与 [1,2,3,4] 反例，附带 sort() 原地修改副作用；未提空列表越界。"
+    },
+    {
+      "id": "A06",
+      "div": "cyber",
+      "dims": {"correctness": 3, "completeness": 3.5, "visible_reasoning": 4, "instruction_following": 4, "practical_usefulness": 3},
+      "total": 17.5,
+      "evidence": "逐字节 k=c-m 算术正确且察觉单字节矛盾，却弱化结论、臆断为 Vigenère 并给出循环式明文 FLAG{，未真正完成恢复。"
+    },
+    {
+      "id": "A07",
+      "div": "cyber",
+      "dims": {"correctness": 4, "completeness": 4, "visible_reasoning": 4, "instruction_following": 4, "practical_usefulness": 3.5},
+      "total": 19.5,
+      "evidence": "五类 STRIDE 威胁与 L×I 排序合理，但最高价值缓解选了排名第 2 的 OTA，与自身排序未自洽；硬件根因对玩具设备欠落地。"
+    },
+    {
+      "id": "A08",
+      "div": "cyber",
+      "dims": {"correctness": 3.5, "completeness": 4, "visible_reasoning": 3.5, "instruction_following": 4.5, "practical_usefulness": 3.5},
+      "total": 19,
+      "evidence": "正确判定不存在单字节密钥并以 k=0x59 推出 F35@2，规则 k=c-m 正确；但表中 0x8E/0x99/0x8B 三行密钥值算错。"
+    },
+    {
+      "id": "A09",
+      "div": "cyber",
+      "dims": {"correctness": 4.5, "completeness": 5, "visible_reasoning": 5, "instruction_following": 5, "practical_usefulness": 5},
+      "total": 24.5,
+      "evidence": "HAAAAAA\\ 校验通过（和 554 mod 256=42），95^7/256≈2.7e11 推导完整；仅“几乎任意前缀都有解”略夸大约为 37% 命中率。"
+    },
+    {
+      "id": "A10",
+      "div": "cyber",
+      "dims": {"correctness": 5, "completeness": 5, "visible_reasoning": 4.5, "instruction_following": 5, "practical_usefulness": 5},
+      "total": 24.5,
+      "evidence": "三条判定（需上下文/真阳性/真阳性）准确，区分绑定与引号转义、检查时钟偏移与自动续期，证据步骤具体可执行。"
+    }
+  ]
+}

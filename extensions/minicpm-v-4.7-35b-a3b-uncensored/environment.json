@@ -1,0 +1,52 @@
+{
+  "scope": "MiniCPM-V 4.7 35B-A3B Uncensored — overnight Formal C extension",
+  "run_date": "2026-10-15",
+  "machine": {
+    "os": "Windows (win32)",
+    "cpu": "Intel(R) Core(TM) Ultra 9 275HX, 24 cores / 24 logical processors",
+    "ram_total_gb": 31.36,
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop",
+    "gpu_vram_mib": 8151,
+    "gpu_driver": "617.42",
+    "cuda_umd_version": "13.4",
+    "cuda_toolkit_installed": "v13.0"
+  },
+  "engine": {
+    "project": "ggml-org/llama.cpp",
+    "release_tag": "b11617",
+    "build": 11617,
+    "commit": "14310190c",
+    "compiler": "Clang 20.1.8 for Windows x86_64",
+    "version_string": "version: 0.6.0-dev (build 11617, commit 14310190c)",
+    "backend": "CUDA (ggml-cuda.dll, llama-b11617-bin-win-cuda-13.4-x64.zip)",
+    "installation": "fully isolated directory for this experiment; the machine's production llama.cpp (b10375 / ba360efe1) was NOT modified or used",
+    "model_card_requirement": "llama.cpp at or after 69f201a (MiniCPM-V 4.7 support, ggml-org/llama.cpp#29416)",
+    "requirement_verification": "GitHub compare 69f201a...b11617 -> status=ahead, ahead_by=66, behind_by=0 (69f201a is an ancestor of b11617)"
+  },
+  "runtime_flags": {
+    "ctx": 8192,
+    "n_batch": 2048,
+    "n_ubatch": 512,
+    "threads": 24,
+    "flash_attn": "on",
+    "gpu_layers": 99,
+    "n_cpu_moe": 40,
+    "mmproj": "none loaded (text-only Formal C; vision not evaluated)",
+    "cache_type_k": "f16 (default)",
+    "cache_type_v": "f16 (default)",
+    "jinja": "default (enabled in b11617)",
+    "reasoning_budget": 4096,
+    "reasoning_budget_message": "none (default)",
+    "system_prompt": "none"
+  },
+  "observed_peaks": {
+    "ram_peak_gb": 18.29,
+    "vram_peak_mib": 4573,
+    "cold_load_s": 21.64
+  },
+  "notes": [
+    "The production llama.cpp build used by the original Formal C/D field was b10375 (build ba360efe1). It is not MiniCPM-V 4.7 capable per the model card, so this extension uses a newer isolated build.",
+    "MoE expert weights are placed on CPU (--n-cpu-moe 40 = all 40 layers) because the model is 18.74 GiB and the GPU has 8 GiB. Dense/attention weights are on GPU.",
+    "No file outside the isolated run directory was created, modified, moved or deleted by this experiment, other than the git working tree additions in this repository. The production llama.cpp, the production model directory and every launcher were left untouched."
+  ]
+}

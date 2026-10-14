@@ -1,0 +1,142 @@
+{
+  "release_key": "I",
+  "blind_contestant_id": "K71",
+  "model": "MiniCPM-V-4.7-35B-A3B-Uncensored (AtomicChat), AD-Q4_K-IQ4_XS GGUF",
+  "gguf_repo": "AtomicChat/MiniCPM-V-4.7-35B-A3B-Uncensored-GGUF",
+  "pinned_revision": "948c2f37e34730f8abd9b80f86642f37e8f30960",
+  "revision_resolution_check": "HfApi.repo_info(revision=pinned) returned the same sha before any download began",
+  "quant_subdirectory": "MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS",
+  "gguf_first_shard": "MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS/MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS-00001-of-00011.gguf",
+  "shard_count": 11,
+  "total_bytes": 20125154976,
+  "total_gib": 18.74,
+  "sha_verification": {
+    "method": "SHA-256 of each local shard compared with the LFS sha256 published by the authoritative Hugging Face tree at the pinned revision",
+    "verified_before_generation": true,
+    "verified_again_after_generation": false,
+    "all_match": true,
+    "verified_at": "2026-10-15T01:37:26"
+  },
+  "download": {
+    "source_considered": [
+      {
+        "channel": "ModelScope",
+        "result": "REJECTED - AtomicChat/MiniCPM-V-4.7-35B-A3B-Uncensored-GGUF returns HTTP 404 from the ModelScope model API. Control queries (qwen/Qwen2.5-7B-Instruct, OpenBMB/MiniCPM-V-4.7-35B-A3B) returned 200, so the endpoint works and the repo is genuinely absent. No third-party re-upload was accepted."
+      },
+      {
+        "channel": "hf-mirror.com",
+        "result": "CHECKED - repo_info returned the identical revision sha 948c2f37e34730f8abd9b80f86642f37e8f30960; a range-GET probe redirected to the same us.aws.cdn.hf.co CDN as huggingface.co, giving no domestic speed advantage (2.22 MB/s vs 3.02 MB/s)"
+      },
+      {
+        "channel": "huggingface.co",
+        "result": "USED - authoritative origin; 3 bounded parallel workers, 33-40 MB/s aggregate; resumable; retry with exponential backoff"
+      }
+    ],
+    "download_mechanism": "huggingface_hub hf_hub_download (v1.27.0); one process per shard slice; single local_dir target; no duplicate full copies",
+    "endpoint_used": "https://huggingface.co",
+    "alternative_model_substituted": false,
+    "alternative_quant_substituted": false,
+    "revision_mixing": false
+  },
+  "lineage": {
+    "upstream_repo": "AtomicChat/MiniCPM-V-4.7-35B-A3B-Uncensored-GGUF",
+    "upstream_repo_license": "apache-2.0 (repo label)",
+    "base_model": "openbmb/MiniCPM-V-4.7-35B-A3B (finetune relation, per repo metadata)",
+    "base_model_license": "apache-2.0",
+    "construction": "refusal-direction ablation baked into the weights: W' = W - r r^T W applied to 40 attention and linear-attention output matrices, the down projections of all 256 experts in all 40 MoE blocks, and 40 shared experts; token embedding untouched. English direction, scale 1.0. Then quantized with the importance matrix of AtomicChat's original MiniCPM-V 4.7 quants.",
+    "quantization_layout": "AD-<ffn_down>-<ffn_up>: routed experts AD-Q4_K / IQ4_XS; attention, shared expert, embedding and output head at q8_0",
+    "uncensored_evidence_source": "upstream model card claims (held-out prompts): JBB harmful refusals EN 96.3% -> 0%, Aya red-teaming RU 70% -> 0%, XSTest safe 7.6% -> 0%, thinking-on 43% -> 0%; MMLU 84.25% -> 84.50% (+0.25, McNemar p=0.52). These are UPSTREAM numbers, not this run's measurements.",
+    "verification_note": "identity locked by repo_id + pinned revision sha + 11 LFS sha256 digests; no other repo, author, quant or revision was downloaded or run"
+  },
+  "runtime": {
+    "engine": "llama.cpp llama-server b11617 (commit 14310190c), isolated directory",
+    "ctx": 8192,
+    "max_tokens": 8192,
+    "temperature": 0.1,
+    "top_p": 0.9,
+    "reasoning_budget_tokens": 4096,
+    "gpu_layers": 99,
+    "n_cpu_moe": 40,
+    "threads": 24,
+    "flash_attn": "on",
+    "n_batch": 2048,
+    "n_ubatch": 512,
+    "system_prompt": "none",
+    "mmproj": "none (text-only run)",
+    "protocol": "frozen Formal C protocol (same questions, same sampling, same budget, same rubric) with documented runtime deviations - see protocol.json"
+  },
+  "lock": {
+    "scored": "32/32",
+    "blind_judge_saw_identity_before_lock": false,
+    "identity_revealed_after": "SCORES LOCKED",
+    "post_lock_mapping": "K71 = AtomicChat/MiniCPM-V-4.7-35B-A3B-Uncensored-GGUF (MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS)"
+  },
+  "shards": [
+    {
+      "file": "MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS-00001-of-00011.gguf",
+      "size_bytes": 1893148192,
+      "sha256": "ededfbd2709bab4d48bebb7cf73429a8fd0567f1fb17f8be1d3522775184fdcf",
+      "sha256_verified": true
+    },
+    {
+      "file": "MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS-00002-of-00011.gguf",
+      "size_bytes": 1903428416,
+      "sha256": "b268130b6592959b532a5b751b0150ba8d4468cce142ae79bc447cdb091c897e",
+      "sha256_verified": true
+    },
+    {
+      "file": "MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS-00003-of-00011.gguf",
+      "size_bytes": 1903428416,
+      "sha256": "c8567d2ed77e60bc25d27111c9a2a83fc1d0b2154b39e2ddd1bcde682a05f561",
+      "sha256_verified": true
+    },
+    {
+      "file": "MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS-00004-of-00011.gguf",
+      "size_bytes": 1903428480,
+      "sha256": "a617dc76e210203a20925f287337625a89c908dff49199959f39af383804e76a",
+      "sha256_verified": true
+    },
+    {
+      "file": "MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS-00005-of-00011.gguf",
+      "size_bytes": 1903428480,
+      "sha256": "a38b6295a283ace463a5d013814baeaf4e452e89a2aa54a02964977598c9d870",
+      "sha256_verified": true
+    },
+    {
+      "file": "MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS-00006-of-00011.gguf",
+      "size_bytes": 1903428480,
+      "sha256": "51e2bf54868f0595ce0de650cfffe68bf227cd88ce994cf80cca9af8f83212af",
+      "sha256_verified": true
+    },
+    {
+      "file": "MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS-00007-of-00011.gguf",
+      "size_bytes": 1903428480,
+      "sha256": "95b6ac36a9eb16e40ec1cc7b54687a82a3f8cf9ae33fdb0dd83afb8df6e3584b",
+      "sha256_verified": true
+    },
+    {
+      "file": "MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS-00008-of-00011.gguf",
+      "size_bytes": 1903428480,
+      "sha256": "9dcdbac30a269116b7181922c15a2c8fdaf83228f7f0cab38c2b53d332570e41",
+      "sha256_verified": true
+    },
+    {
+      "file": "MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS-00009-of-00011.gguf",
+      "size_bytes": 1903428480,
+      "sha256": "9198cbf4df908dc96981736fdbd2e9b0f8fd35ace49521f0dd07a4a6c335a4f7",
+      "sha256_verified": true
+    },
+    {
+      "file": "MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS-00010-of-00011.gguf",
+      "size_bytes": 1903428480,
+      "sha256": "6bd1b0efaa4f9e7a7cafc905fd00b7eadfff043fb3b740ec84cc35d28ce7cdbf",
+      "sha256_verified": true
+    },
+    {
+      "file": "MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS-00011-of-00011.gguf",
+      "size_bytes": 1101150592,
+      "sha256": "c52f2d97fd09b1e6ba07b38ab3edc9b7730443f390c18f0115f02007ec3e4dad",
+      "sha256_verified": true
+    }
+  ]
+}

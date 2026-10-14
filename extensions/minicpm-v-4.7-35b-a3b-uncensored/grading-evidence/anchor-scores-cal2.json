@@ -1,0 +1,17 @@
+{
+  "grader_id": "CAL-2",
+  "rubric": "frozen five-dimensional rubric (0-5, halves; 25 max per item)",
+  "blind": true,
+  "items": [
+    {"id": "A01", "div": "general", "dims": {"correctness": 3.5, "completeness": 4.5, "visible_reasoning": 4, "instruction_following": 5, "practical_usefulness": 4}, "total": 21, "evidence": "严格按known/believed/unknown三段作答，不编造日期；但电力'10-15%'、速率'few bps'、V2'120+ AU'等数值偏低或有误，故正确性扣分。"},
+    {"id": "A02", "div": "general", "dims": {"correctness": 3, "completeness": 3.5, "visible_reasoning": 3.5, "instruction_following": 4, "practical_usefulness": 4}, "total": 18, "evidence": "三部分齐全、锁方案保留批处理；但只讲len与flush的check-then-act，完全未提'+= '的非原子读改写（丢行的更根本原因）。"},
+    {"id": "A03", "div": "general", "dims": {"correctness": 4.5, "completeness": 5, "visible_reasoning": 4.5, "instruction_following": 5, "practical_usefulness": 5}, "total": 24, "evidence": "四项要求全覆盖：选型理由、12小时工时表、3风险+缓解、30分钟脚本；Go静态二进制+纯Go SQLite驱动、CGO_ENABLED=0契合2GB/离线约束。"},
+    {"id": "A04", "div": "general", "dims": {"correctness": 4.5, "completeness": 5, "visible_reasoning": 4, "instruction_following": 5, "practical_usefulness": 4.5}, "total": 23, "evidence": "恰好两行输出：变换列表+计数6；按'每位数字4'字面替换为four2可辩护，顺序与项数正确、无多余文字。"},
+    {"id": "A05", "div": "general", "dims": {"correctness": 5, "completeness": 5, "visible_reasoning": 4.5, "instruction_following": 5, "practical_usefulness": 5}, "total": 24.5, "evidence": "正确定位偶数长度未取中间两值均值；修复用sorted避免副作用；给出[1,2,3,4]→3而应为2.5的验证输入。"},
+    {"id": "A06", "div": "cyber", "dims": {"correctness": 3, "completeness": 3, "visible_reasoning": 3.5, "instruction_following": 3.5, "practical_usefulness": 3}, "total": 16, "evidence": "逐字节密钥计算正确并察觉单字节矛盾；却误判为Vigenère、明文仅回显已知FLAG{，未真正解密出任何内容。"},
+    {"id": "A07", "div": "cyber", "dims": {"correctness": 4, "completeness": 4.5, "visible_reasoning": 4.5, "instruction_following": 5, "practical_usefulness": 4}, "total": 22, "evidence": "5类STRIDE威胁对应TLS/局域网HTTP/OTA三面，L×I乘积与降序排列正确；最高价值缓解给出可辩护的验证式OTA及理由。"},
+    {"id": "A08", "div": "cyber", "dims": {"correctness": 3.5, "completeness": 4.5, "visible_reasoning": 3.5, "instruction_following": 4.5, "practical_usefulness": 4}, "total": 20, "evidence": "果断指出不存在单字节密钥并给出F35@2；但表中0x8E-0x41、0x99-0x47、0x8B-0x7B三处算成0x30/0x50/0x25，应为0x4D/0x52/0x10。"},
+    {"id": "A09", "div": "cyber", "dims": {"correctness": 5, "completeness": 5, "visible_reasoning": 4.5, "instruction_following": 5, "practical_usefulness": 5}, "total": 24.5, "evidence": "HAAAAAA\\ 经72+390+92=554, mod256=42验证正确；95^7/256≈2.7e11推导与阶数正确，均匀分布假设已声明为近似。"},
+    {"id": "A10", "div": "cyber", "dims": {"correctness": 4.5, "completeness": 5, "visible_reasoning": 4.5, "instruction_following": 5, "practical_usefulness": 4.5}, "total": 23.5, "evidence": "三条分别判needs context/TP/TP并各列具体确认证据：绑定参数vs拼接、DB查询日志、openssl s_client与自动续期核查。"}
+  ]
+}

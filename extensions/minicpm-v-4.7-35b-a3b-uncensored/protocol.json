@@ -1,0 +1,59 @@
+{
+  "benchmark": "Formal C (frozen protocol)",
+  "question_set": "frozen 32-question set: data/questions-general.json (G1-G18) + data/questions-cyber.json (C1-C14)",
+  "question_bytes_unchanged": true,
+  "ordering": "G1-G18 then C1-C14, i.e. the frozen file order; no shuffling, no re-ordering",
+  "server_context_ctx": 8192,
+  "request_max_tokens": 8192,
+  "temperature": 0.1,
+  "top_p": 0.9,
+  "reasoning_budget_tokens": 4096,
+  "system_prompt": "none",
+  "chat_template": "model's native template from GGUF metadata, jinja engine (default in b11617). With this template every answer starts in thinking mode; reasoning is returned in message.reasoning_content and only message.content is graded.",
+  "servers": "one llama-server at a time, sequential requests, single slot in use",
+  "retry_rule": "at most ONE identical retry on infrastructure failure only; model-level failures are never retried and never re-prompted",
+  "grading": "blind, final answers only, five-dimension frozen rubric, 25 points per question, 450 General / 350 Cyber / 800 Overall",
+  "grading_judges": "two independent automated blind judges in isolated agent contexts, plus an adjudicator for divergences (see grading-method.md)",
+  "protocol_deviations_vs_historical_formal_c": [
+    {
+      "id": "D1",
+      "dimension": "same runtime",
+      "status": "NO",
+      "detail": "historical Formal C used llama.cpp b10375 (build ba360efe1); this extension uses llama.cpp b11617 (commit 14310190c) because the model card requires >= 69f201a for MiniCPM-V 4.7. Results are NOT claimed to be same-runtime."
+    },
+    {
+      "id": "D2",
+      "dimension": "same prompt / protocol",
+      "status": "YES",
+      "detail": "identical frozen questions (byte-for-byte), ctx 8192, max_tokens 8192, temp 0.1, top_p 0.9, --reasoning-budget 4096, no system prompt, one server at a time, identical frozen rubric and maximums."
+    },
+    {
+      "id": "D3",
+      "dimension": "same grading",
+      "status": "NO (labeled: Automated Blind Grading - New Judge Protocol)",
+      "detail": "historical scores were produced by the original blind judge session; this extension is scored by two automated blind judges calibrated against 10 historical anchor items. Measured anchor disagreement is documented in grading-method.md and the score is therefore reported with an explicit comparability caveat and uncertainty band."
+    },
+    {
+      "id": "D4",
+      "dimension": "same hardware",
+      "status": "YES",
+      "detail": "same machine as the historical field: RTX 5060 Laptop 8 GiB, 31 GB RAM, Intel Core Ultra 9 275HX."
+    },
+    {
+      "id": "D5",
+      "dimension": "same quantization",
+      "status": "NO",
+      "detail": "the frozen field and prior extensions were Q4_K_M builds; this model is AtomicChat's AD-Q4_K-IQ4_XS layout, which is the only uncensored build of this model that fits this machine."
+    },
+    {
+      "id": "D6",
+      "dimension": "MoE placement",
+      "status": "DIFFERENT (documented)",
+      "detail": "historical per-model -ncmoe values came from GGUF metadata with the whole model offloaded at -ngl 99. Here the 18.74 GiB model cannot fit in 8 GiB, so --n-cpu-moe 40 puts all MoE expert weights on CPU and dense/attention weights on GPU (same strategy as the maintainer's own Gemma launcher)."
+    }
+  ],
+  "not_claimed": [
+    "No claim is made that this score is interchangeable with the frozen six-contestant Formal C ranking.",
+    "No claim is made that the automated judges reproduce the historical judge exactly."
+  ]
+}
