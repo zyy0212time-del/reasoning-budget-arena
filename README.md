@@ -214,30 +214,35 @@ mapped only after score lock:
 - **Graded under Automated Blind Grading — New Judge Protocol** (two
   independent blind judges + adjudicator), *not* by the historical judge
   session. Calibrated against 10 locked historical anchors: the automated
-  judges are −0.50/question harsher (MAD 1.10–1.70), i.e. ≈ −16 / 800; a
-  cross-protocol estimate of ≈ 728 / 800 (band ≈ 718–738) is given for
-  indicative cross-run comparison only and must never be mixed with the locked
-  number. Different runtime (llama.cpp b11617, required by the model card) and
-  different quantization (AD-Q4_K-IQ4_XS, the only uncensored build that fits
-  8 GiB).
-- **Independent cross-check — five-contestant same-session blind re-grade:
+  judges are −0.50/question harsher (MAD 1.10–1.70), i.e. ≈ −16 / 800. An
+  early cross-protocol estimate of ≈ 728 / 800 (band ≈ 718–738) is retained as
+  a **historical heuristic estimate only** and is **not** valid evidence that
+  this model beats Gemma. Different runtime (llama.cpp b11617, required by the
+  model card) and different quantization (AD-Q4_K-IQ4_XS, the only uncensored
+  build that fits 8 GiB).
+- **Five-model same-session anonymous blind review (judged by ChatGPT —
+  AI-assisted / automated judging, not human judging):
   688.5 / 800 (86.06%)**, General 374.0 / 450, Cyber 314.5 / 350, **4th of 5**
-  in that session, behind Gemma4-26B at 710.5. This is a *different* judge
-  session from the one that produced the locked 712.0; both numbers are
-  archived and neither replaces the other. See
+  in that session, behind Gemma4-26B at 710.5 (**−22.0**). This is a *different
+  review protocol* from the one that produced the locked 712.0; the two numbers
+  are not two measurements of the same thing, and neither replaces the other.
+  See
   [five-model-blind.md](extensions/minicpm-v-4.7-35b-a3b-uncensored/five-model-blind.md).
-- **Known upstream defect (Thinking early-EOS):** JSON-only prompts can return
-  an empty `content` with the answer stranded in `reasoning_content`. It was
-  reproduced on the **official OpenBMB weights** (Q4_K_M, llama.cpp b11636),
-  so it is not caused by the uncensoring ablation; it also explains this run's
-  G10 no-final failure. Reported upstream as
+- **Known upstream defect (Thinking early-EOS):** JSON-only prompts without a
+  system prompt can return an empty `content` with the answer stranded in
+  `reasoning_content`. The same termination pattern was reproduced on the
+  **official OpenBMB weights** (Q4_K_M, llama.cpp b11636), so the failure is
+  not unique to the decensored checkpoint; the underlying cause remains
+  unknown. It has **not** been established that this is what caused G10, nor
+  that raising `max_tokens` fixes it. Reported upstream as
   [OpenBMB/MiniCPM-V#1153](https://github.com/OpenBMB/MiniCPM-V/issues/1153);
   see [THINKING-BUG.md](extensions/minicpm-v-4.7-35b-a3b-uncensored/THINKING-BUG.md).
-- Verdict: **EVALUATED — PROMISING BUT NOT DEMONSTRATED AS A GEMMA REPLACEMENT;
-  NOT INSTALLED, NOT DEPLOYED, GEMMA NOT REPLACED.** The two grading sessions
-  disagree: +6.0 vs Gemma under the automated protocol (712.0 vs 706.0
-  historical), **−22.0** vs Gemma under the same-session blind re-grade
-  (688.5 vs 710.5).
+- Verdict: **EVALUATED — NOT RETAINED; NOT INSTALLED, NOT DEPLOYED, GEMMA NOT
+  REPLACED.** Both MiniCPM GGUF sets were deleted after archiving
+  (2026-10-15). On scoring: the +6.0 figure (712.0 vs Gemma's historical 706.0)
+  is **cross-protocol arithmetic only** and is not a valid win/loss verdict;
+  the only like-for-like comparison is the same-session **−22.0** (688.5 vs
+  710.5).
 - Generation notes: **32/32 generated**; G10 produced reasoning content but an
   empty final-answer field and is published as
   `[NO FINAL ANSWER WITHIN FIXED BUDGET]` (0/25, not retried). Speed on this
@@ -256,7 +261,7 @@ original locked six-model ranking**, which remains available unchanged in
 |---:|---|---:|---:|---:|---|---|
 | 1 | Nex-N2-mini | 418.5 | 328.0 | **746.5** | frozen field | — |
 | 2 | Ornith-1.5-35B-A3B-Abliterated (Old Ornith) | 405.0 | 320.5 | 725.5 | frozen field | retained |
-| 3 **\*** | **MiniCPM-V-4.7-35B-A3B-Uncensored (ext)** | 391.0 | 321.0 | **712.0** | **extension J** | **evaluated, not installed** |
+| 3 **\*** | **MiniCPM-V-4.7-35B-A3B-Uncensored (ext)** | 391.0 | 321.0 | **712.0** | **extension J** | **not retained; weights deleted** |
 | 4 | Gemma4-26B-A4B-…-HauhauCS-Balanced | 414.5 | 291.5 | 706.0 | frozen field | retained |
 | 5 | Ornith-1.5-35B-A3B-Uncensored (0xKitkat, ext) | 397.5 | 274.5 | **672.0** | extension H | not retained |
 | 6 | Huihui-Nex-N2-mini-abliterated (ext) | 395.0 | 274.5 | 669.5 | extension G | retained |
@@ -269,15 +274,18 @@ original locked six-model ranking**, which remains available unchanged in
 is indicative only.** It is graded under **Automated Blind Grading — New Judge
 Protocol**, on a different llama.cpp build, with a different quantization and a
 different MoE placement. Anchor calibration against 10 locked historical items
-gives ≈ −16 ± ~10 / 800 versus the historical judge, so a cross-protocol
-estimate is ≈ **728 / 800** (band ≈ 718–738). Only the questions, sampling
+gives ≈ −16 ± ~10 / 800 versus the historical judge; the resulting ≈ **728 /
+800** (band ≈ 718–738) is an **early heuristic estimate**, kept as history and
+**not** usable as evidence of superiority. Only the questions, sampling
 parameters, budget, rubric and machine are identical. **Do not read rank 3 as
-"beats Gemma":** an independent five-contestant same-session blind re-grade
+"beats Gemma":** the +6.0 over Gemma's historical 706.0 is **cross-protocol
+arithmetic**, whereas the five-model same-session anonymous blind review
+(judged by **ChatGPT** — AI-assisted / automated judging, not human judging)
 scores the same answers **688.5 / 800**, i.e. 4th of 5 and **−22.0** behind
 Gemma (710.5) — see
 [five-model-blind.md](extensions/minicpm-v-4.7-35b-a3b-uncensored/five-model-blind.md).
-Both numbers are archived; the locked 712.0 remains this extension's scorebook
-entry.
+Both numbers are archived under two different review protocols; the locked
+712.0 remains this extension's scorebook entry.
 
 Tie handling: the two Ornith/Huihui extensions tie on Cyber (274.5) — both
 share rank 5 of the Cyber column (competition ranking). Division ranks for

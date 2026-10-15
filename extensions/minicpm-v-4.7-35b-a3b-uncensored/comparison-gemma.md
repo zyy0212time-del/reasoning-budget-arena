@@ -28,10 +28,14 @@ Formal C run was spent on Gemma.
 | Cyber /350 | 291.5 | 321.0 | **+29.5** |
 | **Overall /800** | **706.0** | **712.0** | **+6.0** |
 
-Calibrated view: the automated judges score ≈ −16 / 800 versus the historical
-judge, so the cross-protocol estimate for MiniCPM is ≈ **728 / 800** (band
-≈ 718–738) against Gemma's 706.0 — a difference that survives the calibration
-band.
+Early cross-protocol estimate (historical): the automated judges score ≈ −16 /
+800 versus the historical judge, which at the time gave a heuristic estimate of
+≈ **728 / 800** (band ≈ 718–738) for MiniCPM against Gemma's 706.0.
+
+**This ≈ 728 figure is an early heuristic estimate and is not valid evidence
+that MiniCPM beats Gemma.** It is retained for traceability only. Likewise the
+**+6.0** in the table above is arithmetic across two different protocols and is
+not a win/loss verdict; see §1b for the only like-for-like comparison.
 
 **Caveats that must travel with that number:** different judge protocol,
 different llama.cpp build (b11617 vs b10375), different quantization
@@ -46,9 +50,10 @@ observation only — the locked score remains 391.0.
 
 ### 1b. The same comparison in one blind session with five contestants
 
-A separate blind session scored **five** contestants over the same 32 questions
-in one pass (160 rows, final answers only, reasoning withheld). It gives the
-opposite sign:
+A separate blind session — judged by **ChatGPT** (AI-assisted / automated
+judging, **not** human judging) — scored **five** contestants over the same 32
+questions in one pass (160 rows, final answers only, reasoning withheld). It
+gives the opposite sign:
 
 | | MiniCPM-V 4.7 Unc. | Gemma4-26B | Δ |
 |---|---:|---:|---:|
@@ -115,23 +120,29 @@ a model that agrees with everything is worse, not better.
   Google Gemini model. Gemma at least self-identifies plausibly. This does not
   affect benchmark scores but it does affect day-to-day trust.
 - **Thinking is on by default** with this model's template. Short answers still
-  arrive fast (TTFT median 0.53 s) but every turn pays a thinking cost; with a
-  small `max_tokens` the model can spend the whole budget thinking and return
-  nothing (exactly what happened on G10). Any real deployment should keep
-  `max_tokens` generous or disable thinking per request.
+  arrive fast (TTFT median 0.53 s) but every turn pays a thinking cost. G10
+  returned no final answer, but **it has not been established that a small
+  `max_tokens` caused it**: the JSON-only reproduction of the early-EOS pattern
+  terminated after 18–24 generated tokens, far below the 4,096 reasoning
+  budget. Raising `max_tokens` is therefore **not** a validated fix — it is an
+  untested hypothesis. See `THINKING-BUG.md`.
 
 ## 5. Conclusion
 
-**PROMISING — low-to-medium confidence, and NOT demonstrated as better than
-Gemma.**
+**NOT DEMONSTRATED AS BETTER THAN GEMMA — and the decision went the other way.**
 
-- Under the **locked automated protocol** it scores **above** the incumbent
-  Gemma on the frozen Formal C set (712.0 raw, ≈ 728 calibrated, vs 706.0),
-  driven by a large **Cyber +29.5** and offset by a **General −23.5** that is
-  almost entirely one no-final failure.
-- Under the **independent five-contestant same-session blind re-grade** it
-  scores **below** Gemma (688.5 vs 710.5, **−22.0**, 4th of 5). The two
-  sessions disagree; this is the single largest uncertainty about the model.
+- Under the **locked automated review** the raw number is higher (712.0 vs
+  Gemma's historical 706.0), driven by a large **Cyber +29.5** and offset by a
+  **General −23.5** that is almost entirely one no-final failure. That +6.0 is
+  **cross-protocol arithmetic** — different judge, runtime and quantization —
+  and is not a valid win/loss verdict. The ≈ 728 anchor extrapolation is an
+  early heuristic estimate and is not evidence either.
+- Under the **only like-for-like comparison** — the five-contestant
+  same-session anonymous blind review judged by ChatGPT — it scores **below**
+  Gemma (688.5 vs 710.5, **−22.0**, 4th of 5).
+- The two numbers belong to **different review protocols**, not to one
+  competition for "the true score"; no third review is needed to arbitrate
+  between them.
 - It is **at least as fast** in the ways that are felt day to day (TTFT p95
   0.66 s vs 1.91 s; decode 33.2 vs 30.8 t/s).
 - It shows **no false refusals** and **no measurable sycophancy** on the probes
@@ -141,5 +152,6 @@ Gemma.**
   because the uncensoring evidence here is a small scripted probe set rather
   than a manual trial.
 
-**It is not installed and Gemma is not replaced.** The maintainer's own
-hands-on uncensoring trial is the deciding test.
+**Outcome: it was not installed, Gemma was not replaced, and the model was not
+retained.** Both MiniCPM GGUF sets were deleted after the evidence was archived
+(2026-10-15). The sections above are kept as the record of what was measured.

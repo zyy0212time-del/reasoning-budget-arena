@@ -80,40 +80,55 @@ the README count were left at 288 while the tree already contained 320 after
 Extension 2). That pre-existing drift is not caused by this extension and is
 reported as-is in the pull request. See §10 of the run report.
 
-## 10. Not a deployment decision
+## 10. Deployment outcome (decided)
 
-This extension evaluates the model. It does not install it, does not change any
-launcher, does not change the Hermes default model, and does not delete or
-replace the incumbent Gemma build. The deployment decision is left to the
-maintainer.
+This extension was an evaluation. Nothing was installed, no launcher was
+changed, the Hermes default model was not switched, and the incumbent Gemma
+build was never touched or replaced. **The model was not retained**: after the
+evidence was archived, both MiniCPM GGUF sets (the AtomicChat build and the
+official OpenBMB control used for the Thinking-bug check) were deleted on
+2026-10-15. The rest of this file records the limitations **as measured during
+the run** and is kept as history, not as a live recommendation.
 
-## 11. Two grading sessions disagree — both are published
+## 11. Two review protocols — not two measurements of the same thing
 
-The locked result of this extension is **712.0 / 800** (Automated Blind
-Grading — New Judge Protocol). An **independent** blind re-grade of the same 32
-answers, run inside one session that scored **five** contestants at once,
-gives **688.5 / 800 (4th of 5)**, i.e. **−22.0** against Gemma4-26B (710.5 in
-the same session) where the automated protocol gives **+6.0**.
+The locked result of this extension is **712.0 / 800** (*Automated Blind
+Grading — New Judge Protocol*, the original automated review). Separately, the
+same 32 answers were scored in one **five-contestant anonymous blind session
+judged by ChatGPT** (AI-assisted / automated judging — **not** human judging),
+giving **688.5 / 800 (4th of 5)** against Gemma4-26B's **710.5** in that same
+session, i.e. **−22.0**.
 
 - The session is not systematically stricter: the four contestants with
   historical scores all scored above their historical values in it (+10.0,
   +0.5, +4.5, +9.0; mean +6.0).
 - The locked score is **not** changed by this. Both numbers are archived in
-  `five-model-blind.md` and in `scores.json` under
-  `independent_cross_check`.
-- **Any claim that this model beats Gemma must carry both numbers.** Reading
-  only the locked 712.0, or only the re-grade 688.5, is a misreading.
+  `five-model-blind.md` and in `scores.json` under `independent_cross_check`.
+- **712.0 − 706.0 = +6.0 is cross-protocol arithmetic** (different judge,
+  runtime and quantization) and must **not** be read as a win/loss verdict. The
+  only like-for-like comparison is the same-session **−22.0**.
+- The early ≈ **728 / 800** anchor extrapolation is retained only as a
+  historical heuristic estimate; it is not valid evidence that this model beats
+  Gemma.
+- These two numbers are not competing candidates for "the true score" — they
+  belong to different protocols, so no third review is required to arbitrate.
 
-## 12. Thinking early-EOS — reproduced on official weights, root cause unknown
+## 12. Thinking early-EOS — not unique to the decensored checkpoint, cause unknown
 
-JSON-only prompts can return an empty `content` with the answer stranded in
-`reasoning_content`. This was reproduced on the **official OpenBMB Q4_K_M
-weights**, so the AtomicChat ablation is not the cause; the closing `</think>`
-token is never sampled and generation ends on `<|im_end|>`.
+On JSON-only prompts **without a system prompt**, `content` can come back empty
+with the answer stranded in `reasoning_content`; `</think>` is never sampled and
+generation ends on `<|im_end|>` after only 18–24 tokens — far below the 4,096
+reasoning budget, so this is not a budget-exhaustion event. Adding a system
+prompt (arm D) returned **3/3 normal** responses on the official weights.
 
-What is **not** established: the code-level root cause, and how often this
-happens outside these settings. Quantization, packaging (single file vs 11
-shards), llama.cpp version and the runtime's reasoning parser were not held
-constant, and the fixed seeds make these deterministic replays rather than
-independent samples. See `THINKING-BUG.md` and upstream issue
-[OpenBMB/MiniCPM-V#1153](https://github.com/OpenBMB/MiniCPM-V/issues/1153).
+The same termination pattern was reproduced on the official OpenBMB Q4_K_M
+weights, so the failure is not unique to the decensored checkpoint. The
+underlying cause remains unknown: quantization, chat template, runtime and
+training factors were **not** excluded.
+
+Also **not** established: how often this happens outside these settings (fixed
+seeds make these deterministic replays, not independent samples), that G10
+failed because of the token budget, and that raising `max_tokens` fixes it.
+G10's published marker `[NO FINAL ANSWER WITHIN FIXED BUDGET]` is the frozen
+protocol's label, not proof of a cause. See `THINKING-BUG.md` and upstream
+issue [OpenBMB/MiniCPM-V#1153](https://github.com/OpenBMB/MiniCPM-V/issues/1153).
