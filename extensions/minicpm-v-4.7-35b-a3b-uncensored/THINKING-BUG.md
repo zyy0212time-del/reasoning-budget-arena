@@ -35,12 +35,13 @@ termination pattern was reproduced on the **official OpenBMB weights**:
 | A | JSON-only, Chinese | 1, 2, 3 | **3/3** empty final content |
 | B | JSON-only, English | 1, 2, 3 | **3/3** empty final content |
 | C | free-text control | 1, 2 | **2/2** normal final content |
-| D | **JSON-only with a system prompt** | 1, 2, 3 | **3/3 normal final content** |
+| D | **Chinese JSON-only, with a system message** | 1, 2, 3 | **3/3 normal final content** |
 
-The six failures are arms A and B (6/6). Arm **D did not reproduce**: adding a
-system prompt made JSON-only prompts return normal final content on all three
-seeds. So the pattern as reproduced is specific to JSON-only prompts **without**
-a system prompt.
+The six failures occurred in arms A and B (6/6). In arm D, adding the specified
+system message to the Chinese JSON prompt produced normal final responses for
+seeds 1–3 (3/3), whereas the same prompt without that message failed for all
+three seeds (arm A, 3/3). The English JSON prompt (arm B) was not tested with a
+system message. These results do not establish a general workaround.
 
 All six failures share one raw signature: `stop_type=eos`,
 `truncated=false`, the last sampled token is **`248046` (`<|im_end|>`)**, and
