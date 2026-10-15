@@ -19,13 +19,16 @@ ranking.**
 
 ## Status
 
-**EVALUATED — PROMISING FOR THE MAINTAINER'S HANDS-ON UNCENSORING TRIAL; NOT
-INSTALLED, NOT DEPLOYED, GEMMA NOT REPLACED.**
+**EVALUATED — NOT RETAINED.** The maintainer did not adopt this model: Gemma
+was not replaced, and both MiniCPM GGUF sets (this build and the official
+OpenBMB control used for the Thinking-bug check) were deleted after archiving
+was completed on 2026-10-15.
 
-This extension is an evaluation only. Nothing was installed, no launcher was
-changed, no default model was switched, and the incumbent Gemma build was not
-touched. The deployment decision is deliberately left to the maintainer after
-manual use.
+This extension is therefore an **evaluation record**, not a deployment. Nothing
+was installed, no launcher was changed, no default model was switched, and the
+incumbent Gemma build was never touched. The sections below preserve the state
+**as measured at the time of the run**; the current conclusion is that the model
+was not selected.
 
 ## Model
 
@@ -73,16 +76,21 @@ question, i.e. 4.4%–6.8%). Extrapolated over 32 questions that is
 
 | figure | value | meaning |
 |---|---:|---|
-| **Primary (as graded)** | **712.0 / 800 (89.00%)** | the locked result of this run; use this |
-| Cross-protocol estimate | ≈ **728 / 800** (band ≈ 718–738) | raw + 16, for an indicative cross-run comparison only |
-| Independent five-contestant blind re-grade | **688.5 / 800 (86.06%)** | the same 32 answers, a different judge session, **4th of 5** — see [five-model-blind.md](five-model-blind.md) |
-| Frozen-field Gemma | 706.0 / 800 | different judge, runtime and quant |
+| **Locked primary — original automated review** | **712.0 / 800 (89.00%)** | the locked result of this run under *Automated Blind Grading — New Judge Protocol*; this is the scorebook entry |
+| Five-model same-session **anonymous blind review (ChatGPT)** | **688.5 / 800 (86.06%)** | the same 32 answers scored in one session together with four other contestants; **4th of 5** — see [five-model-blind.md](five-model-blind.md) |
+| Gemma in that **same session** | 710.5 / 800 | MiniCPM is **−22.0** behind Gemma inside one like-for-like session |
+| Frozen-field Gemma (historical) | 706.0 / 800 | different protocol, judge, runtime and quant |
+| Early anchor extrapolation | ≈ **728 / 800** (band ≈ 718–738) | **early heuristic estimate only**; kept as a historical record, **not** usable as evidence that this model beats Gemma |
 
-The primary score is the one entered in this extension's scorebook. The
-cross-protocol estimate and the independent re-grade must **never** be mixed
-with it. Note that the locked result and the re-grade **disagree about the sign
-of the comparison with Gemma** (+6.0 versus −22.0); both are published and
-neither is retracted.
+**712.0 and 688.5 belong to two different review protocols.** Neither is "the
+true score" of the other and no third review is needed to arbitrate between
+them — they are simply not the same measurement.
+
+The older "+6.0 vs Gemma" figure (712.0 against Gemma's historical 706.0) is
+**cross-protocol arithmetic only** — different judge, different runtime,
+different quantization — and must not be read as a win/loss verdict. The only
+like-for-like comparison available is inside the single blind session:
+**688.5 vs 710.5 = −22.0**.
 
 ## Generation notes (documented, not hidden)
 
@@ -113,14 +121,22 @@ It was reproduced on the **official OpenBMB weights**
 (`openbmb/MiniCPM-V-4.7-35B-A3B-gguf`, revision `b3b8cd80…`,
 `MiniCPM-V-4_7-35B-A3B-Q4_K_M.gguf`, 21,166,255,008 B, SHA-256
 `bf3d1c67…d7df5`, llama.cpp b11636): 6/6 JSON-only prompts across Chinese and
-English failed, 2/2 free-text controls passed. Every failure ends on token
-`248046` (`<|im_end|>`) and never samples `248069` (`</think>`).
+English failed and 2/2 free-text controls passed, while a fourth arm — JSON-only
+**with a system prompt** — returned **3/3 normal** responses, so the reproduced
+pattern is specific to JSON-only prompts without a system prompt. Every failure
+ends on token `248046` (`<|im_end|>`) and never samples `248069` (`</think>`),
+after only 18–24 generated tokens — far below the 4,096-token reasoning budget.
 
-**So it is not caused by the uncensoring ablation.** The code-level root cause
-is unknown and is reported upstream as
+The same termination pattern was reproduced on the official OpenBMB Q4_K_M
+weights, so the failure is not unique to the decensored checkpoint. The
+underlying cause remains unknown: quantization, chat template, runtime and
+training factors were **not** excluded. Reported upstream as
 [OpenBMB/MiniCPM-V#1153](https://github.com/OpenBMB/MiniCPM-V/issues/1153);
-full detail in [THINKING-BUG.md](THINKING-BUG.md). Practical consequence: keep
-`max_tokens` generous, or disable thinking per request.
+full detail in [THINKING-BUG.md](THINKING-BUG.md).
+
+G10 (this run) and the JSON-only reproduction are **separate observations**: it
+has not been established that G10 failed because the token budget was exhausted,
+and raising `max_tokens` is **not** a validated fix for the early-EOS pattern.
 
 ## Runtime
 
@@ -174,17 +190,19 @@ full detail in [THINKING-BUG.md](THINKING-BUG.md). Practical consequence: keep
 
 ## Gemma comparison
 
-See [comparison-gemma.md](comparison-gemma.md). Two grading sessions, two
-answers:
+See [comparison-gemma.md](comparison-gemma.md). Two reviews, two protocols:
 
-| comparison | MiniCPM | Gemma | Δ |
-|---|---:|---:|---:|
-| locked automated protocol vs Gemma's historical score | 712.0 | 706.0 | **+6.0** |
-| five-contestant same-session blind re-grade | 688.5 | 710.5 | **−22.0** |
+| comparison | MiniCPM | Gemma | Δ | status |
+|---|---:|---:|---:|---|
+| **same session** — five-model anonymous blind review (ChatGPT) | 688.5 | 710.5 | **−22.0** | like-for-like; the only valid head-to-head here |
+| **cross-protocol arithmetic** — locked 712.0 vs Gemma's historical 706.0 | 712.0 | 706.0 | +6.0 | **not a valid win/loss verdict** (different judge, runtime, quant) |
 
 The automated comparison is built from **Cyber +29.5** and **General −23.5**,
-and the General gap is almost entirely the single G10 no-final failure. The
-same-session re-grade puts the same answers behind Gemma. Both are published.
+and the General gap is almost entirely the single G10 no-final failure. Both
+numbers are published, but only the same-session −22.0 compares the two models
+under one protocol.
+
+**Current outcome:** the model was **not** chosen to replace Gemma.
 
 ## Privacy / scope
 
