@@ -82,10 +82,12 @@ that it reproduces deterministically under these settings.
   is not a budget-exhaustion case, and G10's cause has not been established
   either.
 - **Not a validated fix:** raising `max_tokens` was never tested as a remedy
-  for the early-EOS pattern and must not be presented as one. What *is*
-  observed is that arm D (JSON-only **with** a system prompt) returned normal
-  output on 3/3 seeds while the same prompts without one failed 6/6 — an
-  unverified lead, not a fix.
+  for the early-EOS pattern and must not be presented as one. For the Chinese
+  JSON prompt, adding a system message produced normal final responses for seeds
+  1–3 (3/3); without that message, the same prompt returned empty final content
+  for all three seeds (3/3). The separate English JSON prompt also failed
+  without a system message (3/3). This is a limited observation, not a
+  validated general fix.
 - The defect is a real usability caveat alongside the self-identification
   defect. It is moot in practice here: the model was **not retained**, and both
   GGUF sets were deleted after archiving.
