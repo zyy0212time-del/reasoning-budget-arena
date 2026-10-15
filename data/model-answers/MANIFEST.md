@@ -12,6 +12,7 @@ Counts below are asserted by `scripts/build_model_answer_dataset.py --verify-onl
 | **G** | **Huihui-Nex-N2-mini-abliterated-Q4_K_M** — post-release Formal C extension, **not** part of the original six-model field | 32 | N/A (Formal D not run) | 32 | **RELEASED** | RESOLVED per the extension's frozen revision + GGUF SHA-256 record (`22be29be…`, `8e38d2a0…`) | `quant-mind/Huihui-Nex-N2-mini-abliterated-GGUF` (lineage: `huihui-ai/Huihui-Nex-N2-mini-abliterated` → `nex-agi/Nex-N2-mini`) | apache-2.0 (all three cards, checked 2026-09-03) | reviewed 2026-09-03 — no term found prohibiting benchmark-output reproduction |
 | **H** | **Ornith-1.5-35B-A3B-Uncensored-Q4_K_M** — post-release Formal C extension (blind id ZD74, identity mapped only after score lock), **not** part of the original six-model field | 32 | N/A (Formal D not run) | 32 | **RELEASED** | RESOLVED per the extension's pinned revision + GGUF SHA-256 record (`ab0eed77…`, `081fa0ba…`; verified again after the generation run) | `0xKitkat/Ornith-1.5-35B-A3B-Uncensored-GGUF` (construction: task-vector transplant `Ornith-1.5 + 1.0×(Qwen3.6-abliterated − Qwen3.6-base)`; lineage Ornith-1.5 MIT + Qwen3.6-35B-A3B apache-2.0) | apache-2.0 (repo label; lineage MIT + apache-2.0, checked 2026-09-05) | reviewed 2026-09-05 — no term found prohibiting benchmark-output reproduction |
 | **I** | **MiMo-V2.6-Distill-Qwen-9B-Abliterated-Q4_K_M** — post-release Formal C extension (blind id TM91, identity mapped only after score lock), **not** part of the original six-model field | 32 | N/A (Formal D not run) | 32 | **RELEASED** | RESOLVED per the extension's pinned revision + GGUF SHA-256 record (`ea8a8464…`, `8798617e…`; HF LFS-OID match, verified after the generation run) | `BoldingBuilds/MiMo-V2.6-Distill-Qwen-9B-Abliterated-Q8_0-GGUF` (declared base `XiaomiMiMo/MiMo-V2.6-Distill-Qwen-9B`; Qwen3.5-9B lineage) | mit (repo + MiMo base; Qwen3.5-9B apache-2.0 — checked 2026-09-23) | reviewed 2026-09-23 — no term found prohibiting benchmark-output reproduction |
+| **J** | **MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS** — post-release Formal C extension (blind id K71, identity mapped only after score lock), **not** part of the original six-model field | 32 | N/A (Formal D not run) | 32 | **RELEASED** | RESOLVED per the extension's pinned revision + 11 per-shard GGUF SHA-256 records vs the LFS digests published by the authoritative Hugging Face tree at the pinned revision (verified before generation) | `AtomicChat/MiniCPM-V-4.7-35B-A3B-Uncensored-GGUF` (lineage: `openbmb/MiniCPM-V-4.7-35B-A3B`) | apache-2.0 (repo label; base model apache-2.0, checked 2026-10-15) | reviewed 2026-10-15 — no term found prohibiting benchmark-output reproduction |
 | A | RavenX-CyberAgent-35B-v5.1 | 0 | 0 | 0 | **WITHHELD** | RESOLVED (existing record) | `deadbydawn101/RavenX-CyberAgent-Qwen3.6-35B-A3B-Opus-4.7-OpenMythos-Pentester-BugHunter-RATH-GGUF` | apache-2.0 card — model-card body adds research-purposes-only wording | **withheld pending additional upstream/output-terms review** |
 | B | Endy-Qwen3.6-CyberSec-35B-A3B | 0 | 0 | 0 | **WITHHELD** | RESOLVED via frozen benchmark SHA-256 record (2026-09-01) — remote LFS-OID match | `endystrike/Endy-Qwen3.6-CyberSec-35B-A3B-GGUF` (file `Endy-Qwen3.6-CyberSec-35B-A3B-Q4_K_M.gguf`) | agpl-3.0 — card discloses proprietary-model distillation lineage | **withheld pending additional upstream/output-terms review** |
 
@@ -30,6 +31,7 @@ Counts below are asserted by `scripts/build_model_answer_dataset.py --verify-onl
 | Huihui Nex extension (G) | 32 | not run | **32** |
 | Ornith-0xKitkat Uncensored extension (H) | 32 | not run | **32** |
 | MiMo-V2.6-Distill-Qwen-9B-Abliterated extension (I) | 32 | not run | **32** |
+| MiniCPM-V-4.7 Uncensored extension (J) | 32 | not run | **32** |
 
 ## Repository-level answer coverage
 
@@ -39,11 +41,12 @@ Counts below are asserted by `scripts/build_model_answer_dataset.py --verify-onl
 | Huihui Formal C extension (G) | 32 | 0 | 32 |
 | Ornith-0xKitkat Formal C extension (H) | 32 | 0 | 32 |
 | MiMo-V2.6 Q4_K_M Formal C extension (I) | 32 | 0 | 32 |
-| **repository total** | **352** | **128** | **480** |
+| MiniCPM-V-4.7 Formal C extension (J) | 32 | 0 | 32 |
+| **repository total** | **384** | **128** | **512** |
 
-The three extensions are **not** additional contestants of the original field
+The four extensions are **not** additional contestants of the original field
 and have **no Formal D answers** — the repository total must not be read as
-"9 models × 32 × 2".
+"10 models × 32 × 2".
 
 Notes:
 - Provenance "RESOLVED" describes **artifact identity** (which upstream file

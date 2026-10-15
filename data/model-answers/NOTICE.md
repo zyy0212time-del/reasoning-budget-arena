@@ -19,7 +19,8 @@ benchmark models, split per model and per formal condition:
 | `G-huihui-nex/` | Huihui-Nex-N2-mini-abliterated-Q4_K_M — **post-release extension** | 32 | not run | 32 |
 | `H-ornith-0xkitkat/` | Ornith-1.5-35B-A3B-Uncensored-Q4_K_M — **post-release extension** | 32 | not run | 32 |
 | `I-mimo-v26-9b-abliterated-q4/` | MiMo-V2.6-Distill-Qwen-9B-Abliterated-Q4_K_M — **post-release extension** | 32 | not run | 32 |
-| **repository total (public)** | | **192** | **128** | **352** |
+| `J-minicpm-v47/` | MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS — **post-release extension** | 32 | not run | 32 |
+| **repository total (public)** | | **256** | **128** | **384** |
 
 **Withheld — not present anywhere in this repository:**
 
@@ -34,8 +35,8 @@ this repository should be read as a promise that A/B will be released later.
 
 ### Separate scope — post-release extensions
 
-Three post-release extension directories hold **32 further final answers each**
-(96 in total), evaluated under the identical frozen Formal C protocol **after**
+Four post-release extension directories hold **32 further final answers each**
+(128 in total), evaluated under the identical frozen Formal C protocol **after**
 the original release:
 
 | directory | extension opaque id | status |
@@ -43,18 +44,28 @@ the original release:
 | `G-huihui-nex/` | `LR37` | scores locked before identity reveal |
 | `H-ornith-0xkitkat/` | `ZD74` | scores locked before identity reveal |
 | `I-mimo-v26-9b-abliterated-q4/` | `TM91` | scores locked before identity reveal |
+| `J-minicpm-v47/` | `K71` | scores locked before identity reveal |
 
 This is a **separate scope**:
 
 - it is **not** part of the original 384-answer six-model field
 - it has **no Formal D answers** (each extension ran Formal C only)
 - each locked extension scorebook is untouched by this answer release
-- none of the three is a contestant of the original field and none is ranked
+- none of the four is a contestant of the original field and none is ranked
   against it in the frozen ranking
 
-Repository-level public coverage is therefore **352 answers** (256 original
-field + 96 extension), with **128 still withheld** (A/B). It must not be read
-as "9 models × 32 × 2".
+Repository-level public coverage is therefore **384 answers** (256 original
+field + 4 × 32 extension), with **128 still withheld** (A/B). It must not be
+read as "10 models × 32 × 2".
+
+Note on `J-minicpm-v47`: its Formal C run scored **32/32**, and one answer
+(G10) is published as the frozen failure marker
+`[NO FINAL ANSWER WITHIN FIXED BUDGET]` exactly as generated — the marker is
+part of the benchmark result and is not edited out. The same no-final-answer
+behaviour was later reproduced on the **official OpenBMB weights** and is
+reported upstream as
+[OpenBMB/MiniCPM-V#1153](https://github.com/OpenBMB/MiniCPM-V/issues/1153);
+see `extensions/minicpm-v-4.7-35b-a3b-uncensored/THINKING-BUG.md`.
 
 ## Why partial
 

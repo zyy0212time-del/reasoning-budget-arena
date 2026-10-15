@@ -1,0 +1,87 @@
+{
+  "benchmark": "Formal C (frozen protocol, ctx 8192, max_tokens 8192, temperature 0.1, top_p 0.9, reasoning budget 4096, no system prompt)",
+  "contestant": "K71",
+  "model": "MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS (post-lock mapping)",
+  "rubric": "five dimensions 0-5 each (half-points allowed), 25 max per question",
+  "grading_protocol": "Automated Blind Grading - New Judge Protocol (two independent blind judges + adjudicator; see grading-method.md)",
+  "lock": {
+    "scored": "32/32",
+    "locked_by": "two independent automated blind judges, combined by the declared rule; adjudicator had 0 items to resolve",
+    "identity_revealed_after_lock": true,
+    "scores_locked_before_reveal": true
+  },
+  "divisions": {
+    "general": {
+      "score": 391.0,
+      "max": 450,
+      "pct": 86.89,
+      "questions": 18
+    },
+    "cyber": {
+      "score": 321.0,
+      "max": 350,
+      "pct": 91.71,
+      "questions": 14
+    }
+  },
+  "overall": {
+    "score": 712.0,
+    "max": 800,
+    "pct": 89.0
+  },
+  "judge_totals": {
+    "judge_a": 723.0,
+    "judge_b": 705.0,
+    "inter_judge_mad_per_question": 0.78,
+    "divergences_adjudicated": 0
+  },
+  "comparability": {
+    "same_prompt": true,
+    "same_protocol_parameters": true,
+    "same_hardware": true,
+    "same_runtime": false,
+    "same_quantization": false,
+    "same_grading": false,
+    "anchor_calibration": {
+      "anchor_count": 10,
+      "mean_signed_diff_per_question": -0.5,
+      "mad_per_question": "1.10 (CAL-1) / 1.70 (CAL-2)",
+      "inter_grader_mad_per_question": 1.0,
+      "extrapolated_32_question_bias": "-16 points / 800"
+    },
+    "cross_protocol_estimate_overall": "see README.md"
+  },
+  "independent_cross_check": {
+    "note": "Second, independent blind grading pass over the SAME 32 answers, inside one session that scored five contestants at once. It is archived alongside the locked result; it does NOT replace or modify the locked 712.0.",
+    "session": "five-contestant same-session blind re-grade",
+    "contestant_id_in_session": "V57",
+    "overall": {
+      "score": 688.5,
+      "max": 800,
+      "pct": 86.06
+    },
+    "divisions": {
+      "general": {
+        "score": 374.0,
+        "max": 450
+      },
+      "cyber": {
+        "score": 314.5,
+        "max": 350
+      }
+    },
+    "rank_in_session": "4 of 5",
+    "gemma_in_same_session": 710.5,
+    "delta_vs_gemma_same_session": -22.0,
+    "delta_vs_locked_automated": -23.5,
+    "file": "five-model-blind.md"
+  },
+  "upstream_defect": {
+    "thinking_early_eos": "THINKING-BUG.md",
+    "issue": "https://github.com/OpenBMB/MiniCPM-V/issues/1153",
+    "reproduced_on_official_weights": true
+  },
+  "scorebook": "FORMAL-C-EXTENSION-BLIND-SCORES-LOCKED.md",
+  "question_level": "question-scores.csv / question-scores.json",
+  "answers": "data/model-answers/J-minicpm-v47/formal-c.jsonl"
+}

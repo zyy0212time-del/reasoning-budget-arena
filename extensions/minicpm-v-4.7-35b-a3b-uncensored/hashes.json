@@ -1,0 +1,77 @@
+{
+  "repo_id": "AtomicChat/MiniCPM-V-4.7-35B-A3B-Uncensored-GGUF",
+  "pinned_revision": "948c2f37e34730f8abd9b80f86642f37e8f30960",
+  "quant": "MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS",
+  "shard_count": 11,
+  "total_bytes": 20125154976,
+  "all_match": true,
+  "verified_at": "2026-10-15T01:37:26",
+  "shards": [
+    {
+      "file": "MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS-00001-of-00011.gguf",
+      "size_bytes": 1893148192,
+      "sha256": "ededfbd2709bab4d48bebb7cf73429a8fd0567f1fb17f8be1d3522775184fdcf",
+      "sha256_verified": true
+    },
+    {
+      "file": "MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS-00002-of-00011.gguf",
+      "size_bytes": 1903428416,
+      "sha256": "b268130b6592959b532a5b751b0150ba8d4468cce142ae79bc447cdb091c897e",
+      "sha256_verified": true
+    },
+    {
+      "file": "MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS-00003-of-00011.gguf",
+      "size_bytes": 1903428416,
+      "sha256": "c8567d2ed77e60bc25d27111c9a2a83fc1d0b2154b39e2ddd1bcde682a05f561",
+      "sha256_verified": true
+    },
+    {
+      "file": "MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS-00004-of-00011.gguf",
+      "size_bytes": 1903428480,
+      "sha256": "a617dc76e210203a20925f287337625a89c908dff49199959f39af383804e76a",
+      "sha256_verified": true
+    },
+    {
+      "file": "MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS-00005-of-00011.gguf",
+      "size_bytes": 1903428480,
+      "sha256": "a38b6295a283ace463a5d013814baeaf4e452e89a2aa54a02964977598c9d870",
+      "sha256_verified": true
+    },
+    {
+      "file": "MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS-00006-of-00011.gguf",
+      "size_bytes": 1903428480,
+      "sha256": "51e2bf54868f0595ce0de650cfffe68bf227cd88ce994cf80cca9af8f83212af",
+      "sha256_verified": true
+    },
+    {
+      "file": "MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS-00007-of-00011.gguf",
+      "size_bytes": 1903428480,
+      "sha256": "95b6ac36a9eb16e40ec1cc7b54687a82a3f8cf9ae33fdb0dd83afb8df6e3584b",
+      "sha256_verified": true
+    },
+    {
+      "file": "MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS-00008-of-00011.gguf",
+      "size_bytes": 1903428480,
+      "sha256": "9dcdbac30a269116b7181922c15a2c8fdaf83228f7f0cab38c2b53d332570e41",
+      "sha256_verified": true
+    },
+    {
+      "file": "MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS-00009-of-00011.gguf",
+      "size_bytes": 1903428480,
+      "sha256": "9198cbf4df908dc96981736fdbd2e9b0f8fd35ace49521f0dd07a4a6c335a4f7",
+      "sha256_verified": true
+    },
+    {
+      "file": "MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS-00010-of-00011.gguf",
+      "size_bytes": 1903428480,
+      "sha256": "6bd1b0efaa4f9e7a7cafc905fd00b7eadfff043fb3b740ec84cc35d28ce7cdbf",
+      "sha256_verified": true
+    },
+    {
+      "file": "MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS-00011-of-00011.gguf",
+      "size_bytes": 1101150592,
+      "sha256": "c52f2d97fd09b1e6ba07b38ab3edc9b7730443f390c18f0115f02007ec3e4dad",
+      "sha256_verified": true
+    }
+  ]
+}

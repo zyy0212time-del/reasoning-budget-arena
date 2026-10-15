@@ -1,0 +1,36 @@
+{
+  "scope": "8K context-stability probe at the frozen protocol ctx (8192)",
+  "important_caveat": "run at server ctx 8192, i.e. the frozen Formal C ctx, so it is Arena-comparable on the ctx dimension",
+  "probes": [
+    {
+      "prompt_tokens": 5406,
+      "target_ctx": 8192,
+      "filler_chunks": 80,
+      "max_tokens": 2500,
+      "ttft_s": 17.43004083633423,
+      "wall_s": 44.77,
+      "gen_tps": 35.373278995782236,
+      "pp_tps": 311.9862088937538,
+      "answer": "fox",
+      "correct": true,
+      "empty_final": false,
+      "loop_suspect": false
+    },
+    {
+      "prompt_tokens": 6747,
+      "target_ctx": 8192,
+      "filler_chunks": 100,
+      "max_tokens": 8192,
+      "ttft_s": 5.923227787017822,
+      "wall_s": 35.79,
+      "gen_tps": 35.495544421786455,
+      "pp_tps": 315.2139355452853,
+      "answer": "fox",
+      "correct": true,
+      "empty_final": false,
+      "loop_suspect": false
+    }
+  ],
+  "result": "both probes (5.4k and 6.7k-token prompts) returned the correct single-word answer with no loop or degeneration",
+  "empty_final_observed": false
+}
