@@ -61,7 +61,7 @@ manual use.
 - Scorebook: [FORMAL-C-EXTENSION-BLIND-SCORES-LOCKED.md](FORMAL-C-EXTENSION-BLIND-SCORES-LOCKED.md)
 - Question-level: [question-scores.csv](question-scores.csv) /
   [question-scores.json](question-scores.json)
-- Verbatim answers: [`data/model-answers/I-minicpm-v47/formal-c.jsonl`](../../data/model-answers/I-minicpm-v47/formal-c.jsonl)
+- Verbatim answers: [`data/model-answers/J-minicpm-v47/formal-c.jsonl`](../../data/model-answers/J-minicpm-v47/formal-c.jsonl)
 - Evidence: [grading-evidence/](grading-evidence/)
 
 ### Comparability statement (required reading)
@@ -75,10 +75,14 @@ question, i.e. 4.4%–6.8%). Extrapolated over 32 questions that is
 |---|---:|---|
 | **Primary (as graded)** | **712.0 / 800 (89.00%)** | the locked result of this run; use this |
 | Cross-protocol estimate | ≈ **728 / 800** (band ≈ 718–738) | raw + 16, for an indicative cross-run comparison only |
+| Independent five-contestant blind re-grade | **688.5 / 800 (86.06%)** | the same 32 answers, a different judge session, **4th of 5** — see [five-model-blind.md](five-model-blind.md) |
 | Frozen-field Gemma | 706.0 / 800 | different judge, runtime and quant |
 
-The two numbers must **never** be mixed. The primary score is the one entered
-in this extension's scorebook.
+The primary score is the one entered in this extension's scorebook. The
+cross-protocol estimate and the independent re-grade must **never** be mixed
+with it. Note that the locked result and the re-grade **disagree about the sign
+of the comparison with Gemma** (+6.0 versus −22.0); both are published and
+neither is retracted.
 
 ## Generation notes (documented, not hidden)
 
@@ -97,6 +101,26 @@ in this extension's scorebook.
   for roughly 22 of the 23.5-point General gap to Gemma.
 - No other infrastructure failure occurred. No prompt was rewritten, no answer
   was replaced, no cherry-picking.
+
+## Thinking bug (upstream defect, reproduced on official weights)
+
+G10 is not an isolated accident. On **JSON-only prompts** this model can
+terminate inside the thinking block: `content` comes back **empty** and the
+answer is stranded in `reasoning_content`, with the closing `</think>` never
+emitted.
+
+It was reproduced on the **official OpenBMB weights**
+(`openbmb/MiniCPM-V-4.7-35B-A3B-gguf`, revision `b3b8cd80…`,
+`MiniCPM-V-4_7-35B-A3B-Q4_K_M.gguf`, 21,166,255,008 B, SHA-256
+`bf3d1c67…d7df5`, llama.cpp b11636): 6/6 JSON-only prompts across Chinese and
+English failed, 2/2 free-text controls passed. Every failure ends on token
+`248046` (`<|im_end|>`) and never samples `248069` (`</think>`).
+
+**So it is not caused by the uncensoring ablation.** The code-level root cause
+is unknown and is reported upstream as
+[OpenBMB/MiniCPM-V#1153](https://github.com/OpenBMB/MiniCPM-V/issues/1153);
+full detail in [THINKING-BUG.md](THINKING-BUG.md). Practical consequence: keep
+`max_tokens` generous, or disable thinking per request.
 
 ## Runtime
 
@@ -150,17 +174,24 @@ in this extension's scorebook.
 
 ## Gemma comparison
 
-See [comparison-gemma.md](comparison-gemma.md). Short version: Overall
-**+6.0** raw (712.0 vs 706.0) and ≈ **+22** on the calibrated band, built from
-**Cyber +29.5** and **General −23.5** — and the General gap is almost entirely
-the single G10 no-final failure.
+See [comparison-gemma.md](comparison-gemma.md). Two grading sessions, two
+answers:
+
+| comparison | MiniCPM | Gemma | Δ |
+|---|---:|---:|---:|
+| locked automated protocol vs Gemma's historical score | 712.0 | 706.0 | **+6.0** |
+| five-contestant same-session blind re-grade | 688.5 | 710.5 | **−22.0** |
+
+The automated comparison is built from **Cyber +29.5** and **General −23.5**,
+and the General gap is almost entirely the single G10 no-final failure. The
+same-session re-grade puts the same answers behind Gemma. Both are published.
 
 ## Privacy / scope
 
 - Questions, methodology and protocol: the same frozen set as the original
   release.
 - **This extension's 32 Formal C final answers are public** —
-  [`data/model-answers/I-minicpm-v47/`](../../data/model-answers/I-minicpm-v47/).
+  [`data/model-answers/J-minicpm-v47/`](../../data/model-answers/J-minicpm-v47/).
   Final-answer field only; the reasoning channel is never written out. Answers
   are byte-faithful to the generation artifact, including G10's failure marker
   exactly as generated.

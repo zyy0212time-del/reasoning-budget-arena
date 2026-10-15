@@ -17,6 +17,20 @@ post-release extensions** and appear on a separate
 [rolling leaderboard](#rolling-formal-c-extension-ranking) that never
 modifies the original locked ranking.
 
+## From evaluation to deployment
+
+Reasoning Budget Arena is the evidence layer of a broader local-AI workflow:
+
+- [Laptop Local AI Stack](https://github.com/zyy0212time-del/laptop-local-ai-stack)
+  — shows how benchmark findings, runtime measurements, memory constraints, and
+  debugging work shaped a real consumer-laptop deployment.
+- [Local AI Deploy](https://github.com/zyy0212time-del/local-ai-deploy)
+  — turns selected benchmark-backed deployment decisions into a verified
+  one-command Windows + NVIDIA setup.
+
+Arena asks what is worth deploying. Stack shows why it works. Deploy makes it
+reproducible.
+
 ## Foundational experiment (frozen benchmark)
 
 *Final-answer delivery and ranking differences under two reasoning policies —
@@ -38,7 +52,7 @@ Formal C was one complete 32-question run. Differences below are therefore
 
 ## Status
 
-**PUBLISHED — PUBLIC RELEASE + OUTPUT DATASET ADDENDUM (local, pending tag).**
+**PUBLISHED — v1.3.0 + OUTPUT DATASET ADDENDUM.**
 All data and engineering checks are verified; the maintainer's license decision
 is made (MIT + CC BY 4.0); the final release gate passed with P0 = 0, P1 = 0
 (RELEASE-READINESS.md). As of 2026-09-03 the partial final-answer dataset
@@ -173,7 +187,24 @@ identity mapped only after score lock:
   existing Huihui/Nex options.
 - See [extensions/ornith-0xkitkat-uncensored-q4](extensions/ornith-0xkitkat-uncensored-q4/).
 
-**Extension 3 — MiniCPM-V 4.7 35B-A3B Uncensored (AtomicChat, AD-Q4_K-IQ4_XS)**
+**Extension 3 — MiMo-V2.6-Distill-Qwen-9B-Abliterated Q4_K_M**
+(`BoldingBuilds/MiMo-V2.6-Distill-Qwen-9B-Abliterated-Q8_0-GGUF`, frozen
+revision `ea8a846460d5643d7010d0500f7d7dd8c347cf59`) — blind contestant `TM91`,
+identity mapped only after score lock:
+
+- Overall (Formal C Extension, blind, locked): **539.0 / 800 (67.38%)**
+  — General 307.0 / 450 (68.22%), Cyber 232.0 / 350 (66.29%)
+- Runtime: **no deviation** — the historical b10375 build loads and runs this
+  model, including the reasoning channel and `--reasoning-budget`
+- Generation median: **52.44 t/s** (the fastest model measured in this arena)
+- Verdict: **EVALUATED — NOT RETAINED FOR LOCAL DEPLOYMENT** — a dense 9B
+  (5.24 GiB) that is far faster than the retained MoE models but finishes last
+  of 10 on all three dimensions, including −96.0 overall against the original
+  field's other 9B (Qwen3.8-9B-abliterated, 635.0). Its profile is bimodal:
+  thirteen questions scored 22–25/25 while several failed severely.
+- See [extensions/mimo-v2.6-distill-qwen-9b-abliterated-q4](extensions/mimo-v2.6-distill-qwen-9b-abliterated-q4/).
+
+**Extension 4 — MiniCPM-V 4.7 35B-A3B Uncensored (AtomicChat, AD-Q4_K-IQ4_XS)**
 (`AtomicChat/MiniCPM-V-4.7-35B-A3B-Uncensored-GGUF`, pinned revision
 `948c2f37e34730f8abd9b80f86642f37e8f30960`) — blind contestant K71, identity
 mapped only after score lock:
@@ -189,10 +220,24 @@ mapped only after score lock:
   number. Different runtime (llama.cpp b11617, required by the model card) and
   different quantization (AD-Q4_K-IQ4_XS, the only uncensored build that fits
   8 GiB).
-- Verdict: **EVALUATED — PROMISING FOR THE MAINTAINER'S HANDS-ON UNCENSORING
-  TRIAL; NOT INSTALLED, NOT DEPLOYED, GEMMA NOT REPLACED.** vs the incumbent
-  Gemma4-26B (706.0): Overall **+6.0**, Cyber **+29.5**, General **−23.5** —
-  and 22 of those 23.5 General points are a single no-final failure (G10).
+- **Independent cross-check — five-contestant same-session blind re-grade:
+  688.5 / 800 (86.06%)**, General 374.0 / 450, Cyber 314.5 / 350, **4th of 5**
+  in that session, behind Gemma4-26B at 710.5. This is a *different* judge
+  session from the one that produced the locked 712.0; both numbers are
+  archived and neither replaces the other. See
+  [five-model-blind.md](extensions/minicpm-v-4.7-35b-a3b-uncensored/five-model-blind.md).
+- **Known upstream defect (Thinking early-EOS):** JSON-only prompts can return
+  an empty `content` with the answer stranded in `reasoning_content`. It was
+  reproduced on the **official OpenBMB weights** (Q4_K_M, llama.cpp b11636),
+  so it is not caused by the uncensoring ablation; it also explains this run's
+  G10 no-final failure. Reported upstream as
+  [OpenBMB/MiniCPM-V#1153](https://github.com/OpenBMB/MiniCPM-V/issues/1153);
+  see [THINKING-BUG.md](extensions/minicpm-v-4.7-35b-a3b-uncensored/THINKING-BUG.md).
+- Verdict: **EVALUATED — PROMISING BUT NOT DEMONSTRATED AS A GEMMA REPLACEMENT;
+  NOT INSTALLED, NOT DEPLOYED, GEMMA NOT REPLACED.** The two grading sessions
+  disagree: +6.0 vs Gemma under the automated protocol (712.0 vs 706.0
+  historical), **−22.0** vs Gemma under the same-session blind re-grade
+  (688.5 vs 710.5).
 - Generation notes: **32/32 generated**; G10 produced reasoning content but an
   empty final-answer field and is published as
   `[NO FINAL ANSWER WITHIN FIXED BUDGET]` (0/25, not retried). Speed on this
@@ -203,7 +248,7 @@ mapped only after score lock:
 ## Rolling Formal C Extension Ranking
 
 Comparative view across the frozen six-model field plus all post-release
-Formal C extensions (**9 models**). **This rolling ranking does NOT modify the
+Formal C extensions (**10 models**). **This rolling ranking does NOT modify the
 original locked six-model ranking**, which remains available unchanged in
 [RESULTS.md](RESULTS.md) and the locked scorebooks.
 
@@ -211,26 +256,34 @@ original locked six-model ranking**, which remains available unchanged in
 |---:|---|---:|---:|---:|---|---|
 | 1 | Nex-N2-mini | 418.5 | 328.0 | **746.5** | frozen field | — |
 | 2 | Ornith-1.5-35B-A3B-Abliterated (Old Ornith) | 405.0 | 320.5 | 725.5 | frozen field | retained |
-| 3 **\*** | **MiniCPM-V-4.7-35B-A3B-Uncensored (ext)** | 391.0 | 321.0 | **712.0** | **extension I** | **evaluated, not installed** |
+| 3 **\*** | **MiniCPM-V-4.7-35B-A3B-Uncensored (ext)** | 391.0 | 321.0 | **712.0** | **extension J** | **evaluated, not installed** |
 | 4 | Gemma4-26B-A4B-…-HauhauCS-Balanced | 414.5 | 291.5 | 706.0 | frozen field | retained |
 | 5 | Ornith-1.5-35B-A3B-Uncensored (0xKitkat, ext) | 397.5 | 274.5 | **672.0** | extension H | not retained |
 | 6 | Huihui-Nex-N2-mini-abliterated (ext) | 395.0 | 274.5 | 669.5 | extension G | retained |
 | 7 | Endy-Qwen3.6-CyberSec-35B-A3B | 357.0 | 287.0 | 644.0 | frozen field | — |
 | 8 | Qwen3.8-9B-abliterated-25 | 368.5 | 266.5 | 635.0 | frozen field | — |
 | 9 | RavenX-CyberAgent-35B-v5.1 | 319.5 | 256.5 | 576.0 | frozen field | — |
+| 10 | **MiMo-V2.6-Distill-Qwen-9B-Abliterated (ext)** | 307.0 | 232.0 | **539.0** | extension I | not retained |
 
-**\* Extension I is not directly comparable and its placement is indicative
-only.** It is graded under **Automated Blind Grading — New Judge Protocol**,
-on a different llama.cpp build, with a different quantization and a different
-MoE placement. Anchor calibration against 10 locked historical items gives
-≈ −16 ± ~10 / 800 versus the historical judge, so a cross-protocol estimate is
-≈ **728 / 800** (band ≈ 718–738). Only the questions, sampling parameters,
-budget, rubric and machine are identical. Do not read rank 3 as "beats Gemma"
-without that band.
+**\* Extension J (MiniCPM-V 4.7) is not directly comparable and its placement
+is indicative only.** It is graded under **Automated Blind Grading — New Judge
+Protocol**, on a different llama.cpp build, with a different quantization and a
+different MoE placement. Anchor calibration against 10 locked historical items
+gives ≈ −16 ± ~10 / 800 versus the historical judge, so a cross-protocol
+estimate is ≈ **728 / 800** (band ≈ 718–738). Only the questions, sampling
+parameters, budget, rubric and machine are identical. **Do not read rank 3 as
+"beats Gemma":** an independent five-contestant same-session blind re-grade
+scores the same answers **688.5 / 800**, i.e. 4th of 5 and **−22.0** behind
+Gemma (710.5) — see
+[five-model-blind.md](extensions/minicpm-v-4.7-35b-a3b-uncensored/five-model-blind.md).
+Both numbers are archived; the locked 712.0 remains this extension's scorebook
+entry.
 
 Tie handling: the two Ornith/Huihui extensions tie on Cyber (274.5) — both
 share rank 5 of the Cyber column (competition ranking). Division ranks for
-extension I: General **#6/9**, Cyber **#2/9**, Overall **#3/9**.
+extension J: General **#6/10**, Cyber **#2/10**, Overall **#3/10**. Division
+ranks for extension I (MiMo): General **#10/10**, Cyber **#10/10**, Overall
+**#10/10**.
 
 ## Subjective observations
 
@@ -271,12 +324,14 @@ condition under [`data/model-answers/`](data/model-answers/):
 In addition, the **32 Formal C final answers of each post-release extension
 are public** — Huihui Nex under `data/model-answers/G-huihui-nex/`,
 Ornith-1.5-35B-A3B-Uncensored (0xKitkat) under
-`data/model-answers/H-ornith-0xkitkat/`, and MiniCPM-V-4.7-35B-A3B-Uncensored
-under `data/model-answers/I-minicpm-v47/` — Formal C only, since no extension
-ran Formal D and none is a contestant of the original field.
+`data/model-answers/H-ornith-0xkitkat/`, MiMo-V2.6-Distill-Qwen-9B-Abliterated
+under `data/model-answers/I-mimo-v26-9b-abliterated-q4/`, and
+MiniCPM-V-4.7-35B-A3B-Uncensored under `data/model-answers/J-minicpm-v47/` —
+Formal C only, since none of the four extensions ran Formal D and none is a
+contestant of the original field.
 
-**352 public final answers are currently available across the repository:
-256 belong to the original six-model field and 96 belong to the three
+**384 public final answers are currently available across the repository:
+256 belong to the original six-model field and 128 belong to the four
 post-release Formal C extensions (32 each).** A/B (128) remain withheld.
 
 Answers are byte-identical to the frozen generation artifacts (no

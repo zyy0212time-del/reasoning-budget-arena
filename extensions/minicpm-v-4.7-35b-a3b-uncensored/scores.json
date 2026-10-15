@@ -51,7 +51,37 @@
     },
     "cross_protocol_estimate_overall": "see README.md"
   },
+  "independent_cross_check": {
+    "note": "Second, independent blind grading pass over the SAME 32 answers, inside one session that scored five contestants at once. It is archived alongside the locked result; it does NOT replace or modify the locked 712.0.",
+    "session": "five-contestant same-session blind re-grade",
+    "contestant_id_in_session": "V57",
+    "overall": {
+      "score": 688.5,
+      "max": 800,
+      "pct": 86.06
+    },
+    "divisions": {
+      "general": {
+        "score": 374.0,
+        "max": 450
+      },
+      "cyber": {
+        "score": 314.5,
+        "max": 350
+      }
+    },
+    "rank_in_session": "4 of 5",
+    "gemma_in_same_session": 710.5,
+    "delta_vs_gemma_same_session": -22.0,
+    "delta_vs_locked_automated": -23.5,
+    "file": "five-model-blind.md"
+  },
+  "upstream_defect": {
+    "thinking_early_eos": "THINKING-BUG.md",
+    "issue": "https://github.com/OpenBMB/MiniCPM-V/issues/1153",
+    "reproduced_on_official_weights": true
+  },
   "scorebook": "FORMAL-C-EXTENSION-BLIND-SCORES-LOCKED.md",
   "question_level": "question-scores.csv / question-scores.json",
-  "answers": "data/model-answers/I-minicpm-v47/formal-c.jsonl"
+  "answers": "data/model-answers/J-minicpm-v47/formal-c.jsonl"
 }

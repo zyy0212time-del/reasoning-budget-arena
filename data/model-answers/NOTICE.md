@@ -18,8 +18,9 @@ benchmark models, split per model and per formal condition:
 | **released total (original six-model field)** | | **128** | **128** | **256** |
 | `G-huihui-nex/` | Huihui-Nex-N2-mini-abliterated-Q4_K_M — **post-release extension** | 32 | not run | 32 |
 | `H-ornith-0xkitkat/` | Ornith-1.5-35B-A3B-Uncensored-Q4_K_M — **post-release extension** | 32 | not run | 32 |
-| `I-minicpm-v47/` | MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS — **post-release extension** | 32 | not run | 32 |
-| **repository total (public)** | | **224** | **128** | **352** |
+| `I-mimo-v26-9b-abliterated-q4/` | MiMo-V2.6-Distill-Qwen-9B-Abliterated-Q4_K_M — **post-release extension** | 32 | not run | 32 |
+| `J-minicpm-v47/` | MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS — **post-release extension** | 32 | not run | 32 |
+| **repository total (public)** | | **256** | **128** | **384** |
 
 **Withheld — not present anywhere in this repository:**
 
@@ -34,26 +35,37 @@ this repository should be read as a promise that A/B will be released later.
 
 ### Separate scope — post-release extensions
 
-`G-huihui-nex/formal-c.csv`, `H-ornith-0xkitkat/formal-c.csv` and
-`I-minicpm-v47/formal-c.csv` each hold **32 further final answers** from a
-post-release extension contestant (extension opaque ids `LR37`, `ZD74`, `K71`),
-each evaluated under the identical frozen Formal C protocol **after** the
-original release. Each is a **separate scope**:
+Four post-release extension directories hold **32 further final answers each**
+(128 in total), evaluated under the identical frozen Formal C protocol **after**
+the original release:
+
+| directory | extension opaque id | status |
+|---|---|---|
+| `G-huihui-nex/` | `LR37` | scores locked before identity reveal |
+| `H-ornith-0xkitkat/` | `ZD74` | scores locked before identity reveal |
+| `I-mimo-v26-9b-abliterated-q4/` | `TM91` | scores locked before identity reveal |
+| `J-minicpm-v47/` | `K71` | scores locked before identity reveal |
+
+This is a **separate scope**:
 
 - it is **not** part of the original 384-answer six-model field
-- it has **no Formal D answers** (the extensions ran Formal C only)
-- its locked extension scorebook is untouched by this answer release
-- none of them is a seventh contestant of the original field and none is ranked
-  against it
+- it has **no Formal D answers** (each extension ran Formal C only)
+- each locked extension scorebook is untouched by this answer release
+- none of the four is a contestant of the original field and none is ranked
+  against it in the frozen ranking
 
-Repository-level public coverage is therefore **352 answers** (256 original
-field + 3 × 32 extension), with **128 still withheld** (A/B). It must not be
-read as "9 models × 32 × 2".
+Repository-level public coverage is therefore **384 answers** (256 original
+field + 4 × 32 extension), with **128 still withheld** (A/B). It must not be
+read as "10 models × 32 × 2".
 
-Note on `I-minicpm-v47`: its Formal C run scored **32/32**, and one answer
+Note on `J-minicpm-v47`: its Formal C run scored **32/32**, and one answer
 (G10) is published as the frozen failure marker
 `[NO FINAL ANSWER WITHIN FIXED BUDGET]` exactly as generated — the marker is
-part of the benchmark result and is not edited out.
+part of the benchmark result and is not edited out. The same no-final-answer
+behaviour was later reproduced on the **official OpenBMB weights** and is
+reported upstream as
+[OpenBMB/MiniCPM-V#1153](https://github.com/OpenBMB/MiniCPM-V/issues/1153);
+see `extensions/minicpm-v-4.7-35b-a3b-uncensored/THINKING-BUG.md`.
 
 ## Why partial
 
@@ -100,10 +112,10 @@ All scores were assigned and locked **before** the contestant→model identity
 mapping was revealed (`blind/FORMAL-{C,D}-BLIND-SCORES-LOCKED.md`). The
 `model` column in these CSVs is **post-lock identity mapping / release
 metadata**. The judge did not know model identities at scoring time; nothing
-in this dataset changes that. The same holds for the extension dataset: its
-scores were locked under the opaque id `LR37` before identity reveal
-(`extensions/huihui-nex-n2-mini-abliterated-q4/FORMAL-C-EXTENSION-BLIND-SCORES-LOCKED.md`),
-so the `model` value there is post-lock release metadata too.
+in this dataset changes that. The same holds for the extension datasets: their
+scores were locked under the opaque ids `LR37`, `ZD74` and `TM91` before
+identity reveal (`extensions/*/FORMAL-C-EXTENSION-BLIND-SCORES-LOCKED.md`), so
+the `model` value in each extension CSV is post-lock release metadata too.
 
 ## What is NOT in these files
 
@@ -123,13 +135,25 @@ extracted into this repository. The extraction tool is
 `scripts/build_model_answer_dataset.py` (per-row privacy scan + byte-level
 round-trip verification + locked-score linkage check).
 
-The 32 extension answers under `G-huihui-nex/` come from a different frozen
-artifact shape: the extension generation JSONL (18 general + 14 cyber), which
-carries both a `response` field (the final answer) and a `reasoning` field
-(hidden chain-of-thought). **Only `response` is released** — the `reasoning`
-field is never written to any public file. Extraction tool:
-`scripts/build_extension_answer_dataset.py` (same per-row privacy scan +
-byte-level round-trip + frozen-question and locked-scorebook alignment).
+The extension answers come from a different frozen artifact shape: the
+extension generation JSONL (18 general + 14 cyber), which carries both a
+`response` field (the final answer) and a `reasoning` field (hidden
+chain-of-thought). **Only `response` is released** — the `reasoning` field is
+never written to any public file.
+
+| extension | extraction tool | answer source |
+|---|---|---|
+| G — Huihui Nex | `scripts/build_extension_answer_dataset.py` | extension generation JSONL |
+| H — Ornith-0xKitkat | `scripts/build_ornith_extension_answer_dataset.py` | extension generation JSONL |
+| I — MiMo-V2.6 | `scripts/build_mimo_extension_answer_dataset.py` | **frozen blind answer package** (digest-pinned), because the general-division raw JSONL of that run was destroyed by an unrequested second generation pass *after* the score lock |
+
+For the MiMo extension the builder accepts `--source-blind` only when the file
+SHA-256 equals the recorded frozen digest
+`787ae6806d69134f0a139353fce5d618f2435b25a7721da25a8b580b23a5f4af`; the package
+is the artifact the judge scored and was verified byte-identical (32/32) to the
+raw `response` fields before the loss. All three tools apply the same per-row
+privacy scan, byte-level round-trip, frozen-question and locked-scorebook
+alignment checks.
 
 ## Provenance verification (exact artifact level, checked 2026-09-03)
 
@@ -157,7 +181,10 @@ C and E keep their existing provenance records (`MODEL-SOURCE-TODO.md`,
   plus the scanner pattern id, the SHA-256 of the matched substring, and the
   SHA-256 of the full answer text; any other row, a second occurrence, or a
   single edited character fails closed.
-- **Extension (G-huihui-nex)** — all 32 extension answers produced **zero**
-  generic-pattern hits, so no waiver is registered for them and none is
-  needed; the same row-identity-bound, fail-closed policy applies
-  (`scripts/build_extension_answer_dataset.py`).
+- **Extensions (G-huihui-nex, H-ornith-0xkitkat, I-mimo-v26-9b-abliterated-q4)**
+  — all 32 answers of each extension produced **zero** generic-pattern hits, so
+  no waiver is registered for them and none is needed; the same
+  row-identity-bound, fail-closed policy applies
+  (`scripts/build_extension_answer_dataset.py`,
+  `scripts/build_ornith_extension_answer_dataset.py`,
+  `scripts/build_mimo_extension_answer_dataset.py`).

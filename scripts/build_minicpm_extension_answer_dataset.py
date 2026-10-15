@@ -1,10 +1,10 @@
 """Build the MiniCPM-V 4.7 Uncensored extension final-answer dataset.
 
 Extracts the 32 frozen Formal C final answers of the post-release extension
-contestant (opaque id K71 / release key I) from the extension generation
+contestant (opaque id K71 / release key J) from the extension generation
 artifacts (two .jsonl files: 18 general + 14 cyber) and writes
-- `data/model-answers/I-minicpm-v47/formal-c.csv`   (repository schema)
-- `data/model-answers/I-minicpm-v47/formal-c.jsonl` (full record incl.
+- `data/model-answers/J-minicpm-v47/formal-c.csv`   (repository schema)
+- `data/model-answers/J-minicpm-v47/formal-c.jsonl` (full record incl.
   locked per-question score total)
 
 INTEGRITY RULES
@@ -51,7 +51,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DEFAULT_REPO_ROOT = os.path.dirname(HERE)
 
 MODEL_NAME = "MiniCPM-V-4.7-35B-A3B-Uncensored-AD-Q4_K-IQ4_XS"
-DATASET_DIR = "I-minicpm-v47"
+DATASET_DIR = "J-minicpm-v47"
 CONDITION = "formal-c"
 FIELDS = ["condition", "model", "division", "question_id", "question", "final_answer"]
 SRC_FILES = ["I-general-questions.jsonl", "I-cyber-questions.jsonl"]

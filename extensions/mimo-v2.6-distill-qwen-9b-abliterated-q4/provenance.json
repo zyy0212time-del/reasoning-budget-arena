@@ -1,0 +1,181 @@
+{
+ "release_key": "I",
+ "blind_contestant_id": "TM91",
+ "internal_tag": "I26",
+ "model": "MiMo-V2.6-Distill-Qwen-9B-Abliterated-Q4_K_M",
+ "gguf_repo": "BoldingBuilds/MiMo-V2.6-Distill-Qwen-9B-Abliterated-Q8_0-GGUF",
+ "pinned_revision": "ea8a846460d5643d7010d0500f7d7dd8c347cf59",
+ "gguf_file": "MiMo-V2.6-Distill-Qwen-9B-Abliterated-Q4_K_M.gguf",
+ "gguf_size_bytes": 5629105280,
+ "gguf_sha256": "8798617e1da0b324a7d4c04659c59bb8f712dd5a7332b4703a5a2875d977ecf2",
+ "sha_verification": {
+  "method": "SHA-256 of the exact local GGUF artifact, compared against the HuggingFace LFS oid of the pinned revision",
+  "verified_before_generation": true,
+  "verified_again_after_generation": true,
+  "match": true
+ },
+ "gguf_metadata": {
+  "gguf_version": 3,
+  "tensor_count": 427,
+  "architecture": "qwen35",
+  "dense_or_moe": "dense (no expert_count / expert_used_count keys present)",
+  "quantization": "Q4_K_M (general.file_type 15)",
+  "general_name": "Mimo v2.6 9b Bf16",
+  "block_count": 32,
+  "embedding_length": 4096,
+  "feed_forward_length": 12288,
+  "attention_head_count": 16,
+  "attention_head_count_kv": 4,
+  "key_length": 256,
+  "value_length": 256,
+  "native_context_length": 262144,
+  "vocab_size": 248320,
+  "file_type": 15,
+  "quantization_version": 2,
+  "hybrid_ssm_keys_present": true,
+  "full_attention_interval": 4,
+  "nextn_predict_layers": 0,
+  "chat_template": "native Qwen3.5-style template with a <think> reasoning block; the runtime reports that the template supports preserving reasoning",
+  "reasoning_channel": "present (message.reasoning_content, separated from content)"
+ },
+ "runtime": {
+  "engine": "llama.cpp llama-server b10375 (build ba360efe1), Clang 20.1.8, Windows x86_64",
+  "binary": "llama-server.exe (llama.cpp b10375 / ba360efe1; local absolute path intentionally not published)",
+  "historical_runtime_reused": true,
+  "historical_build_compatible": true,
+  "runtime_deviation": "NONE",
+  "runtime_deviation_note": "The exact runtime of the original Formal C field loads and runs this model, including the reasoning channel and --reasoning-budget. No isolated newer build was needed, so this extension is protocol-matched AND runtime-matched.",
+  "ngl": 99,
+  "flash_attn": "on",
+  "threads": 24,
+  "ncmoe": 0,
+  "ncmoe_note": "dense model: -ncmoe is not applicable and was not passed (architecture-specific placement, not a protocol change)",
+  "ctx": 8192,
+  "max_tokens": 8192,
+  "temperature": 0.1,
+  "top_p": 0.9,
+  "reasoning_budget_tokens": 4096,
+  "system_prompt": "none",
+  "speed_bench": "disabled (--no-speed)",
+  "harness": "scripts/arena_harness.py (frozen Formal C harness, unmodified)",
+  "protocol": "frozen Formal C protocol (identical to the original field and prior extensions)"
+ },
+ "reasoning_budget_verification": {
+  "flag_accepted": true,
+  "reasoning_channel_present": true,
+  "separated_final_answer": true,
+  "hard_budget_enforced": true,
+  "non_arena_probe": [
+   {
+    "reasoning_budget": 64,
+    "reasoning_chars": 234
+   },
+   {
+    "reasoning_budget": 256,
+    "reasoning_chars": 773
+   },
+   {
+    "reasoning_budget": 4096,
+    "reasoning_chars": 10482
+   },
+   {
+    "reasoning_budget": null,
+    "reasoning_chars": 988
+   }
+  ],
+  "interpretation": "On a long-reasoning prompt that is NOT part of the benchmark, the reasoning channel length scales monotonically with the configured budget, so the hard budget is enforced by the backend rather than merely accepted."
+ },
+ "generation_integrity": {
+  "general": "18/18 first pass",
+  "cyber": "14/14 first pass",
+  "total": "32/32",
+  "infrastructure_retries": 0,
+  "model_failures_retried": 0,
+  "prompt_drift": 0,
+  "duplicate_ids": "NONE",
+  "empty_final_answers": "NONE",
+  "protocol_deviations": "NONE",
+  "one_server_at_a_time": true
+ },
+ "telemetry": {
+  "general": {
+   "median_prefill_tps": 915.87,
+   "median_decode_tps": 52.34,
+   "median_wall_s": 12.03,
+   "median_input_tokens": 89.5,
+   "completion_tokens_total": 34551,
+   "n": 18
+  },
+  "cyber": {
+   "median_prefill_tps": 1054.94,
+   "median_decode_tps": 52.81,
+   "median_wall_s": 15.69,
+   "median_input_tokens": 105.5,
+   "completion_tokens_total": 31853,
+   "n": 14
+  },
+  "combined": {
+   "median_prefill_tps": 962.7,
+   "median_decode_tps": 52.44,
+   "median_wall_s": 14.97,
+   "completion_tokens_total": 66404,
+   "n": 32
+  },
+  "model_load_seconds": "9.5-21.6 (probe runs)",
+  "vram_peak_mib": 6546,
+  "vram_total_mib": 8151,
+  "system_ram_gb": 31.4,
+  "llama_bench": {
+   "pp512_tps": 2029.98,
+   "tg128_tps": 57.17,
+   "ngl": 99,
+   "model_size_gib": 5.23
+  },
+  "note": "speed is runtime-specific and is never folded into answer quality"
+ },
+ "structural_signatures": {
+  "detector": "Arena METHODOLOGY section 10 candidate heuristic",
+  "near_context_limit": [
+   "G7",
+   "C9",
+   "C14"
+  ],
+  "loop_candidates": [
+   "G5",
+   "G7",
+   "C9",
+   "C14"
+  ],
+  "records_with_scaffolding_markers_in_final_answer": [
+   "G5"
+  ],
+  "note": "heuristic != verdict; the judge scored each final answer exactly as generated and no answer was modified in any way"
+ },
+ "lock": {
+  "scored": "32/32",
+  "blind_judge_saw_identity_before_lock": false,
+  "historical_scores_hidden_from_judge": true,
+  "scores_locked_sha256": "648d2b2822064a7a08c15d7723d256aac56d57ca898ff1a9b6279888ecd9a2b8",
+  "post_reveal_sha256": "a6c10450c5fa3a7e54035aca02927073cf64637051f708586c40b37d187f7a8c",
+  "identity_revealed_after": "SCORES LOCKED",
+  "post_lock_mapping": "TM91 = BoldingBuilds/MiMo-V2.6-Distill-Qwen-9B-Abliterated-Q8_0-GGUF (Q4_K_M)"
+ },
+ "lineage": {
+  "upstream_repo": "BoldingBuilds/MiMo-V2.6-Distill-Qwen-9B-Abliterated-Q8_0-GGUF",
+  "upstream_repo_license": "mit (repository card, checked 2026-09-23)",
+  "declared_base_model": "XiaomiMiMo/MiMo-V2.6-Distill-Qwen-9B",
+  "declared_base_model_license": "mit (repository card, checked 2026-09-23)",
+  "upstream_components": [
+   {
+    "component": "XiaomiMiMo/MiMo-V2.6-Distill-Qwen-9B",
+    "license": "mit"
+   },
+   {
+    "component": "Qwen/Qwen3.5-9B (declared base lineage of the distill)",
+    "license": "apache-2.0"
+   }
+  ],
+  "construction": "refusal-ablated ('abliterated') GGUF quantization of the MiMo-V2.6 Qwen3.5-9B distill; exact tensor-level ablation record not published by the quantizer",
+  "verification_note": "identity metadata (architecture, dense layout, native <think> reasoning template, base_model keys) read directly from the tested GGUF file"
+ }
+}

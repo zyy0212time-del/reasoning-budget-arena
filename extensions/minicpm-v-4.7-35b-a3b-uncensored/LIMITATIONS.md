@@ -86,3 +86,34 @@ This extension evaluates the model. It does not install it, does not change any
 launcher, does not change the Hermes default model, and does not delete or
 replace the incumbent Gemma build. The deployment decision is left to the
 maintainer.
+
+## 11. Two grading sessions disagree — both are published
+
+The locked result of this extension is **712.0 / 800** (Automated Blind
+Grading — New Judge Protocol). An **independent** blind re-grade of the same 32
+answers, run inside one session that scored **five** contestants at once,
+gives **688.5 / 800 (4th of 5)**, i.e. **−22.0** against Gemma4-26B (710.5 in
+the same session) where the automated protocol gives **+6.0**.
+
+- The session is not systematically stricter: the four contestants with
+  historical scores all scored above their historical values in it (+10.0,
+  +0.5, +4.5, +9.0; mean +6.0).
+- The locked score is **not** changed by this. Both numbers are archived in
+  `five-model-blind.md` and in `scores.json` under
+  `independent_cross_check`.
+- **Any claim that this model beats Gemma must carry both numbers.** Reading
+  only the locked 712.0, or only the re-grade 688.5, is a misreading.
+
+## 12. Thinking early-EOS — reproduced on official weights, root cause unknown
+
+JSON-only prompts can return an empty `content` with the answer stranded in
+`reasoning_content`. This was reproduced on the **official OpenBMB Q4_K_M
+weights**, so the AtomicChat ablation is not the cause; the closing `</think>`
+token is never sampled and generation ends on `<|im_end|>`.
+
+What is **not** established: the code-level root cause, and how often this
+happens outside these settings. Quantization, packaging (single file vs 11
+shards), llama.cpp version and the runtime's reasoning parser were not held
+constant, and the fixed seeds make these deterministic replays rather than
+independent samples. See `THINKING-BUG.md` and upstream issue
+[OpenBMB/MiniCPM-V#1153](https://github.com/OpenBMB/MiniCPM-V/issues/1153).

@@ -44,6 +44,26 @@ single G10 no-final failure (scored 0/25). Excluding that one item the two
 General subtotals are effectively level. This is stated as a sensitivity
 observation only — the locked score remains 391.0.
 
+### 1b. The same comparison in one blind session with five contestants
+
+A separate blind session scored **five** contestants over the same 32 questions
+in one pass (160 rows, final answers only, reasoning withheld). It gives the
+opposite sign:
+
+| | MiniCPM-V 4.7 Unc. | Gemma4-26B | Δ |
+|---|---:|---:|---:|
+| General /450 | 374.0 | 410.5 | **−36.5** |
+| Cyber /350 | 314.5 | 300.0 | **+14.5** |
+| **Overall /800** | **688.5** | **710.5** | **−22.0** |
+
+MiniCPM finishes **4th of 5** in that session (behind Nex 756.5, Old Ornith
+726.0 and Gemma 710.5, ahead of Qwen3.8-abliterated 644.0). The session is not
+systematically harsh: the four contestants that have historical scores all came
+out above them (+10.0, +0.5, +4.5, +9.0).
+
+Full record: [five-model-blind.md](five-model-blind.md). The locked 712.0 is
+unchanged; **both** comparisons are published.
+
 ## 2. Speed delta (same machine, same probe script)
 
 | metric | MiniCPM-V 4.7 Unc. | Gemma4-26B | note |
@@ -102,12 +122,16 @@ a model that agrees with everything is worse, not better.
 
 ## 5. Conclusion
 
-**PROMISING — medium confidence.**
+**PROMISING — low-to-medium confidence, and NOT demonstrated as better than
+Gemma.**
 
-- It scores **above** the incumbent Gemma on the frozen Formal C set
-  (712.0 raw, ≈ 728 calibrated, vs 706.0), driven by a large **Cyber +29.5**
-  and offset by a **General −23.5** that is almost entirely one no-final
-  failure.
+- Under the **locked automated protocol** it scores **above** the incumbent
+  Gemma on the frozen Formal C set (712.0 raw, ≈ 728 calibrated, vs 706.0),
+  driven by a large **Cyber +29.5** and offset by a **General −23.5** that is
+  almost entirely one no-final failure.
+- Under the **independent five-contestant same-session blind re-grade** it
+  scores **below** Gemma (688.5 vs 710.5, **−22.0**, 4th of 5). The two
+  sessions disagree; this is the single largest uncertainty about the model.
 - It is **at least as fast** in the ways that are felt day to day (TTFT p95
   0.66 s vs 1.91 s; decode 33.2 vs 30.8 t/s).
 - It shows **no false refusals** and **no measurable sycophancy** on the probes
